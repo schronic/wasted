@@ -5,6 +5,10 @@ class PurchasePolicy < ApplicationPolicy
     end
   end
 
+  def show?
+    user.record == user
+  end
+
   def new?
     user.role == 'consumer'
   end

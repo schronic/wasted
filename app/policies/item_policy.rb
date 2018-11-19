@@ -5,6 +5,10 @@ class ItemPolicy < ApplicationPolicy
     end
   end
 
+  def supplier?
+    user.role == 1
+  end
+
   def show?
     true
   end
