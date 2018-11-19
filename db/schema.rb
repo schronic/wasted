@@ -18,11 +18,11 @@ ActiveRecord::Schema.define(version: 2018_11_19_182223) do
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.datetime "expiration"
+    t.datetime "expiration", default: -> { "CURRENT_TIMESTAMP" }
     t.integer "price"
-    t.datetime "pickup_time"
+    t.datetime "pickup_time", default: -> { "CURRENT_TIMESTAMP" }
     t.string "picture"
-    t.integer "quantity"
+    t.integer "quantity", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
