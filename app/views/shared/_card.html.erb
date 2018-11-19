@@ -4,7 +4,6 @@
   <div class="card-category">Popular</div>
   <div class="card-description">
     <h2><%= item.name %></h2>
-    <p>Very cool city, the best</p>
   </div>
   <img class="card-user" src="https://kitt.lewagon.com/placeholder/users/tgenaitay">
   <a class="card-link" href="#" ></a>
@@ -21,6 +20,7 @@
         <h4 class="modal-title" id="myModalLabel"><%= item.name %></h4>
       </div>
       <div class="modal-body">
+    <p><%= link_to 'Edit', edit_item_path(item) %></p>
         ...
       </div>
       <div class="modal-footer">

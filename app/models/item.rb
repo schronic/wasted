@@ -2,7 +2,7 @@ class Item < ApplicationRecord
   has_many :reservations
   validates :name, :price, :quantity, :pickup_time, presence: true
   mount_uploader :picture, PhotoUploader
-  validate  :pickup_date_must_be_in_the_future
+  validate :pickup_date_must_be_in_the_future
 
   def pickup_date_must_be_in_the_future
     errors.add(:pickup_time, "can't be in the past") if
