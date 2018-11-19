@@ -6,7 +6,7 @@ Purchase.destroy_all
 
 puts 'Creating new items...'
 
-20.times do
+5.times do
   user = User.new({
     email: Faker::Internet.email,
     password: 'wasted',
