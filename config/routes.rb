@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
-  devise_for :users
+
   root to: 'items#index'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  devise_for :users
+
+  resources :items
+  resources :purchases, only: %i[create new index show]
+
+  get    '/cart',          to: 'reservations#index',  as: 'cart'
+  post   '/cart',          to: 'reservations#create', as: 'create_reservation'
+  get    '/cart/:id',      to: 'reservations#show',   as: 'reservation'
+  patch  '/cart/:id',      to: 'reservations#update'
+  delete '/cart/:id',      to: 'reservations#destroy',as: 'delete_reservation'
 end
