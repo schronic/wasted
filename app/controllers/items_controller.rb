@@ -11,20 +11,22 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
+    authorize @item
   end
 
   def create
     @item = Item.new(item_params)
+    authorize @item
     @item.save
-    redirect_to friends_path
+    redirect_to items_path
   end
 
   def edit
-
   end
 
   def update
-
+    @item.update(item_params)
+    redirect_to items_path
   end
 
   def destroy
