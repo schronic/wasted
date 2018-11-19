@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   has_many :reservations
+  belongs_to :user
   validates :name, :price, :quantity, :pickup_time, presence: true
   mount_uploader :picture, PhotoUploader
   validate :pickup_date_must_be_in_the_future
