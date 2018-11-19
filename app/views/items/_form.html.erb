@@ -1,0 +1,24 @@
+<%= simple_form_for item do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <div class='input-group date' id='datetimepicker1'>
+    <%= f.input :expiration, class: "form-control" %>
+    <span class="input-group-addon">
+      <span class="glyphicon glyphicon-calendar"></span>
+    </span>
+  </div>
+    <div class='input-group date' id='datetimepicker1'>
+    <%= f.input :pickup_time, class: "form-control" %>
+    <span class="input-group-addon">
+    <span class="glyphicon glyphicon-calendar"></span>
+    </span>
+  </div>
+  <%= f.input :picture %>
+  <%= f.input :picture_cache, as: :hidden %>
+  <%= f.input :price %>
+  <%= f.input :quantity %>
+  <%= f.button :submit  %>
+<% end %>
+
+
