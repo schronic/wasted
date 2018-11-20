@@ -13,6 +13,8 @@ class ItemsController < ApplicationController
       categories_clean.each do |catg|
         @items = @items.where(category: catg)
       end
+      results = PgSearch.multisearch(params[:categories])
+# (Select * where category is any of the selected ). select * where attri fit any of the preselected
 
       types_clean.each do |types|
         @items = @items.where(food_type: types)
