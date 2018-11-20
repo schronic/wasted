@@ -5,7 +5,16 @@
   background-position: center;
   color: white;
   position: relative;
+  font-family: 'Roboto', sans-serif;
+
 }
+
+.content {
+  margin-top: 30px;
+  background-color: #fff;
+  // box-shadow: 2px 3px 4px 5px #dcdcdc;
+}
+
 .card-user {
   position: absolute;
   right: 10px;
@@ -13,13 +22,7 @@
   width: 40px;
   border-radius: 50%;
 }
-.card-category {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 15px;
-  text-transform: uppercase;
-}
+
 .card-description {
   position: absolute;
   bottom: 10px;
@@ -45,4 +48,90 @@
 }
 .card-link:hover {
   opacity: 0.1;
+}
+
+.add {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.item-description {
+  line-height: 2px;
+  p {
+    font-size: 15px;
+    color: gray;
+    line-height: 4px;
+    margin: 16px 0px;
+  }
+  h6 {
+    font-size: 18px;
+    font-weight:bold;
+    padding: 0px;
+    margin: 6px 0px;
+  }
+}
+
+$quantity-btn-color: #95d7fc;
+.product {
+  width: 30%;
+  margin: 30px;
+}
+.form-group {
+  width: 30%;
+  margin: 30px;
+  .glyphicon {
+    color: $quantity-btn-color;
+  }
+}
+
+.input-group-btn button{
+  border-radius: 50%;
+}
+
+.circles {
+  border-radius: 30px !important;
+  height: 45px !important;
+}
+
+.circle {
+  border-radius: 40px !important;
+  height: 80px !important;
+  text-align: center !important;
+  font-size: 25px !important;
+}
+
+.editlinks {
+  position: absolute;
+  top: 70px;
+  right: 10px;
+}
+
+.form-modal{
+  margin: 0;
+}
+
+.cart-btn {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  vertical-align: center;
+  margin-top: 30px;
+  border-radius: 5px;
+  button{
+    background-color: black;
+    color: #fff;
+  }
+  button:hover{
+    background-color: #fff;
+    color: black;
+    border: 3px solid black;
+  }
+}
+
+.cart-btn-now{
+  background-color: #fff;
+    color: black;
+    border: 3px solid black;
 }

@@ -2,7 +2,7 @@ puts 'Destroying old data...'
 
 puts 'Creating new items...'
 
-5.times do
+1.times do
   user = User.new({
     email: Faker::Internet.email,
     password: 'wasted',
@@ -12,7 +12,7 @@ puts 'Creating new items...'
     user.remote_avatar_url_url = Cloudinary::Uploader.upload('https://picsum.photos/100/100/?random')['url']
     user.save!
 
-  rand(1..5).times do
+  1.times do
     item = Item.new({
       name: Faker::Food.dish,
       description: Faker::Food.description,
@@ -25,12 +25,12 @@ puts 'Creating new items...'
     item.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
     item.save!
 
-    rand(1..5).times do
+    1.times do
       purchase = Purchase.create!({
         total_price: rand(1..30)
       })
 
-      rand(1..5).times do
+      1.times do
         reservation = Reservation.create!({
           item: item,
           user: user,
