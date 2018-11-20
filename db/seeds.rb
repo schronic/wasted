@@ -53,9 +53,9 @@ end
 
 puts "Finished creating 6 users (2 suppliers, 2 consumers, 2 both)"
 
-# @items = []
-10.times do
-  item = Item.new({
+@items = []
+5.times do
+  item1 = Item.new({
     name: Faker::Food.dish,
     description: Faker::Food.description,
     expiration: Faker::Date.between(2.days.ago, Date.today),
@@ -64,9 +64,23 @@ puts "Finished creating 6 users (2 suppliers, 2 consumers, 2 both)"
     quantity: rand(1..5),
     user: @suppliers.sample
   })
-  item.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
-  item.save!
-  # @items << item
+  # item1.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
+  item1.save!
+
+  item2 = Item.new({
+    name: Faker::Food.dish,
+    description: Faker::Food.description,
+    expiration: Faker::Date.between(2.days.ago, Date.today),
+    price: rand(1..5),
+    pickup_time: Faker::Date.forward(5),
+    quantity: rand(1..5),
+    user: @boths.sample
+  })
+  # item2.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
+  item2.save!
+
+  @items << item1 << item2
+  item = @items.sample
 
   @reservations = []
   rand(1..3).times do
@@ -113,10 +127,6 @@ puts "Finished creating 6 users (2 suppliers, 2 consumers, 2 both)"
           reservation.purchased_item = @purchased_items.sample
           reservation.save!
         end
-
-
-
-
       end
     end
   end

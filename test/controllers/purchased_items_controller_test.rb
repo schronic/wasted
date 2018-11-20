@@ -1,38 +1,38 @@
 require 'test_helper'
 
-class ReservationsControllerTest < ActionDispatch::IntegrationTest
+class PurchasedItemsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get reservations_index_url
+    get purchased_items_index_url
     assert_response :success
   end
 
   test "should get show" do
-    get reservations_show_url
+    get purchased_items_show_url
     assert_response :success
   end
 
   test "should get new" do
-    get reservations_new_url
+    get purchased_items_new_url
     assert_response :success
   end
 
   test "should get create" do
-    get reservations_create_url
+    get purchased_items_create_url
     assert_response :success
   end
 
   test "should get edit" do
-    get reservations_edit_url
+    get purchased_items_edit_url
     assert_response :success
   end
 
   test "should get update" do
-    get reservations_update_url
+    get purchased_items_update_url
     assert_response :success
   end
 
   test "should get destroy" do
-    get reservations_destroy_url
+    get purchased_items_destroy_url
     assert_response :success
   end
 
