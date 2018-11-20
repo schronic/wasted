@@ -1,6 +1,4 @@
-
-<div class="card"  data-toggle="modal" data-target="#myModal_<%= item.id %>" class="btn btn-primary" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://kitt.lewagon.com/placeholder/cities/shanghai');">
-
+<div class="card" data-toggle="modal" data-target="#myModal_<%= item.id %>" class="btn btn-primary" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= item.picture %>);">
   <div class="card-category">Popular</div>
   <div class="card-description">
     <h2><%= item.name %></h2>

@@ -1,8 +1,4 @@
 puts 'Destroying old data...'
-User.destroy_all
-Item.destroy_all
-Reservation.destroy_all
-Purchase.destroy_all
 
 puts 'Creating new items...'
 
