@@ -1,9 +1,13 @@
 source 'https://rubygems.org'
 ruby '2.4.4'
 
+gem 'pg_search'
+gem "geocoder"
+
+
 gem "pundit"
 gem 'dotenv-rails', groups: [:development, :test]
-gem 'cloudinary'
+gem 'cloudinary', '~> 1.9.1'
 gem 'carrierwave', '~> 1.2'
 
 gem 'bootsnap', require: false
@@ -22,6 +26,9 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
 gem 'faker'
+gem 'gibbon'
+gem "letter_opener", group: :development
+gem 'dotenv-rails', groups: [:development, :test]
 
 group :development do
   gem 'web-console', '>= 3.3.0'

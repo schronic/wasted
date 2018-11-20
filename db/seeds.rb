@@ -63,6 +63,9 @@ puts "Finished creating 6 users (2 suppliers, 2 consumers, 2 both)"
     pickup_time: Faker::Date.forward(5),
     quantity: rand(1..5),
     user: @suppliers.sample
+    category: Item.CATEGORY.sample,
+    type: Item::TYPES.sample,
+    address: Faker::Address.full_address
   })
   # item1.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
   item1.save!
@@ -75,6 +78,9 @@ puts "Finished creating 6 users (2 suppliers, 2 consumers, 2 both)"
     pickup_time: Faker::Date.forward(5),
     quantity: rand(1..5),
     user: @boths.sample
+    category: Item.CATEGORY.sample,
+    type: Item::TYPES.sample,
+    address: Faker::Address.full_address
   })
   # item2.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
   item2.save!
@@ -87,6 +93,7 @@ puts "Finished creating 6 users (2 suppliers, 2 consumers, 2 both)"
     reservation1 = Reservation.create!({
       item: item,
       user: @consumers.sample,
+
     })
     reservation2 = Reservation.create!(
       item: item,
