@@ -9,6 +9,11 @@ class CreateItems < ActiveRecord::Migration[5.2]
       t.string      :picture
       t.integer     :quantity, default: 1
       t.references  :user, foreign_key: true
+      t.string      :address
+      t.float       :latitude
+      t.float       :longitude
+      t.string      :category
+      t.string      :food_type
 
       t.timestamps
     end
