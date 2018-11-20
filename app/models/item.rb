@@ -1,4 +1,5 @@
 class Item < ApplicationRecord
+
   has_many    :reservations
   has_many    :purchased_items
   belongs_to  :user
@@ -8,6 +9,7 @@ class Item < ApplicationRecord
               :pickup_time,
               presence: true
   validate    :pickup_date_must_be_in_the_future
+  monetize :price_cents
 
   private
 

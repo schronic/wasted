@@ -6,7 +6,7 @@ Order.destroy_all
 PurchasedItem.destroy_all
 Reservation.destroy_all
 
-puts 'Creating new items...'
+puts 'Creating new users...'
 
 @consumers = []
 @suppliers = []
@@ -52,7 +52,7 @@ end
 end
 
 puts "Finished creating 6 users (2 suppliers, 2 consumers, 2 both)"
-
+puts "Creating new items..."
 @items = []
 5.times do
   item1 = Item.new({
