@@ -53,8 +53,8 @@ end
 
 puts "Finished creating 6 users (2 suppliers, 2 consumers, 2 both)"
 
-
-rand(1..10).times do
+# @items = []
+10.times do
   item = Item.new({
     name: Faker::Food.dish,
     description: Faker::Food.description,
@@ -66,6 +66,7 @@ rand(1..10).times do
   })
   item.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
   item.save!
+  # @items << item
 
   @reservations = []
   rand(1..3).times do
@@ -80,42 +81,46 @@ rand(1..10).times do
     )
     @reservations << reservation1 << reservation2
 
-    @purchased_items = []
+    @orders = []
     rand(1..2).times do
-      rand(1..2).times do
-        purchased_item = PurchasedItem.new({
-          item_purchase_price: rand(1..30),
-          item_purchase_quantity: rand(1..3),
-          item: item,
-          item_purchase_name: item.name,
-          item_purchase_description: item.description,
-          item_purchase_expiration: item.expiration,
-          item_purchase_pickup_time: item.pickup_time
-        })
-        @purchased_items << purchased_item
-      end
+      order1 = Order.create!(
+        total_price: rand(30..60),
+        user: @consumers.sample
+      )
+      order2 = Order.create!(
+        total_price: rand(30..60),
+        user: @boths.sample
+      )
+      @orders << order1 << order2
 
-      @orders = []
+      @purchased_items = []
       rand(1..2).times do
-        order1 = Order.create!(
-          total_price: rand(30..60),
-          user: @consumers.sample
-        )
-        order2 = Order.create!(
-          total_price: rand(30..60),
-          user: @boths.sample
-        )
-        @orders << order1 << order2
-
-        @purchased_items.each do |purchased_item|
-          purchased_item.order = @orders.sample
-          purchased_item.save!
+        rand(1..2).times do
+          purchased_item = PurchasedItem.create!({
+            item_purchase_price: rand(1..30),
+            item_purchase_quantity: rand(1..3),
+            item: item,
+            item_purchase_name: item.name,
+            item_purchase_description: item.description,
+            item_purchase_expiration: item.expiration,
+            item_purchase_pickup_time: item.pickup_time,
+            order: @orders.sample
+          })
+          @purchased_items << purchased_item
         end
+
+        @reservations.each do |reservation|
+          reservation.purchased_item = @purchased_items.sample
+          reservation.save!
+        end
+
+
+
 
       end
     end
   end
-  puts "Just creasted another item/reservation/order combination..."
+  puts "Just created another item/reservation/order combination..."
 end
 
 puts 'Seed complete!'
