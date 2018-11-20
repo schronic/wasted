@@ -23,6 +23,7 @@ gem 'uglifier'
 gem 'webpacker'
 gem 'faker'
 gem 'gibbon'
+gem 'stripe'
 gem 'money-rails'
 gem "letter_opener", group: :development
 

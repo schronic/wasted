@@ -2,6 +2,7 @@
   <div class="row">
     <% @items.each do |item| %>
     <div class="col-xs-12 col-sm-4" >
+      <p>Amount: <%= humanized_money_with_symbol(item.price) %></p>
       <%= render 'shared/card', item: item %>
     </div>
     <% end %>
@@ -9,3 +10,5 @@
 </div>
 
 <!-- Modal: modalQuickView -->
+
+
