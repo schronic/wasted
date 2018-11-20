@@ -1,6 +1,10 @@
 source 'https://rubygems.org'
 ruby '2.4.4'
 
+gem 'pg_search'
+gem "geocoder"
+
+
 gem "pundit"
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'cloudinary'
