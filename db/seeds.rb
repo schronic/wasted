@@ -1,45 +1,121 @@
 puts 'Destroying old data...'
 
+User.destroy_all
+Item.destroy_all
+Order.destroy_all
+PurchasedItem.destroy_all
+Reservation.destroy_all
+
 puts 'Creating new items...'
 
-5.times do
-  user = User.new({
-    email: Faker::Internet.email,
+@consumers = []
+@suppliers = []
+@boths = []
+
+2.times do
+  consumer = User.new({
+    name: Faker::FunnyName.two_word_name,
+    email: Faker::Internet.unique.email,
     password: 'wasted',
-    username: Faker::Internet.username(8),
-    role: %w[consumer supplier].sample
+    username: Faker::Internet.unique.username(8),
+    role: 'consumer'
   })
-    user.remote_avatar_url_url = Cloudinary::Uploader.upload('https://picsum.photos/100/100/?random')['url']
-    user.save!
+  # consumer.remote_avatar_url = Cloudinary::Uploader.upload('https://picsum.photos/100/100/?random')['url']
+  consumer.save!
+  @consumers << consumer
+end
 
-  rand(1..5).times do
-    item = Item.new({
-      name: Faker::Food.dish,
-      description: Faker::Food.description,
-      expiration: Faker::Date.between(2.days.ago, Date.today),
-      price: rand(1..5),
-      pickup_time: Faker::Date.forward(5),
-      quantity: rand(1..5),
-      user: user
+2.times do
+  supplier = User.new({
+    name: Faker::FunnyName.name,
+    email: Faker::Internet.unique.email,
+    password: 'wasted',
+    username: Faker::Internet.unique.username(8),
+    role: 'supplier'
+  })
+  # supplier.remote_avatar_url = Cloudinary::Uploader.upload('https://picsum.photos/100/100/?random')['url']
+  supplier.save!
+  @suppliers << supplier
+end
+
+2.times do
+  both = User.new({
+    name: Faker::FunnyName.three_word_name,
+    email: Faker::Internet.unique.email,
+    password: 'wasted',
+    username: Faker::Internet.unique.username(8),
+    role: 'both'
+  })
+  # both.remote_avatar_url = Cloudinary::Uploader.upload('https://picsum.photos/100/100/?random')['url']
+  both.save!
+  @boths << both
+end
+
+puts "Finished creating 6 users (2 suppliers, 2 consumers, 2 both)"
+
+
+rand(1..10).times do
+  item = Item.new({
+    name: Faker::Food.dish,
+    description: Faker::Food.description,
+    expiration: Faker::Date.between(2.days.ago, Date.today),
+    price: rand(1..5),
+    pickup_time: Faker::Date.forward(5),
+    quantity: rand(1..5),
+    user: @suppliers.sample
+  })
+  item.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
+  item.save!
+
+  @reservations = []
+  rand(1..3).times do
+    reservation1 = Reservation.create!({
+      item: item,
+      user: @consumers.sample,
     })
-    item.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
-    item.save!
+    reservation2 = Reservation.create!(
+      item: item,
+      user: @boths.sample,
+      quantity: rand(1..3)
+    )
+    @reservations << reservation1 << reservation2
 
-    rand(1..5).times do
-      purchase = Purchase.create!({
-        total_price: rand(1..30)
-      })
-
-      rand(1..5).times do
-        reservation = Reservation.create!({
+    @purchased_items = []
+    rand(1..2).times do
+      rand(1..2).times do
+        purchased_item = PurchasedItem.new({
+          item_purchase_price: rand(1..30),
+          item_purchase_quantity: rand(1..3),
           item: item,
-          user: user,
-          purchase: purchase
+          item_purchase_name: item.name,
+          item_purchase_description: item.description,
+          item_purchase_expiration: item.expiration,
+          item_purchase_pickup_time: item.pickup_time
         })
+        @purchased_items << purchased_item
+      end
+
+      @orders = []
+      rand(1..2).times do
+        order1 = Order.create!(
+          total_price: rand(30..60),
+          user: @consumers.sample
+        )
+        order2 = Order.create!(
+          total_price: rand(30..60),
+          user: @boths.sample
+        )
+        @orders << order1 << order2
+
+        @purchased_items.each do |purchased_item|
+          purchased_item.order = @orders.sample
+          purchased_item.save!
+        end
+
       end
     end
   end
-  puts 'Just created another user with uploaded and purchased items...'
+  puts "Just creasted another item/reservation/order combination..."
 end
 
 puts 'Seed complete!'

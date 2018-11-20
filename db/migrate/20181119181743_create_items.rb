@@ -8,6 +8,7 @@ class CreateItems < ActiveRecord::Migration[5.2]
       t.datetime :pickup_time, default: -> { 'CURRENT_TIMESTAMP' }
       t.string :picture
       t.integer :quantity, default: 1
+      t.references :user, foreign_key: true
 
       t.timestamps
     end

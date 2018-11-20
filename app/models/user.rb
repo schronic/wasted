@@ -6,9 +6,10 @@ class User < ApplicationRecord
 
   has_many :reservations, dependent: :destroy
   has_many :items, dependent: :destroy
-  has_many :purchases, through: :reservations
+  has_many :orders, dependent: :destroy
+  has_many :purchased_items, through: :orders
 
-    ROLES = %w[consumer supplier both]
+  ROLES = %w[consumer supplier both]
 
-  mount_uploader :avatar_url, PhotoUploader
+  mount_uploader :avatar, PhotoUploader
 end
