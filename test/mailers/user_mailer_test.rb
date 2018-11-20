@@ -9,4 +9,9 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match "Hi", mail.body.encoded
   end
 
+  def welcome
+    user = User.first
+    UserMailer.welcome(user)
+  end
+
 end
