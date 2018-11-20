@@ -60,7 +60,7 @@ raise
   end
 
   def item_params
-    params.require(:item).permit(:category, :types, :address, :description, :expiration, :name, :price, :pickup_time, :picture, :quantity, :user_id)
+    params.require(:item).permit(:category, :food_type, :address, :description, :expiration, :name, :price, :pickup_time, :picture, :quantity, :user_id)
   end
 end
 

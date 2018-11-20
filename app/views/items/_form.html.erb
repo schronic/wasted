@@ -4,7 +4,7 @@
   <%= f.input :description %>
   <%= f.input :address %>
   <%= f.input :category, collection: Item::CATEGORY %>
-  <%= f.input :types, collection: Item::TYPES %>
+  <%= f.input :food_type, collection: Item::TYPES %>
   <div class='input-group date' id='datetimepicker1'>
     <%= f.input :expiration, class: "form-control" %>
     <span class="input-group-addon">
