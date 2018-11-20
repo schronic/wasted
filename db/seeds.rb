@@ -7,7 +7,7 @@ puts 'Creating new items...'
     email: Faker::Internet.email,
     password: 'wasted',
     username: Faker::Internet.username(8),
-    role: %w[consumer supplier].sample
+    role: %w[consumer supplier both].sample
   })
     user.remote_avatar_url_url = Cloudinary::Uploader.upload('https://picsum.photos/100/100/?random')['url']
     user.save!
@@ -20,7 +20,10 @@ puts 'Creating new items...'
       price: rand(1..5),
       pickup_time: Faker::Date.forward(5),
       quantity: rand(1..5),
-      user: user
+      user: user,
+      category: Item.CATEGORY.sample,
+      type: Item::TYPES.sample,
+      address: Faker::Address.full_address
     })
     item.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
     item.save!
