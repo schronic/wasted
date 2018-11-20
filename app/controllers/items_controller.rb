@@ -4,6 +4,23 @@ class ItemsController < ApplicationController
 
   def index
     @items = policy_scope(Item).order(created_at: :desc)
+    if params[:query].present?
+      @items = Item.near(params[:query])
+    elsif params[:term]
+      PgSearch::Multisearch.rebuild(Item)
+
+      categories_clean = params[:term][:catg].drop(1).join(" ")
+      types_clean = params[:term][:att].drop(1).join(" ")
+
+      results = PgSearch.multisearch(params[:categories])
+raise
+# (Select * where category is any of the selected ). select * where attri fit any of the preselected
+
+      @items = []
+      results.each do |result|
+        @items << (result.searchable)
+      end
+    end
   end
 
   def show
@@ -45,6 +62,20 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.require(:item).permit(:description, :expiration, :name, :price, :pickup_time, :picture, :quantity, :user_id)
+    params.require(:item).permit(:category, :food_type, :address, :description, :expiration, :name, :price, :pickup_time, :picture, :quantity, :user_id)
   end
 end
+
+
+#searchbar:
+#searchbar by address --> turn input address into coordinates
+#for every item --> turn address into coordinates
+#==> order by distance
+
+#filters:
+#modal that moves everything down
+#and then foodora like
+
+#Flat.near('Tour Eiffel', 10)      # venues within 10 km of Tour Eiffel
+#Flat.near([40.71, 100.23], 20)    # venues within 20 km of a point
+#
