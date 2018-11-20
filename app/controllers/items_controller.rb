@@ -4,21 +4,18 @@ class ItemsController < ApplicationController
 
   def index
     @items = policy_scope(Item).order(created_at: :desc)
-    if params[:query].present?
-      @items = Item.near(params[:query])
-    elsif params[:term]
-      PgSearch::Multisearch.rebuild(Item)
 
-      categories_clean = params[:term][:catg].drop(1).join(" ")
-      types_clean = params[:term][:att].drop(1).join(" ")
+    if params[:term]
+      categories_clean = params[:term][:catg].drop(1)
+      types_clean = params[:term][:att].drop(1)
 
-      results = PgSearch.multisearch(params[:categories])
-raise
-# (Select * where category is any of the selected ). select * where attri fit any of the preselected
+      @items = Item.near(params[:term][:query])
+      categories_clean.each do |catg|
+        @items = @items.where(category: catg)
+      end
 
-      @items = []
-      results.each do |result|
-        @items << (result.searchable)
+      types_clean.each do |types|
+        @items = @items.where(food_type: types)
       end
     end
   end
@@ -60,7 +57,7 @@ raise
   end
 
   def item_params
-    params.require(:item).permit(:category, :types, :address, :description, :expiration, :name, :price, :pickup_time, :picture, :quantity, :user_id)
+    params.require(:item).permit(:category, :food_type, :address, :description, :expiration, :name, :price, :pickup_time, :picture, :quantity, :user_id)
   end
 end
 

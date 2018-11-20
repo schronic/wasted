@@ -2,7 +2,7 @@ puts 'Destroying old data...'
 
 puts 'Creating new items...'
 
-5.times do
+2.times do
   user = User.new({
     email: Faker::Internet.email,
     password: 'wasted',
@@ -21,8 +21,8 @@ puts 'Creating new items...'
       pickup_time: Faker::Date.forward(5),
       quantity: rand(1..5),
       user: user,
-      category: Item.CATEGORY.sample,
-      type: Item::TYPES.sample,
+      category: Item::CATEGORY.sample,
+      food_type: Item::TYPES.sample,
       address: Faker::Address.full_address
     })
     item.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']

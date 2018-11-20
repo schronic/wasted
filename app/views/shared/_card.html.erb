@@ -1,7 +1,10 @@
 <div class="card" data-toggle="modal" data-target="#myModal_<%= item.id %>" class="btn btn-primary" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= item.picture %>);">
   <div class="card-category">Popular</div>
   <div class="card-description">
-    <h2><%= item.name %></h2>
+    <%= item.name %> <br>
+    <%= item.category %> <br>
+    <%= item.food_type %> <br>
+    <%= item.address %>
   </div>
   <img class="card-user" src="https://kitt.lewagon.com/placeholder/users/tgenaitay">
   <a class="card-link" href="#" ></a>
