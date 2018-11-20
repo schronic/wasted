@@ -1,26 +1,92 @@
 .footer {
-  background: #F4F4F4;
+  background-color: $wasted-black;
+  height: 300px;
+  color: white;
+}
+.footer-content {
+  height: 300px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 100px;
-  padding: 0px 50px;
-  color: rgba(0,0,0,0.3);
+  justify-content: center;
 }
+#footer-anchors {
+  text-align: left;
+  p {
+    font-family: "Roboto";
+  }
+  a {
+    text-decoration: none;
+    color: white;
+  }
+  a:hover {
+    text-decoration: none;
+
+  }
+}
+
+.trick {
+  padding-top: 10px;
+}
+
 .footer-links {
+  a {
+    color: black;
+    text-decoration: none;
+  }
+  a:hover {
+    color: green;
+    text-decoration: none;
+  }
+}
+
+.footer-links-div {
+  height: 45px;
+  width: 45px;
   display: flex;
+  justify-content: center;
   align-items: center;
+  background: white;
+  border-radius: 50%;
+  font-size: 30px;
 }
-.footer-links a {
-  color: black;
-  opacity: 0.15;
-  text-decoration: none;
-  font-size: 24px;
-  padding: 0px 10px;
+
+#exampleInputEmail1 {
+  background: $wasted-black;
+  border: none;
+  color: white;
+  border-bottom: 1px solid white;
+  outline: none;
 }
-.footer-links a:hover {
-  opacity: 1;
+
+#exampleInputEmail1:focus {
+  box-shadow: none;
+  font-size: 15px;
 }
-.footer .fa-heart {
-  color: #D23333;
+
+.form-control{
+  font-size: 15px;
+  font-family: "Roboto";
+}
+
+.mail-subscription h3{
+  font-family: "Montserrat";
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.mail-subscription h2{
+  font-family: "Montserrat";
+  font-size: 25px;
+}
+
+.mail-subscription p{
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  font-weight: lighter;
+
+}
+
+.email-font {
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
 }
