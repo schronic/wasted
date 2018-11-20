@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :purchases, through: :reservations
 
+    ROLES = %w[consumer supplier both]
+
   mount_uploader :avatar_url, PhotoUploader
 
   def send_welcome_email

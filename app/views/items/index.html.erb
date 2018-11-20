@@ -1,12 +1,8 @@
 <div class="container">
   <div class="row">
     <% @items.each do |item| %>
-    <div class="col-xs-12 col-sm-4" data-toggle="modal" data-target="#modalQuickView">
+    <div class="col-xs-12 col-sm-4" >
       <%= render 'shared/card', item: item %>
-    </div>
-    <div class="modal fade" id="modalQuickView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
-      <%= render 'show', item: item%>
     </div>
     <% end %>
   </div>

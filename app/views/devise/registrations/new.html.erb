@@ -5,6 +5,12 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+     <%= f.input :username,
+                        autofocus: true,
+                        required: true , input_html: { class: "input-bar"} %>
+    <%= f.input :role, as: :radio_buttons, collection: User::ROLES, wrapper: :vertical_collection_inline %>
+  <%= f.input :avatar_url,  as: :file%>
+
     <%= f.input :email,
     required: true,
     autofocus: true ,
