@@ -8,20 +8,19 @@ class User < ApplicationRecord
 
   has_many :reservations, dependent: :destroy
   has_many :items, dependent: :destroy
-  has_many :purchases, through: :reservations
+  has_many :orders, dependent: :destroy
+  has_many :purchased_items, through: :orders
 
  ROLES = %w[consumer supplier both]
 
-  mount_uploader :avatar_url, PhotoUploader
+
+  mount_uploader :avatar, PhotoUploader
 
   def send_welcome_email
     UserMailer.welcome(self).deliver_now
   end
 
-
   def subscribe_to_newsletter
-    if self.subscribed
-      SubscribeToNewsletterService.new(self).call
-    end
+    SubscribeToNewsletterService.new(self).call if self.subscribed
   end
 end
