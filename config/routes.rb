@@ -30,4 +30,9 @@ Rails.application.routes.draw do
   get    '/cart/:id',      to: 'reservations#show',   as: 'reservation'
   patch  '/cart/:id',      to: 'reservations#update'
   delete '/cart/:id',      to: 'reservations#destroy',as: 'delete_reservation'
+
+  resources :orders, only: [:new, :index, :show, :create] do
+  resources :payments, only: [:new, :create]
+  end
+
 end
