@@ -23,7 +23,7 @@ class Item < ApplicationRecord
 
   include PgSearch
 
-  multisearchable against: [ :name, :description, :price, :address, :category, :type ]
+  multisearchable against: [ :name, :description, :price, :address, :category, :food_type ]
 
   PgSearch.multisearch_options = {
   using: { tsearch: { prefix: true } }
