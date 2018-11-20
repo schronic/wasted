@@ -27,18 +27,11 @@
 
     </div>
   </div>
-    <div class="row">
-      <% @items.each do |item| %>
-      <div class="col-xs-12 col-sm-4 col-md-4" >
-        <%= render 'shared/card', item: item %>
-      </div>
-      <% end %>
-
-    </div>
+<%= render 'shared/card', item: @item %>
   </div>
 </div>
 
-<%= render 'shared/card', item: @item %>
+
 
 
 

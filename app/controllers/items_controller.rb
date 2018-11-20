@@ -13,7 +13,6 @@ class ItemsController < ApplicationController
       types_clean = params[:term][:att].drop(1).join(" ")
 
       results = PgSearch.multisearch(params[:categories])
-raise
 # (Select * where category is any of the selected ). select * where attri fit any of the preselected
 
       @items = []
