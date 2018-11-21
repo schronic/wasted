@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_20_210217) do
+ActiveRecord::Schema.define(version: 2018_11_21_015937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,18 @@ ActiveRecord::Schema.define(version: 2018_11_20_210217) do
     t.integer "amount_cents", default: 0, null: false
     t.string "amount_currency", default: "USD", null: false
     t.jsonb "payment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text "content"
+    t.string "searchable_type"
+    t.bigint "searchable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
   end
 
   create_table "purchased_items", force: :cascade do |t|
@@ -56,6 +67,8 @@ ActiveRecord::Schema.define(version: 2018_11_20_210217) do
     t.string "item_purchase_picture"
     t.bigint "item_id"
     t.bigint "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_purchased_items_on_item_id"
     t.index ["order_id"], name: "index_purchased_items_on_order_id"
   end
@@ -65,6 +78,8 @@ ActiveRecord::Schema.define(version: 2018_11_20_210217) do
     t.bigint "item_id"
     t.bigint "user_id"
     t.bigint "purchased_item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_reservations_on_item_id"
     t.index ["purchased_item_id"], name: "index_reservations_on_purchased_item_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
