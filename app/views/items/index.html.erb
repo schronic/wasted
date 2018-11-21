@@ -1,34 +1,33 @@
 <div class="container">
   <div class="row">
-      <%= simple_form_for :term, url: items_path, method: :get do |f| %>
+    <%= simple_form_for :term, url: items_path, method: :get do |f| %>
     <div class="col-md-4 col-md-offset-3">
-      <%= f.input :query, label: false, class: "form-control", placeholder: "Address" %>
+      <%= f.input :query, label: false, placeholder: "Address", input_html: { value: @results.first.address, class: 'form-control' }%>
     </div>
     <div class="col-md-2">
-        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-          Filter
-        </a>
-      </div>
-      <div class="collapse" id="collapseExample">
-        <div class="card card-body filter-body">
-          <div class="filter">
-            <%= f.input :catg, label: 'Filter by category:', as: :check_boxes, collection: Item::CATEGORY%>
-            <%= f.input :att, label: 'Filter by type:', as: :check_boxes, collection: Item::TYPES%>
-            <%= f.button :submit %>
-          </div>
-        </div>
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Filter</a>
+    </div>
 
-      <% end %>
+
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body filter-body">
+        <div class="filter">
+          <%= f.input :catg, label: 'Filter by category:', as: :check_boxes, collection: Item::CATEGORY%>
+          <%= f.input :att, label: 'Filter by type:', as: :check_boxes, collection: Item::TYPES%>
+          <%= f.button :submit %>
+        </div>
       </div>
+      <% end %>
     </div>
   </div>
 
   <div class="row">
     <% @items.each do |item| %>
-    <div class="col-xs-12 col-sm-4 col-md-4">
-      <%= render 'shared/card', item: item %>
-    </div>
+      <div class="col-xs-12 col-sm-4 col-md-4">
+        <%= render 'shared/card', item: item %>
+      </div>
     <% end %>
   </div>
 </div>
-</div>
+
+

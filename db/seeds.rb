@@ -1,9 +1,9 @@
 puts 'Destroying old data...'
 
 User.destroy_all
+PurchasedItem.destroy_all
 Item.destroy_all
 Order.destroy_all
-PurchasedItem.destroy_all
 Reservation.destroy_all
 
 puts 'Creating new users...'
@@ -65,7 +65,9 @@ puts "Creating new items..."
     user: @suppliers.sample,
     category: Item::CATEGORY.sample,
     food_type: Item::TYPES.sample,
-    address: Faker::Address.full_address
+    address: Faker::Address.full_address,
+    latitude: Faker::Address.latitude,
+    longitude: Faker::Address.longitude
   })
   # item1.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
   item1.save!
@@ -80,7 +82,9 @@ puts "Creating new items..."
     user: @boths.sample,
     category: Item::CATEGORY.sample,
     food_type: Item::TYPES.sample,
-    address: Faker::Address.full_address
+    address: Faker::Address.full_address,
+    latitude: Faker::Address.latitude,
+    longitude: Faker::Address.longitude
   })
   # item2.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
   item2.save!
