@@ -1,2 +1,11 @@
-<h1>Orders#index</h1>
-<p>Find me in app/views/orders/index.html.erb</p>
+<h1>All Orders</h1>
+
+<ul>
+  <% @orders.each do |order| %>
+    <li>Order ID: <%= link_to order.id, order %></li>
+    <li>Status: <%= order.state %></li>
+    <li>Item: <%= order.item_sku %></li>
+    <li>Amount: <%= humanized_money_with_symbol(order.amount) %></li>
+    <li>Order date: <%= order.created_at %></li>
+  <% end %>
+</ul>

@@ -1,8 +1,29 @@
+<div class="container">
+
+  <h1>Order #<%= @order.id %></h1>
+    <li>Status: <%= @order.state %></li>
+    <li>Amount (incl. fee): <%= humanized_money_with_symbol(@order.amount) %></li>
+    <li>Order date: <%= @order.created_at.strftime("%b %e, %l:%M %p") %></li>
+    <li>Distinct items in order: <%= @order.purchased_items.size %></li>
+    <br>
+
+  <% @order.purchased_items.each do |purchased_item| %>
+
+    <strong>
+      <%= purchased_item.item_purchase_name %>
+    </strong>
+    <ul>
+      <li>Quantity: <%= purchased_item.item_purchase_quantity %></li>
+      <li>Price each: <%= humanized_money_with_symbol(purchased_item.item_purchase_price) %></li>
+      <li>Description: <%= purchased_item.item_purchase_description %></li>
+      <li>Item expiration: <%= purchased_item.item_purchase_expiration.strftime("%b %e, %l:%M %p") %></li>
+      <li>Item pickup time: <%= purchased_item.item_purchase_pickup_time.strftime("%b %e, %l:%M %p") %></li>
+      <br>
+      </ul>
+  <% end %>
 
 
-<h1>Order</h1>
-<ul>
-  <li>Status: <%= @order.state %></li>
-  <li>Item: <%= @order.item_sku %></li>
-  <li>Amount: <%= humanized_money_with_symbol(@order.amount) %></li>
-<ul>
+
+
+  <%= link_to 'All orders', orders_path %>
+</div>
