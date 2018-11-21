@@ -34,6 +34,14 @@ class ApplicationPolicy
     false
   end
 
+  def supplier?
+    user.role == 'supplier' || user.role == 'both'
+  end
+
+  def consumer?
+    user.role == 'consumer' || user.role == 'both'
+  end
+
   class Scope
     attr_reader :user, :scope
 
