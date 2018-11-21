@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'items#index'
+  root to: 'pages#home'
   devise_for :users
 
   resources :items
