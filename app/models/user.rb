@@ -11,7 +11,8 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :purchased_items, through: :orders
 
-  ROLES = %w[consumer supplier both]
+ ROLES = %w[consumer supplier both]
+
 
   mount_uploader :avatar, PhotoUploader
 

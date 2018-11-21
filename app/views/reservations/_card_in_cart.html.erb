@@ -1,0 +1,170 @@
+<!-- Iterate to create cards -->
+<% @reservations.each do |reservation| %>
+
+  <!-- Set picture -->
+  <% if reservation.item.picture.present? %>
+    <!-- Card-cart -->
+    <div class="item-cards">
+      <div class="card-body-cart" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= cl_image_path(reservation.item.picture) %>);">
+        <!-- Everything inside the picture -->
+        <div class="card-description-cart">
+
+          <!-- item ID and clickable card -->
+          <%= link_to "", item_path(reservation.item), class: 'card-link-cart' %>
+          <p class="item-number-cart">ID <%= reservation.item.id %> </p>
+          <!-- END item ID and clickable card -->
+
+          <!-- Clickable icons on cart -->
+          <div class="card-btn-cart">
+            <!-- Set item's cart status based on current user -->
+            <% status = 'available' %>
+            <% @reservations.each do |reservation|
+              if reservation.user_id == current_user.id
+                status = 'reserved'
+                @reservation = reservation
+              end
+            end %>
+
+            <!-- Icon to add to cart if not already in cart -->
+            <% if status == 'available' %>
+              <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f|
+                f.error_notification
+                f.hidden_field :user, value: current_user.id
+                f.hidden_field :item_id, value: reservation.item.id
+                f.button :button, class: 'card-icon-cart' do %>
+                  <%= icon('fas', 'user-plus') %>
+                <% end
+              end %>
+
+            <!-- Icon to remove from cart if already in cart -->
+            <% elsif status == 'reserved' %>
+              <%= simple_form_for @reservation, url: @reservation, method: :delete do |f| %>
+                <%= f.error_notification %>
+                <%= f.hidden_field :user, value: current_user.id %>
+                <%= f.hidden_field :item_id, value: reservation.item.id %>
+                <%= f.hidden_field :in_cart, value: true %>
+                <%= f.button :button, class: 'card-icon-cart' do %>
+                  <%= icon('fas', 'user-minus') %>
+                <% end %>
+              <% end %>
+
+            <!-- Don't show an icon if something weird happens -->
+            <% else %>
+            <% end %>
+          </div>
+          <!-- END clickable icons -->
+        </div>
+        <!-- END card description inside picture -->
+      </div>
+
+      <!-- Card footer -->
+      <div class="card-footer-cart">
+        <p class="item-name-cart"> <%= reservation.item.name %></p>
+        <p class="item-price-cart"><%= reservation.item.price %> $ </p>
+        <!-- Display stars -->
+        <p class="item-quantity-cart">
+          <% reservation.item.quantity.times do %>
+            <%= icon('fas', 'star') %>
+          <% end %>
+          <% (5 - reservation.item.quantity).times do %>
+            <%= icon('far', 'star') %>
+          <% end %>
+        </p>
+        <!-- Display stars ends above this line -->
+        <p class="item-name-cart">
+          Added: <em><%= reservation.updated_at.strftime("%b %e, %l:%M %p") %></em>
+        </p>
+<!--         <p>
+          <%= link_to 'Delete from cart', delete_reservation_path(reservation), method: :delete %>
+        </p> -->
+      </div>
+      <!-- END Card footer -->
+    </div>
+    <!-- END card-cart -->
+
+  <% else %>
+    <!-- Card-cart -->
+    <div class="card-cart">
+      <div class="card-body-cart" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://picsum.photos/800/300/?random');">
+
+
+        <!-- Everything inside the picture -->
+        <div class="card-description-cart">
+
+          <!-- item ID and clickable card -->
+          <%= link_to "", item_path(reservation.item), class: 'card-link-cart' %>
+          <p class="item-number-cart">ID <%= reservation.item.id %> </p>
+          <!-- END item ID and clickable card -->
+
+          <!-- Clickable icons on cart -->
+          <div class="card-btn-cart">
+            <!-- Set item's cart status based on current user -->
+            <% status = 'available' %>
+            <% @reservations.each do |reservation|
+              if reservation.user_id == current_user.id
+                status = 'reserved'
+                @reservation = reservation
+              end
+            end %>
+
+            <!-- Icon to add to cart if not already in cart -->
+            <% if status == 'available' %>
+              <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f|
+                f.error_notification
+                f.hidden_field :user, value: current_user.id
+                f.hidden_field :item_id, value: reservation.item.id
+                f.button :button, class: 'card-icon-cart' do %>
+                  <%= icon('fas', 'user-plus') %>
+                <% end
+              end %>
+
+            <!-- Icon to remove from cart if already in cart -->
+            <% elsif status == 'reserved' %>
+              <%= simple_form_for @reservation, url: reservation_path(@reservation), method: :delete do |f| %>
+                <%= f.error_notification %>
+                <%= f.hidden_field :user, value: current_user.id %>
+                <%= f.hidden_field :item_id, value: reservation.item.id %>
+                <%= f.button :button, class: 'card-icon-cart' do %>
+                  <%= icon('fas', 'user-minus') %>
+                <% end %>
+              <% end %>
+
+            <!-- Don't show an icon if something weird happens -->
+            <% else %>
+            <% end %>
+          </div>
+          <!-- END clickable icons -->
+        </div>
+        <!-- END card description inside picture -->
+      </div>
+      <!-- END .card-body-cart -->
+
+      <!-- Card footer -->
+      <div class="card-footer-cart">
+        <p class="item-name-cart"> <%= reservation.item.name %></p>
+        <p class="item-price-cart"><%= reservation.item.price %> $ </p>
+        <!-- Display stars -->
+        <p class="item-quantity-cart">
+          <% reservation.item.quantity.times do %>
+            <%= icon('fas', 'star') %>
+          <% end %>
+          <% (5 - reservation.item.quantity).times do %>
+            <%= icon('far', 'star') %>
+          <% end %>
+        </p>
+        <!-- Display stars ends above this line -->
+        <p class="item-name-cart">
+          Added: <em><%= reservation.updated_at.strftime("%b %e, %l:%M %p") %></em>
+          <%= link_to 'Delete from cart', delete_reservation_path(reservation), method: :delete %>
+        </p>
+      </div>
+      <!-- Card footer ends above this line -->
+    </div>
+    <!-- END .card-cart -->
+
+  <% end %>
+  <!-- END set picture -->
+
+
+<% end %>
+<!-- END iterate to create cards -->

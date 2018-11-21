@@ -1,9 +1,9 @@
 puts 'Destroying old data...'
 
 User.destroy_all
+PurchasedItem.destroy_all
 Item.destroy_all
 Order.destroy_all
-PurchasedItem.destroy_all
 Reservation.destroy_all
 
 puts 'Creating new users...'
@@ -60,12 +60,14 @@ puts "Creating new items..."
     description: Faker::Food.description,
     expiration: Faker::Date.between(2.days.ago, Date.today),
     price: rand(1..5),
-    pickup_time: Faker::Date.forward(5),
+    pickup_time: Faker::Date.between(1.day.from_now, 3.days.from_now),
     quantity: rand(1..5),
     user: @suppliers.sample,
     category: Item::CATEGORY.sample,
     food_type: Item::TYPES.sample,
-    address: Faker::Address.full_address
+    address: Faker::Address.full_address,
+    latitude: Faker::Address.latitude,
+    longitude: Faker::Address.longitude
   })
   # item1.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
   item1.save!
@@ -75,12 +77,14 @@ puts "Creating new items..."
     description: Faker::Food.description,
     expiration: Faker::Date.between(2.days.ago, Date.today),
     price: rand(1..5),
-    pickup_time: Faker::Date.forward(5),
+    pickup_time: Faker::Date.between(1.day.from_now, 3.days.from_now),
     quantity: rand(1..5),
     user: @boths.sample,
     category: Item::CATEGORY.sample,
     food_type: Item::TYPES.sample,
-    address: Faker::Address.full_address
+    address: Faker::Address.full_address,
+    latitude: Faker::Address.latitude,
+    longitude: Faker::Address.longitude
   })
   # item2.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
   item2.save!

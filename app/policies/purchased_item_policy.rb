@@ -6,11 +6,11 @@ class PurchasePolicy < ApplicationPolicy
   end
 
   def show?
-    user.record == user
+    record.user == user
   end
 
   def new?
-    user.role == 'consumer'
+    consumer?
   end
 
   def create?
