@@ -31,8 +31,9 @@ class ItemsController < ApplicationController
         end
       end
 
-    end
+      @items = @items.where.not(user_id: current_user)
 
+    end
   end
 
   def show
