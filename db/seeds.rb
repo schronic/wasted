@@ -20,7 +20,7 @@ puts 'Creating new users...'
     username: Faker::Internet.unique.username(8),
     role: 'consumer'
   })
-  # consumer.remote_avatar_url = Cloudinary::Uploader.upload('https://picsum.photos/100/100/?random')['url']
+  # consumer.remote_avatar = Cloudinary::Uploader.upload('https://picsum.photos/100/100/?random')['url']
   consumer.save!
   @consumers << consumer
 end
@@ -33,7 +33,7 @@ end
     username: Faker::Internet.unique.username(8),
     role: 'supplier'
   })
-  # supplier.remote_avatar_url = Cloudinary::Uploader.upload('https://picsum.photos/100/100/?random')['url']
+  # supplier.remote_avatar = Cloudinary::Uploader.upload('https://picsum.photos/100/100/?random')['url']
   supplier.save!
   @suppliers << supplier
 end
@@ -46,7 +46,7 @@ end
     username: Faker::Internet.unique.username(8),
     role: 'both'
   })
-  # both.remote_avatar_url = Cloudinary::Uploader.upload('https://picsum.photos/100/100/?random')['url']
+  # both.remote_avatar = Cloudinary::Uploader.upload('https://picsum.photos/100/100/?random')['url']
   both.save!
   @boths << both
 end
