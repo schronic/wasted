@@ -4,9 +4,9 @@
   <%%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-  <%- types.each do |attribute| -%>
-    <%%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %> %>
-  <%- end -%>
+  <% food_type.each do |attribute| -%>
+    <%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %> %>
+  <% end %>
   </div>
 
   <div class="form-actions">
