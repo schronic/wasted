@@ -4,22 +4,22 @@ class ItemsController < ApplicationController
 
   def index
     @items = policy_scope(Item).order(created_at: :desc)
-    if params[:query].present?
-      @items = Item.near(params[:query])
-    elsif params[:term]
-      PgSearch::Multisearch.rebuild(Item)
+      if params[:query].present?
+        @items = Item.near(params[:query])
+      elsif params[:term]
+        PgSearch::Multisearch.rebuild(Item)
 
-      categories_clean = params[:term][:catg].drop(1).join(" ")
-      types_clean = params[:term][:att].drop(1).join(" ")
+        categories_clean = params[:term][:catg].drop(1).join(" ")
+        types_clean = params[:term][:att].drop(1).join(" ")
 
-      results = PgSearch.multisearch(params[:categories])
-# (Select * where category is any of the selected ). select * where attri fit any of the preselected
+        results = PgSearch.multisearch(params[:categories])
+        # (Select * where category is any of the selected ). select * where attri fit any of the preselected
 
-      @items = []
-      results.each do |result|
-        @items << (result.searchable)
+        @items = []
+        results.each do |result|
+          @items << (result.searchable)
+        end
       end
-    end
   end
 
   def show
