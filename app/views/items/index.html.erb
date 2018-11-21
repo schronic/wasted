@@ -1,39 +1,78 @@
 <div class="container">
   <div class="row">
+    <%= simple_form_for :term, url: items_path, method: :get do |f| %>
+    <div class="col-md-4 col-md-offset-3">
+      <%= f.input :query, label: false, placeholder: "Address",
+      input_html: { value: @results.first.address }%>
+    </div>
+    <div class="col-md-2">
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Filter</a>
+    </div>
 
-
-
-    <div class="col-md-4 col-md-offset-4">
-      <%= form_tag items_path, method: :get do %>
-      <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Address" %>
-      <% end %>
-  <p>
-  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Link with href
-  </a>
-</p>
-<div class="collapse" id="collapseExample">
-  <div class="card card-body filter-body">
-      <div class="filter">
-        <%= simple_form_for :term, url: items_path, method: :get do |f| %>
-          <%= f.input :catg, label: 'Filter by:', as: :check_boxes, collection: Item::CATEGORY%>
-          <%= f.input :att, label: 'Filter by:', as: :check_boxes, collection: Item::TYPES%>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body filter-body">
+        <div class="filter">
+          <%= f.input :catg, label: 'Filter by category:', as: :check_boxes, collection: Item::CATEGORY%>
+          <%= f.input :att, label: 'Filter by type:', as: :check_boxes, collection: Item::TYPES%>
           <%= f.button :submit %>
-        <% end %>
-
+        </div>
       </div>
+    </div>
+    <% end %>
+  </div>
+
+
+  <div class="row">
+    <% @items.each do |item| %>
+    <div class="col-xs-12 col-sm-4 col-md-4 content">
+      <%= render 'shared/card', item: item %>
+    </div>
+    <% end %>
   </div>
 </div>
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-11 col-md-10 col-centered">
+      <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="2500">
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-11 col-md-10 col-centered">
+      <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi">
+
+        <div class="carousel-inner">
+          <%= @items.each_with_index do |item, index| %>
+          <div class="item <%= 'active' if index == 0 %>">
+            <div class="carousel-col">
+              <div class="img-responsive">
+              <%= render 'shared/card', item: item %>
+            </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+
+        <!-- Controls -->
+        <div class="left carousel-control">
+          <a href="#carousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+          </a>
+        </div>
+        <div class="right carousel-control">
+          <a href="#carousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+          </a>
+        </div>
+      </div>
 
     </div>
   </div>
-<%= render 'shared/card', item: @item %>
-  </div>
 </div>
-
-
-
-
-
-
-

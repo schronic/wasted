@@ -1,7 +1,10 @@
 .footer {
   background-color: $wasted-black;
-  height: 300px;
   color: white;
+  position: absolute;
+  bottom: 0;
+  height: 300px;
+  width: 100%;
 }
 .footer-content {
   height: 300px;
