@@ -134,14 +134,15 @@
 
       <!-- Card footer -->
       <div class="card-footer-cart">
-        <p class="item-name-cart"> <%= reservation.item.name %></p>
-        <p class="item-price-cart"><%= reservation.item.price %> $ </p>
+        <p> Total items by seller: <%= reservation.item.user.items.size %></p>
+        <p>Random item by seller: <%= reservation.item.user.items.sample.name %></p>
+
+        <p class="item-price-cart"><%= humanized_money_with_symbol(reservation.item.price) %> </p>
         <!-- Display stars -->
         <p class="item-quantity-cart">
           Available: <%= reservation.item.quantity %>
         </p>
         <!-- Display stars ends above this line -->
-
       </div>
       <!-- Card footer ends above this line -->
     </div>
