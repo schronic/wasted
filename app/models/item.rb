@@ -18,6 +18,7 @@ class Item < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
 
+
   TYPES = %w[Vegan Gluten_free Hot Snack Healthy Light Home_mage Raw Vegetarian]
   CATEGORY = %w[Asian Breakfast Burgers Chinese Greek HealthyFood HomeMade Indian
                   International Italian Japanese Mediterranean Mexican Middle Eastern Nepalese

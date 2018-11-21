@@ -1,41 +1,34 @@
 <div class="container">
   <div class="row">
-
-
-
-    <div class="col-md-4 col-md-offset-4">
-      <%= form_tag items_path, method: :get do %>
-      <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Address" %>
-      <% end %>
-  <p>
-  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Link with href
-  </a>
-</p>
-<div class="collapse" id="collapseExample">
-  <div class="card card-body filter-body">
-      <div class="filter">
-        <%= simple_form_for :term, url: items_path, method: :get do |f| %>
-          <%= f.input :catg, label: 'Filter by:', as: :check_boxes, collection: Item::CATEGORY%>
-          <%= f.input :att, label: 'Filter by:', as: :check_boxes, collection: Item::TYPES%>
-          <%= f.button :submit %>
-        <% end %>
-
-      </div>
-  </div>
-</div>
-
+    <%= simple_form_for :term, url: items_path, method: :get do |f| %>
+    <div class="col-md-4 col-md-offset-3">
+      <%= f.input :query, label: false, placeholder: "Address",
+      input_html: { value: @results.first.address }%>
     </div>
+    <div class="col-md-2">
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Filter</a>
+    </div>
+
+
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body filter-body">
+        <div class="filter">
+          <%= f.input :catg, label: 'Filter by category:', as: :check_boxes, collection: Item::CATEGORY%>
+          <%= f.input :att, label: 'Filter by type:', as: :check_boxes, collection: Item::TYPES%>
+          <%= f.button :submit %>
+        </div>
+      </div>
+    </div>
+    <% end %>
   </div>
 
-<%= render 'shared/card', item: @item %>
-
+  <div class="row">
+    <% @items.each do |item| %>
+    <div class="col-xs-12 col-sm-4 col-md-4 content">
+      <%= render 'shared/card', item: item %>
+    </div>
+    <% end %>
   </div>
 </div>
-
-
-
-
-
 
 

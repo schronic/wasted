@@ -1,6 +1,7 @@
 class ItemPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
+
       if user_logged_in?
         scope.where.not(user_id: user.id)
       else

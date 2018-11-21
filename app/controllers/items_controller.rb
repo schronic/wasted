@@ -3,23 +3,36 @@ class ItemsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
+
+    @current_lat = request.location.latitude
+    @current_lng = request.location.longitude
+# @results = Geocoder.search([current_lat, current_lng]) Enable only in production
+    @results = Geocoder.search([-34.587880, -58.418150])
     @items = policy_scope(Item).order(created_at: :desc)
-      if params[:query].present?
-        @items = Item.near(params[:query])
-      elsif params[:term]
-        PgSearch::Multisearch.rebuild(Item)
 
-        categories_clean = params[:term][:catg].drop(1).join(" ")
-        types_clean = params[:term][:att].drop(1).join(" ")
+    if params[:term]
+      categories_clean = params[:term][:catg].drop(1) if params[:term][:catg]
+      types_clean = params[:term][:att].drop(1) if params[:term][:att]
 
-        results = PgSearch.multisearch(params[:categories])
-        # (Select * where category is any of the selected ). select * where attri fit any of the preselected
+      if params[:term][:query].present?
+        @results = Geocoder.search(params[:term][:query])
+        @items = Item.near(params[:term][:query])
+      end
 
-        @items = []
-        results.each do |result|
-          @items << (result.searchable)
+      if categories_clean.present?
+        categories_clean.each do |catg|
+          @items = @items.where(category: catg)
         end
       end
+
+      if types_clean.present?
+        types_clean.each do |types|
+          @items = @items.where(food_type: types)
+        end
+      end
+
+    end
+
   end
 
   def show
