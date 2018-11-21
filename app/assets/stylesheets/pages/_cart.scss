@@ -32,10 +32,9 @@
       .reservation {
         display: flex;
         justify-content: flex-start;
-        min-width: 360px;
+        min-width: 300px;
         padding: 5px 0;
         .quantity {
-          margin-right: 10px;
           flex: 0 0 60px;
           display: flex;
           justify-content: space-around;
@@ -43,8 +42,7 @@
         }
         .name {
           flex: 1 1 auto;
-          background-color: yellow;
-
+          padding: 0 15px;
         }
         .price {
           flex: 0 0 50px;

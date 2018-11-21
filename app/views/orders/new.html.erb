@@ -1,10 +1,12 @@
-<h1>Thank you for your order!</h1>
-<h3>Here is a summary of Order #<%= @order.id %>:</h3>
-<ul>
-  <li>Status: <%= @order.state %></li>
-  <li>Item: <%= @order.item_sku %></li>
-  <li>Amount: <%= humanized_money_with_symbol(@order.amount) %></li>
-  <li>Order date: <%= @order.created_at %></li>
-</ul>
+<div class="container">
+  <h1>Thank you for your order!</h1>
+  <h3>Here is a summary of Order #<%= @order.id %>:</h3>
+  <ul>
+    <li>Status: <%= @order.state %></li>
+    <li>Item: <%= @order.item_sku %></li>
+    <li>Amount: <%= humanized_money_with_symbol(@order.amount) %></li>
+    <li>Order date: <%= @order.created_at %></li>
+  </ul>
 
-<%= link_to 'All orders', orders_path %>
+  <%= link_to 'All orders', orders_path %>
+</div>

@@ -1,11 +1,13 @@
-<h1>All Orders</h1>
+<div class="container">
+  <h1>All Orders</h1>
 
-<ul>
-  <% @orders.each do |order| %>
-    <li>Order ID: <%= link_to order.id, order %></li>
-    <li>Status: <%= order.state %></li>
-    <li>Item: <%= order.item_sku %></li>
-    <li>Amount: <%= humanized_money_with_symbol(order.amount) %></li>
-    <li>Order date: <%= order.created_at %></li>
-  <% end %>
-</ul>
+  <ul>
+    <% @orders.each do |order| %>
+      <li>Order ID: <%= link_to order.id, order %></li>
+      <li>Status: <%= order.state %></li>
+      <li>Item: <%= order.item_sku %></li>
+      <li>Amount: <%= humanized_money_with_symbol(order.amount) %></li>
+      <li>Order date: <%= order.created_at %></li>
+    <% end %>
+  </ul>
+</div>

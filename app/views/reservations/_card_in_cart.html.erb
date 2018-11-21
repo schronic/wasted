@@ -32,7 +32,7 @@
                 f.hidden_field :user, value: current_user.id
                 f.hidden_field :item_id, value: reservation.item.id
                 f.button :button, class: 'card-icon-cart' do %>
-                  <%= icon('fas', 'user-plus') %>
+                  <%= icon('fas', 'plus') %>
                 <% end
               end %>
 
@@ -44,7 +44,7 @@
                 <%= f.hidden_field :item_id, value: reservation.item.id %>
                 <%= f.hidden_field :in_cart, value: true %>
                 <%= f.button :button, class: 'card-icon-cart' do %>
-                  <%= icon('fas', 'user-minus') %>
+                  <%= icon('fas', 'minus') %>
                 <% end %>
               <% end %>
 
@@ -63,20 +63,13 @@
         <p class="item-price-cart"><%= reservation.item.price %> $ </p>
         <!-- Display stars -->
         <p class="item-quantity-cart">
-          <% reservation.item.quantity.times do %>
-            <%= icon('fas', 'star') %>
-          <% end %>
-          <% (5 - reservation.item.quantity).times do %>
-            <%= icon('far', 'star') %>
-          <% end %>
+          Available: <%= reservation.item.quantity.times %>
+
         </p>
         <!-- Display stars ends above this line -->
         <p class="item-name-cart">
           Added: <em><%= reservation.updated_at.strftime("%b %e, %l:%M %p") %></em>
         </p>
-<!--         <p>
-          <%= link_to 'Delete from cart', delete_reservation_path(reservation), method: :delete %>
-        </p> -->
       </div>
       <!-- END Card footer -->
     </div>
@@ -114,7 +107,7 @@
                 f.hidden_field :user, value: current_user.id
                 f.hidden_field :item_id, value: reservation.item.id
                 f.button :button, class: 'card-icon-cart' do %>
-                  <%= icon('fas', 'user-plus') %>
+                  <%= icon('fas', 'plus') %>
                 <% end
               end %>
 
@@ -125,7 +118,7 @@
                 <%= f.hidden_field :user, value: current_user.id %>
                 <%= f.hidden_field :item_id, value: reservation.item.id %>
                 <%= f.button :button, class: 'card-icon-cart' do %>
-                  <%= icon('fas', 'user-minus') %>
+                  <%= icon('fas', 'minus') %>
                 <% end %>
               <% end %>
 
@@ -145,18 +138,10 @@
         <p class="item-price-cart"><%= reservation.item.price %> $ </p>
         <!-- Display stars -->
         <p class="item-quantity-cart">
-          <% reservation.item.quantity.times do %>
-            <%= icon('fas', 'star') %>
-          <% end %>
-          <% (5 - reservation.item.quantity).times do %>
-            <%= icon('far', 'star') %>
-          <% end %>
+          Available: <%= reservation.item.quantity %>
         </p>
         <!-- Display stars ends above this line -->
-        <p class="item-name-cart">
-          Added: <em><%= reservation.updated_at.strftime("%b %e, %l:%M %p") %></em>
-          <%= link_to 'Delete from cart', delete_reservation_path(reservation), method: :delete %>
-        </p>
+
       </div>
       <!-- Card footer ends above this line -->
     </div>

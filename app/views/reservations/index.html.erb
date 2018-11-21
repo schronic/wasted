@@ -20,8 +20,6 @@
 
 
 
-
-
     <!-- END CHECKOUT BUTTON -->
     <!-- RESERVATIONS -->
     <div class="reservations-container">
@@ -36,7 +34,7 @@
             <%= reservation.item.name %>
           </div>
           <div class="price">
-            <%= reservation.item.price %>
+            <%= humanized_money_with_symbol(reservation.item.price) %>
           </div>
         </div>
       <% end %>
@@ -46,9 +44,9 @@
     <!-- PRICES  -->
     <div class="total-prices-container">
       <h5>Items: <%= @total_items %></h5>
-      <h5>Subtotal: $<%= @subtotal_price %></h5>
-      <h6>5% site fee: $<%= @commission %></h6>
-      <h4>Total price: $<%= @total_price %></h4>
+      <h5>Subtotal: <%= humanized_money_with_symbol(@subtotal_price) %></h5>
+      <h6>5% site fee: <%= humanized_money_with_symbol(@commission) %></h6>
+      <h4>Total price: <%= humanized_money_with_symbol(@total_price) %></h4>
     </div>
     <!-- END .prices-container -->
   </div>
