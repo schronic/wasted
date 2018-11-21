@@ -1,12 +1,8 @@
 class ItemPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      scope.where.not(user_id: user)
     end
-  end
-
-  def supplier?
-    user.role == 1
   end
 
   def show?
@@ -14,7 +10,7 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def new?
-    true
+    supplier?
   end
 
   def create?
@@ -22,7 +18,7 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def edit?
-    record.user == user
+    current_user?
   end
 
   def update?
@@ -30,6 +26,12 @@ class ItemPolicy < ApplicationPolicy
   end
 
   def destroy?
+    current_user?
+  end
+
+  private
+
+  def current_user?
     record.user == user
   end
 end

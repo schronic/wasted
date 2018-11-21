@@ -4,30 +4,33 @@ class ItemsController < ApplicationController
 
   def index
 
-    current_lat = request.location.latitude
-    current_lng = request.location.longitude
-    # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
+    @current_lat = request.location.latitude
+    @current_lng = request.location.longitude
+# @results = Geocoder.search([current_lat, current_lng]) Enable only in production
     @results = Geocoder.search([-34.587880, -58.418150])
-
     @items = policy_scope(Item).order(created_at: :desc)
 
     if params[:term]
       categories_clean = params[:term][:catg].drop(1) if params[:term][:catg]
       types_clean = params[:term][:att].drop(1) if params[:term][:att]
 
-      @items = Item.near(params[:term][:query]) if params[:term][:query].present?
+      if params[:term][:query].present?
+        @results = Geocoder.search(params[:term][:query])
+        @items = Item.near(params[:term][:query])
+      end
 
       if categories_clean.present?
         categories_clean.each do |catg|
           @items = @items.where(category: catg)
         end
       end
+
       if types_clean.present?
         types_clean.each do |types|
           @items = @items.where(food_type: types)
-
         end
       end
+
     end
   end
 

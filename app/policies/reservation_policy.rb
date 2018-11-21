@@ -1,16 +1,16 @@
 class ReservationPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.all
+      scope.where(user_id: user.id)
     end
   end
 
   def create?
-    user_role?
+    consumer?
   end
 
   def edit?
-    user_role?
+    consumer?
   end
 
   def update?
@@ -18,12 +18,10 @@ class ReservationPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user_role?
+    consumer?
   end
 
-  private
-
-  def user_role?
-    user.role == 'consumer'
+  def error?
+    true
   end
 end
