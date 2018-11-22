@@ -23,18 +23,17 @@
     <!-- END CHECKOUT BUTTON -->
     <!-- RESERVATIONS -->
     <div class="reservations-container">
+      <hr>
       <% @reservations_suppliers_with_reserved.each do |supplier| %>
-        <br>
         <%= supplier[0].name %>
+        <% supplier = supplier[1] %>
         <br>
-        <br>
-        <%= supplier[1].each do |item_name| %>
-          <%= item_name.item.name %>
+        <% supplier.each_with_index do |item_name, idx| %>
+          <%= "#{idx + 1}: #{item_name.item.name}" %>
+          <br>
         <% end %>
-
+        <hr>
       <% end %>
-----------------------
-    <hr><hr>
 <%= @reservations_suppliers_with_reserved.first[0].name %>
 <%= @reservations_suppliers_with_reserved.first[1][0].item.name %>
 <%= @reservations_suppliers_with_reserved.first[1][0].quantity %>
