@@ -1,0 +1,37 @@
+.itemized-by-supplier {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  .supplier-name {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+.reservation {
+  .quantity {
+    .plus-minus {
+      background-color: transparent;
+      font-size: 20px;
+      color: #ddd !important;
+      &:hover {
+        color: #da552f !important;
+      }
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+  .name {
+
+  }
+  .price {
+
+  }
+}
+
+
+
+
+
+

@@ -61,7 +61,9 @@ class ReservationsController < ApplicationController
   def create
     @reservation = current_user.reservations.new(reservation_params)
     authorize @reservation
-    if @reservation.save
+    if @reservation.save && params.dig(:reservation, :in_cart)
+      redirect_to cart_path
+    elsif @reservation.save
       redirect_to items_path
     else
       render html: "<h1>You received the following error:</h1>
@@ -110,6 +112,6 @@ private
   # end
 
   def reservation_params
-    params.require(:reservation).permit(:quantity)
+    params.require(:reservation).permit(:quantity, :user_id, :item_id)
   end
 end
