@@ -5,6 +5,33 @@ class ReservationsController < ApplicationController
 
   def index
     @reservations = policy_scope(Reservation).order(created_at: :desc)
+    @reservation = Reservation.new
+    authorize @reservation
+
+    # CAROUSEL: OTHER UNIQUE ITEMS BY SAME SUPPLIER
+    @same_supplier_items = []
+    @in_cart = []
+    @reservations.each do |reservation|
+      @same_supplier_items += reservation.item.user.items
+      @in_cart << reservation.item
+    end
+    @same_supplier_items -= @in_cart
+
+    # SHOPPING CART: SEPARATE ITEMS BY SELLER
+    @reservations_suppliers = []
+    @reservations.each do |reservation|
+      supplier = reservation.item.user
+      @reservations_suppliers |= [supplier]
+    end
+    @reservations_suppliers_with_reserved = @reservations_suppliers.map { |supplier|
+      [
+        supplier,
+        @reservations
+          .joins(:item)
+          .where(items: { user_id: supplier.id })
+      ]
+    }
+
     if user_signed_in?
       @purchased_item = PurchasedItem.new
       @subtotal_price = 0

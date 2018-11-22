@@ -1,27 +1,27 @@
 <!-- Iterate to create cards -->
-<% @reservations.each do |reservation| %>
+<% @same_supplier_items.each do |same_supplier_item| %>
 
   <!-- Set picture -->
-  <% if reservation.item.picture.present? %>
+  <% if same_supplier_item.picture.present? %>
     <!-- Card-cart -->
     <div class="item-cards">
-      <div class="card-body-cart" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= cl_image_path(reservation.item.picture) %>);">
+      <div class="card-body-cart" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= cl_image_path(same_supplier_item.picture) %>);">
         <!-- Everything inside the picture -->
         <div class="card-description-cart">
 
           <!-- item ID and clickable card -->
-          <%= link_to "", item_path(reservation.item), class: 'card-link-cart' %>
-          <p class="item-number-cart">ID <%= reservation.item.id %> </p>
+          <%= link_to "", item_path(same_supplier_item), class: 'card-link-cart' %>
+          <p class="item-number-cart">ID <%= same_supplier_item.id %> </p>
           <!-- END item ID and clickable card -->
 
           <!-- Clickable icons on cart -->
           <div class="card-btn-cart">
             <!-- Set item's cart status based on current user -->
             <% status = 'available' %>
-            <% @reservations.each do |reservation|
-              if reservation.user_id == current_user.id
-                status = 'reserved'
-                @reservation = reservation
+            <% @same_supplier_items.each do |same_supplier_item|
+              if same_supplier_item.user_id == current_user.id
+                status = 'in-cart'
+                @same_supplier_item = same_supplier_item
               end
             end %>
 
@@ -30,18 +30,18 @@
               <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f|
                 f.error_notification
                 f.hidden_field :user, value: current_user.id
-                f.hidden_field :item_id, value: reservation.item.id
+                f.hidden_field :item_id, value: reservation.id
                 f.button :button, class: 'card-icon-cart' do %>
                   <%= icon('fas', 'plus') %>
                 <% end
               end %>
 
             <!-- Icon to remove from cart if already in cart -->
-            <% elsif status == 'reserved' %>
+            <% elsif status == 'in-cart' %>
               <%= simple_form_for @reservation, url: @reservation, method: :patch do |f| %>
                 <%= f.error_notification %>
                 <%= f.hidden_field :user, value: current_user.id %>
-                <%= f.hidden_field :item_id, value: reservation.item.id %>
+                <%= f.hidden_field :item_id, value: reservation.id %>
                 <%= f.hidden_field :in_cart, value: true %>
                 <%= f.hidden_field :quantity, value: (reservation.quantity + 1) %>
                 <%= f.button :button, class: 'card-icon-cart' do %>
@@ -60,16 +60,16 @@
 
       <!-- Card footer -->
       <div class="card-footer-cart">
-        <p class="item-name-cart"> <%= reservation.item.name %></p>
-        <p class="item-price-cart"><%= reservation.item.price %> $ </p>
+        <p class="item-name-cart"> <%= same_supplier_item.name %></p>
+        <p class="item-price-cart"><%= same_supplier_item.price %> $ </p>
         <!-- Display stars -->
         <p class="item-quantity-cart">
-          Available: <%= reservation.item.quantity.times %>
+          Available: <%= same_supplier_item.quantity.times %>
 
         </p>
         <!-- Display stars ends above this line -->
         <p class="item-name-cart">
-          Added: <em><%= reservation.updated_at.strftime("%b %e, %l:%M %p") %></em>
+          Added: <em><%= same_supplier_item.updated_at.strftime("%b %e, %l:%M %p") %></em>
         </p>
       </div>
       <!-- END Card footer -->
@@ -86,18 +86,18 @@
         <div class="card-description-cart">
 
           <!-- item ID and clickable card -->
-          <%= link_to "", item_path(reservation.item), class: 'card-link-cart' %>
-          <p class="item-number-cart">ID <%= reservation.item.id %> </p>
+          <%= link_to "", item_path(same_supplier_item), class: 'card-link-cart' %>
+          <p class="item-number-cart">ID <%= same_supplier_item.id %> </p>
           <!-- END item ID and clickable card -->
 
           <!-- Clickable icons on cart -->
           <div class="card-btn-cart">
             <!-- Set item's cart status based on current user -->
             <% status = 'available' %>
-            <% @reservations.each do |reservation|
-              if reservation.user_id == current_user.id
-                status = 'reserved'
-                @reservation = reservation
+            <% @same_supplier_items.each do |same_supplier_item|
+              if same_supplier_item.user_id == current_user.id
+                status = 'in-cart'
+                @same_supplier_item = same_supplier_item
               end
             end %>
 
@@ -106,18 +106,18 @@
               <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f|
                 f.error_notification
                 f.hidden_field :user, value: current_user.id
-                f.hidden_field :item_id, value: reservation.item.id
+                f.hidden_field :item_id, value: same_supplier_item.id
                 f.button :button, class: 'card-icon-cart' do %>
                   <%= icon('fas', 'plus') %>
                 <% end
               end %>
 
             <!-- Icon to remove from cart if already in cart -->
-            <% elsif status == 'reserved' %>
-              <%= simple_form_for @reservation, url: reservation_path(@reservation), method: :delete do |f| %>
+            <% elsif status == 'in-cart' %>
+              <%= simple_form_for @reservation, url: reservation_path(same_supplier_item), method: :delete do |f| %>
                 <%= f.error_notification %>
                 <%= f.hidden_field :user, value: current_user.id %>
-                <%= f.hidden_field :item_id, value: reservation.item.id %>
+                <%= f.hidden_field :item_id, value: same_supplier_item.id %>
                 <%= f.button :button, class: 'card-icon-cart' do %>
                   <%= icon('fas', 'minus') %>
                 <% end %>
@@ -135,13 +135,13 @@
 
       <!-- Card footer -->
       <div class="card-footer-cart">
-        <p> Total items by seller: <%= reservation.item.user.items.size %></p>
-        <p>Random item by seller: <%= reservation.item.user.items.sample.name %></p>
+        <p> Total items by seller: <%= @same_supplier_items.sample.user.items.size %></p>
+        <p>Random item by seller <%= same_supplier_item.user.name %>: <%= @same_supplier_items.sample.name %></p>
 
-        <p class="item-price-cart"><%= humanized_money_with_symbol(reservation.item.price) %> </p>
+        <p class="item-price-cart"><%= humanized_money_with_symbol(same_supplier_item.price) %> </p>
         <!-- Display stars -->
         <p class="item-quantity-cart">
-          Available: <%= reservation.item.quantity %>
+          Available: <%= same_supplier_item.quantity %>
         </p>
         <!-- Display stars ends above this line -->
       </div>
