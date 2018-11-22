@@ -17,7 +17,7 @@
   }
   .shopping-cart-container {
   flex: 0 0 400px;
-  height: 100vh;
+  min-height: 100vh;
   position: sticky !important;
   padding-top: 10px;
   top: 0;
