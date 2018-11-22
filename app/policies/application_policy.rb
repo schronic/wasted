@@ -53,5 +53,17 @@ class ApplicationPolicy
     def resolve
       scope.all
     end
+
+    def user_logged_in?
+      user
+    end
+
+    def supplier?
+      user.role == 'supplier' || user.role == 'both'
+    end
+
+    def consumer?
+      user.role == 'consumer' || user.role == 'both'
+    end
   end
 end
