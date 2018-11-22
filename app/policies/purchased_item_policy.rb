@@ -1,4 +1,4 @@
-class PurchasePolicy < ApplicationPolicy
+class PurchasedItemPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope.where(user_id: current_user.id)

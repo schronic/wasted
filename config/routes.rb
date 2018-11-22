@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :items
   resources :purchases, only: %i[create new index show]
 
+  get    '/home',          to: 'pages#home',  as: 'home'
   get    '/cart',          to: 'reservations#index',  as: 'cart'
   post   '/cart',          to: 'reservations#create', as: 'create_reservation'
   get    '/cart/:id',      to: 'reservations#show',   as: 'reservation'
