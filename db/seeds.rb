@@ -54,7 +54,7 @@ end
 puts "Finished creating 6 users (2 suppliers, 2 consumers, 2 both)"
 puts "Creating new items..."
 @items = []
-5.times do
+10.times do
   item1 = Item.new({
     name: Faker::Food.dish,
     description: Faker::Food.description,
@@ -69,7 +69,7 @@ puts "Creating new items..."
     latitude: Faker::Address.latitude,
     longitude: Faker::Address.longitude
   })
-  # item1.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
+  item1.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
   item1.save!
 
   item2 = Item.new({
@@ -86,7 +86,7 @@ puts "Creating new items..."
     latitude: Faker::Address.latitude,
     longitude: Faker::Address.longitude
   })
-  # item2.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
+  item2.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
   item2.save!
 
   @items << item1 << item2
