@@ -6,19 +6,6 @@
 @import "banner";
 @import "home";
 @import "button";
-
-.filter-body {
-  height: auto;
-}
-
-.filter-modal {
-    display: flex;
-    width: 100%;
-    flex: 0 0 50%;
-}
-
-.filter, .search {
-  height: 30px;
-  width: auto;
-}
+@import "map_window";
+@import "filter";
 

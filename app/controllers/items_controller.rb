@@ -2,13 +2,13 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :destroy, :edit, :update]
   skip_before_action :authenticate_user!, only: %i[index show]
 
+# @results = Geocoder.search([current_lat, current_lng]) Enable only in production
+
   def index
     @current_lat = request.location.latitude
     @current_lng = request.location.longitude
-# @results = Geocoder.search([current_lat, current_lng]) Enable only in production
     @results = Geocoder.search([-34.587880, -58.418150])
     @items = policy_scope(Item).order(created_at: :desc)
-
 
     @items.each do |item|
       item.update(distance: Geocoder::Calculations.distance_between([-34.587880, -34.587880], ([item.latitude, item.longitude])).round(2))
@@ -43,7 +43,8 @@ class ItemsController < ApplicationController
     @markers = @items.map do |item|
       {
         lng: item.longitude,
-        lat: item.latitude
+        lat: item.latitude,
+        infoWindow: { content: render_to_string(partial: "/items/map_window", locals: { item: item }) }
       }
     end
   end
