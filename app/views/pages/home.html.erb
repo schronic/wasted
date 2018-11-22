@@ -48,13 +48,11 @@
   </div>
 </div>
 
-
 <div class="container carousel-pictures">
   <div class="row">
     <h1 style="text-transform: uppercase; font-weight: bold;">Get inspired</h1>
     <div class="col-xs-10 col-md-10 col-centered">
       <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="2500">
-
         <div class="carousel-inner">
           <% @items.each_with_index do |item, index| %>
           <div class="item <%= 'active' if index == 0 %>">
@@ -66,7 +64,7 @@
           </div>
           <% end %>
         </div>
-
+        
         <!-- Controls -->
         <div class="left carousel-control">
           <a href="#carousel" role="button" data-slide="prev">
@@ -81,7 +79,6 @@
           </a>
         </div>
       </div>
-
     </div>
   </div>
 </div>

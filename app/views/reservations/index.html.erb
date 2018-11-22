@@ -10,89 +10,14 @@
 
   <!-- SHOPPING CART -->
   <div class="shopping-cart-container">
-    <!-- CHECKOUT BUTTON -->
-
-
-
-    <!-- FORM to send params -->
+    <!-- CHECKOUT FORM to send params -->
     <%= link_to "Buy now", purchased_items_path(amount_cents: @amount_cents, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout' %>
-    <!-- END FORM to send params -->
+    <!-- END CHECKOUT FORM to send params -->
 
-
-
-    <!-- END CHECKOUT BUTTON -->
     <!-- RESERVATIONS -->
-    <div class="reservations-container">
-      <% @reservations_suppliers_with_reserved.each do |supplier| %>
-        <br>
-        <%= supplier[0].name %>
-        <br>
-        <br>
-        <%= supplier[1].each do |item_name| %>
-          <%= item_name.item.name %>
-        <% end %>
-
-      <% end %>
-----------------------
-    <hr><hr>
-<%= @reservations_suppliers_with_reserved.first[0].name %>
-<%= @reservations_suppliers_with_reserved.first[1][0].item.name %>
-<%= @reservations_suppliers_with_reserved.first[1][0].quantity %>
-
-
-      <% @reservations.each do |reservation| %>
-        <div class="reservation">
-          <div class="quantity">
-
-            <% if reservation.quantity > 1 %>
-              <%= simple_form_for @reservation, url: reservation, method: :patch do |f| %>
-                <%= f.error_notification %>
-                <%= f.hidden_field :in_cart, value: true %>
-                <%= f.hidden_field :quantity, value: reservation.quantity - 1 %>
-                   <%= f.button :button, class: 'card-icon-cart' do %>
-                  <%= icon('fas', 'minus') %>
-                <% end %>
-              <% end %>
-            <% elsif reservation.quantity == 1 %>
-              <%= simple_form_for @reservation, url: reservation, method: :delete do |f| %>
-                <%= f.error_notification %>
-                <%= f.hidden_field :in_cart, value: true %>
-                <%= f.button :button, class: 'card-icon-cart' do %>
-                  <%= icon('fas', 'minus') %>
-                <% end %>
-              <% end %>
-            <% end %>
-
-            <%= reservation.quantity %>
-
-            <% if reservation.quantity < reservation.item.quantity %>
-              <%= simple_form_for @reservation, url: reservation, method: :patch do |f| %>
-                <%= f.error_notification %>
-                <%= f.hidden_field :in_cart, value: true %>
-                <%= f.hidden_field :quantity, value: reservation.quantity + 1 %>
-                   <%= f.button :button, class: 'card-icon-cart' do %>
-                  <%= icon('fas', 'plus') %>
-                <% end %>
-              <% end %>
-            <% else %>
-              <div>
-                <%= icon('fas', 'plus') %>
-              </div>
-            <% end %>
-
-
-          </div>
-          <div class="name">
-            <%= reservation.item.name %>
-          </div>
-          <div class="price">
-            <%= humanized_money_with_symbol(reservation.item.price) %>
-          </div>
-        </div>
-      <% end %>
-    </div>
+    <%= render 'itemized_reservations' %>
     <!-- END RESERVATIONS -->
-    <hr>
+
     <!-- PRICES  -->
     <div class="total-prices-container">
       <h5>Items: <%= @total_items %></h5>
@@ -100,7 +25,7 @@
       <h6>5% site fee: <%= humanized_money_with_symbol(@commission) %></h6>
       <h4>Total price: <%= humanized_money_with_symbol(@total_price) %></h4>
     </div>
-    <!-- END .prices-container -->
+    <!-- END PRICES -->
   </div>
   <!-- END SHOPPING CART -->
 
