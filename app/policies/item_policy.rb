@@ -8,10 +8,6 @@ class ItemPolicy < ApplicationPolicy
         scope.all
       end
     end
-
-    def user_logged_in?
-      user
-    end
   end
 
   def show?
