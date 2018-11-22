@@ -7,13 +7,17 @@ class ReservationsController < ApplicationController
     @reservations = policy_scope(Reservation).order(created_at: :desc)
     if user_signed_in?
       @purchased_item = PurchasedItem.new
-      # raise
+      @subtotal_price = 0
       @total_price = 0
       @total_items = 0
       @reservations.each do |reservation|
-        @total_price += reservation.item.price
-        @total_items += 1
+        @subtotal_price += reservation.item.price * reservation.quantity
+        @total_items += reservation.quantity
       end
+      percent = 0.05
+      @commission = @subtotal_price * percent
+      @total_price = @subtotal_price * (1 + percent)
+      @amount_cents = @total_price * 100
     else
       redirect_to reservations_error_path
     end
@@ -43,8 +47,11 @@ class ReservationsController < ApplicationController
 
   def update
     @reservation.update(reservation_params)
-    if @reservation.save
-      redirect_to @reservation
+    authorize @reservation
+    if @reservation.save && params.dig(:reservation, :in_cart)
+      redirect_to cart_path
+    elsif @reservation.save
+      redirect_to items_path
     else render :edit
     end
   end
@@ -76,6 +83,6 @@ private
   # end
 
   def reservation_params
-    params.require(:reservation).permit(:item_id, :user_id)
+    params.require(:reservation).permit(:quantity)
   end
 end
