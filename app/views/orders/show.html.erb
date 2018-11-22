@@ -1,11 +1,13 @@
 <div class="container">
 
   <h1>Order #<%= @order.id %></h1>
+  <ul>
     <li>Status: <%= @order.state %></li>
     <li>Amount (incl. fee): <%= humanized_money_with_symbol(@order.amount) %></li>
     <li>Order date: <%= @order.created_at.strftime("%b %e, %l:%M %p") %></li>
     <li>Distinct items in order: <%= @order.purchased_items.size %></li>
-    <br>
+  </ul>
+  <br>
 
   <% @order.purchased_items.each do |purchased_item| %>
 
@@ -18,8 +20,8 @@
       <li>Description: <%= purchased_item.item_purchase_description %></li>
       <li>Item expiration: <%= purchased_item.item_purchase_expiration.strftime("%b %e, %l:%M %p") %></li>
       <li>Item pickup time: <%= purchased_item.item_purchase_pickup_time.strftime("%b %e, %l:%M %p") %></li>
-      <br>
-      </ul>
+    </ul>
+    <br>
   <% end %>
 
   <%= link_to 'All orders', orders_path %>

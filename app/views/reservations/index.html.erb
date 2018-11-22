@@ -26,9 +26,44 @@
       <% @reservations.each do |reservation| %>
         <div class="reservation">
           <div class="quantity">
-            <%= icon('fas', 'minus') %>
+
+            <% if reservation.quantity > 1 %>
+              <%= simple_form_for @reservation, url: reservation, method: :patch do |f| %>
+                <%= f.error_notification %>
+                <%= f.hidden_field :in_cart, value: true %>
+                <%= f.hidden_field :quantity, value: reservation.quantity - 1 %>
+                   <%= f.button :button, class: 'card-icon-cart' do %>
+                  <%= icon('fas', 'minus') %>
+                <% end %>
+              <% end %>
+            <% elsif reservation.quantity == 1 %>
+              <%= simple_form_for @reservation, url: reservation, method: :delete do |f| %>
+                <%= f.error_notification %>
+                <%= f.hidden_field :in_cart, value: true %>
+                <%= f.button :button, class: 'card-icon-cart' do %>
+                  <%= icon('fas', 'minus') %>
+                <% end %>
+              <% end %>
+            <% end %>
+
             <%= reservation.quantity %>
-            <%= icon('fas', 'plus') %>
+
+            <% if reservation.quantity < reservation.item.quantity %>
+              <%= simple_form_for @reservation, url: reservation, method: :patch do |f| %>
+                <%= f.error_notification %>
+                <%= f.hidden_field :in_cart, value: true %>
+                <%= f.hidden_field :quantity, value: reservation.quantity + 1 %>
+                   <%= f.button :button, class: 'card-icon-cart' do %>
+                  <%= icon('fas', 'plus') %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <div>
+                <%= icon('fas', 'plus') %>
+              </div>
+            <% end %>
+
+
           </div>
           <div class="name">
             <%= reservation.item.name %>
