@@ -1,10 +1,9 @@
 .footer {
   background-color: $wasted-black;
   color: white;
-  position: absolute;
-  bottom: 0;
-  height: 300px;
-  width: 100%;
+  bottom: 0 !important;
+  height: 300px !important;
+  width: 100% !important;
 }
 .footer-content {
   height: 300px;
@@ -23,7 +22,6 @@
   }
   a:hover {
     text-decoration: none;
-
   }
 }
 
