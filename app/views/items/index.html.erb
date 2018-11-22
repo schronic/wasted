@@ -21,7 +21,6 @@
     <% end %>
   </div>
 
-
   <div class="row">
     <% @items.each do |item| %>
     <div class="col-xs-12 col-sm-4 col-md-4 content">
@@ -31,28 +30,18 @@
   </div>
 </div>
 
-
-
 <div class="container">
   <div class="row">
     <div class="col-xs-11 col-md-10 col-centered">
       <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="2500">
 
-
-
-
-<div class="container">
-  <div class="row">
-    <div class="col-xs-11 col-md-10 col-centered">
-      <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi">
-
         <div class="carousel-inner">
-          <%= @items.each_with_index do |item, index| %>
+          <% @items.each_with_index do |item, index| %>
           <div class="item <%= 'active' if index == 0 %>">
             <div class="carousel-col">
               <div class="img-responsive">
-              <%= render 'shared/card', item: item %>
-            </div>
+                <%= render 'shared/card', item: item %>
+              </div>
             </div>
           </div>
           <% end %>
