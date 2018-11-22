@@ -1,10 +1,9 @@
 .caps {
   text-transform: uppercase;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
-
 
 .cfhome{
   background-color: #221F1F;
@@ -21,4 +20,11 @@
   }
 }
 
+.carousel-pictures{
+  padding: 80px 0px 120px 0px;
+}
 
+/*sm*/
+@media (min-width: 368px) and (max-width: 991px) {
+  .home-two {  margin-top: 120px; }
+}
