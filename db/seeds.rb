@@ -54,12 +54,12 @@ end
 puts "Finished creating 6 users (2 suppliers, 2 consumers, 2 both)"
 puts "Creating new items..."
 @items = []
-5.times do
+10.times do
   item1 = Item.new({
     name: Faker::Food.dish,
     description: Faker::Food.description,
     expiration: Faker::Date.between(2.days.ago, Date.today),
-    price: rand(1..5),
+    price: rand(3..5),
     pickup_time: Faker::Date.between(1.day.from_now, 3.days.from_now),
     quantity: rand(1..5),
     user: @suppliers.sample,
@@ -69,14 +69,14 @@ puts "Creating new items..."
     latitude: Faker::Address.latitude,
     longitude: Faker::Address.longitude
   })
-  # item1.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
+  item1.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
   item1.save!
 
   item2 = Item.new({
     name: Faker::Food.dish,
     description: Faker::Food.description,
     expiration: Faker::Date.between(2.days.ago, Date.today),
-    price: rand(1..5),
+    price: rand(3..5),
     pickup_time: Faker::Date.between(1.day.from_now, 3.days.from_now),
     quantity: rand(1..5),
     user: @boths.sample,
@@ -86,20 +86,20 @@ puts "Creating new items..."
     latitude: Faker::Address.latitude,
     longitude: Faker::Address.longitude
   })
-  # item2.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
+  item2.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
   item2.save!
 
   @items << item1 << item2
   item = @items.sample
 
   @reservations = []
-  rand(1..3).times do
-    reservation1 = Reservation.create!({
+  rand(4..10).times do
+    reservation1 = Reservation.create({
       item: item,
       user: @consumers.sample,
-
+      quantity: rand(1..3)
     })
-    reservation2 = Reservation.create!(
+    reservation2 = Reservation.create(
       item: item,
       user: @boths.sample,
       quantity: rand(1..3)
@@ -136,7 +136,7 @@ puts "Creating new items..."
 
         @reservations.each do |reservation|
           reservation.purchased_item = @purchased_items.sample
-          reservation.save!
+          reservation.save
         end
       end
     end

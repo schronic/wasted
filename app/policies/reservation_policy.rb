@@ -5,6 +5,10 @@ class ReservationPolicy < ApplicationPolicy
     end
   end
 
+  def index?
+    consumer?
+  end
+
   def create?
     consumer?
   end
