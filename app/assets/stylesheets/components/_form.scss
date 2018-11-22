@@ -1,0 +1,33 @@
+.form-group {
+  width: 100%;
+  margin: 0 !important;
+  padding: 0;
+}
+
+.input-bar {
+  font-family: "Montserrat";
+  -webkit-appearance: none;
+  border:none;
+  border-radius:0;
+  box-shadow: none;
+  background: none;
+  border-bottom: 1px solid black;
+  padding: 0 0 0 10px;
+  button {
+   border: none;
+ }
+ input {
+   border: 0;
+   box-shadow: none;
+ }
+ &:focus {
+  outline: 0;
+  border-bottom: 1px solid black;
+  box-shadow: none;
+}
+&:active{
+  outline: 0;
+  box-shadow: none;
+  border-bottom: 1px solid black;
+  }
+}

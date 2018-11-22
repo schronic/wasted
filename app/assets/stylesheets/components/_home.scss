@@ -12,15 +12,39 @@
 }
 
 .home-two{
-  padding: 120px 0px;
+  padding: 100px 0px 120px;
   .image{
-    border-radius: 40px;
     width: 80px;
     height: 80px;
   }
+}
+
+.whatever {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1em 0 1em 0
 }
 
 .carousel-pictures{
   padding: 80px 0px 120px 0px;
 }
 
+@media (max-width: 767px) {
+
+
+.whatever {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.caps1{
+  margin-bottom: 30px;
+}
+
+}
+
+@media (min-width: 768px) and (max-width: 991px) {}
