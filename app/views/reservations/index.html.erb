@@ -1,35 +1,108 @@
-<div class="container-fluid">
-  <div>
+<div class="main-container">
 
-  </div>
-  <div class="row">
-    <!-- CARDS -->
-    <div class="col-xs-12 col-md-8">
-      <div class="card-holder">
-        <%= render 'card_in_cart' %>
-      </div>
+  <!-- CAROUSELS CONTAINER -->
+  <div class="carousels-container">
+    <div class="card-holder">
+      <%= render 'card_in_cart' %>
     </div>
-    <!-- BOOKING -->
-    <div class="col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-0">
-      <div class="cards-container">
+  </div>
+  <!-- END CAROUSELS CONTAINER -->
+
+  <!-- SHOPPING CART -->
+  <div class="shopping-cart-container">
+    <!-- CHECKOUT BUTTON -->
 
 
-      <div id="buy-container" class="text-center">
-        <div id="buy-box">
-          <h3 id="total">Total: <%= @total_price %>$</h3>
-          <h4 id="total">Items: <%= @total_items %></h4>
-          <%= simple_form_for @purchased_item, url: purchased_items_path, method: :post do |f| %>
-          <%= f.error_notification %>
-          <%= f.hidden_field :total_price, value: @total_price %>
-          <%= f.hidden_field :user_id, value: current_user.id %>
-          <%= f.hidden_field :reservation, value: @reservations%>
-          <div id="description-button">
-            <%= f.button :submit, 'Buy now', class: 'btn btn-danger btn-lg' %>
+
+    <!-- FORM to send params -->
+    <%= link_to "Buy now", purchased_items_path(amount_cents: @amount_cents, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout' %>
+    <!-- END FORM to send params -->
+
+
+
+    <!-- END CHECKOUT BUTTON -->
+    <!-- RESERVATIONS -->
+    <div class="reservations-container">
+      <% @reservations_suppliers_with_reserved.each do |supplier| %>
+        <br>
+        <%= supplier[0].name %>
+        <br>
+        <br>
+        <%= supplier[1].each do |item_name| %>
+          <%= item_name.item.name %>
+        <% end %>
+
+      <% end %>
+----------------------
+    <hr><hr>
+<%= @reservations_suppliers_with_reserved.first[0].name %>
+<%= @reservations_suppliers_with_reserved.first[1][0].item.name %>
+<%= @reservations_suppliers_with_reserved.first[1][0].quantity %>
+
+
+      <% @reservations.each do |reservation| %>
+        <div class="reservation">
+          <div class="quantity">
+
+            <% if reservation.quantity > 1 %>
+              <%= simple_form_for @reservation, url: reservation, method: :patch do |f| %>
+                <%= f.error_notification %>
+                <%= f.hidden_field :in_cart, value: true %>
+                <%= f.hidden_field :quantity, value: reservation.quantity - 1 %>
+                   <%= f.button :button, class: 'card-icon-cart' do %>
+                  <%= icon('fas', 'minus') %>
+                <% end %>
+              <% end %>
+            <% elsif reservation.quantity == 1 %>
+              <%= simple_form_for @reservation, url: reservation, method: :delete do |f| %>
+                <%= f.error_notification %>
+                <%= f.hidden_field :in_cart, value: true %>
+                <%= f.button :button, class: 'card-icon-cart' do %>
+                  <%= icon('fas', 'minus') %>
+                <% end %>
+              <% end %>
+            <% end %>
+
+            <%= reservation.quantity %>
+
+            <% if reservation.quantity < reservation.item.quantity %>
+              <%= simple_form_for @reservation, url: reservation, method: :patch do |f| %>
+                <%= f.error_notification %>
+                <%= f.hidden_field :in_cart, value: true %>
+                <%= f.hidden_field :quantity, value: reservation.quantity + 1 %>
+                   <%= f.button :button, class: 'card-icon-cart' do %>
+                  <%= icon('fas', 'plus') %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <div>
+                <%= icon('fas', 'plus') %>
+              </div>
+            <% end %>
+
+
           </div>
-          <% end %>
+          <div class="name">
+            <%= reservation.item.name %>
+          </div>
+          <div class="price">
+            <%= humanized_money_with_symbol(reservation.item.price) %>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
-      </div>
+    <!-- END RESERVATIONS -->
+    <hr>
+    <!-- PRICES  -->
+    <div class="total-prices-container">
+      <h5>Items: <%= @total_items %></h5>
+      <h5>Subtotal: <%= humanized_money_with_symbol(@subtotal_price) %></h5>
+      <h6>5% site fee: <%= humanized_money_with_symbol(@commission) %></h6>
+      <h4>Total price: <%= humanized_money_with_symbol(@total_price) %></h4>
+    </div>
+    <!-- END .prices-container -->
   </div>
+  <!-- END SHOPPING CART -->
+
 </div>
+<!-- END .main-container -->
