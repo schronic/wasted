@@ -9,3 +9,18 @@
   color: white;
   text-decoration: none;
 }
+
+.button-banner{
+  border-radius: 6px;
+  border: 2px solid white;
+  background-color: rgba(152,152,152,.7);
+  shadow: 1px 1px rgba(0, 0, 0, 0.7);
+  padding: 8px 20px;
+  font-size: 20px;
+  color: white;
+}
+
+.button-banner:hover{
+  background-color: rgb(152,152,152);
+  border: 1px solid #989898;
+}
