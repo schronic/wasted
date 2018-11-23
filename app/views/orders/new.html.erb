@@ -4,7 +4,9 @@
 
   <ul>
     <li>Status: <%= @order.state %></li>
-    <li>Amount (incl. fee): <%= humanized_money_with_symbol(@order.amount) %></li>
+    <li>Amount (incl. fee):
+      <%= humanized_money_with_symbol(@order.amount) %>
+    </li>
     <li>Order date: <%= @order.created_at.strftime("%b %e, %l:%M %p") %></li>
     <li>Distinct items in order: <%= @order.purchased_items.size %></li>
   </ul>

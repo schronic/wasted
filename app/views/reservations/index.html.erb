@@ -11,7 +11,7 @@
   <!-- SHOPPING CART -->
   <div class="shopping-cart-container">
     <!-- CHECKOUT FORM to send params -->
-    <%= link_to "Buy now", purchased_items_path(amount_cents: @amount_cents, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout' %>
+    <%= link_to "Checkout", purchased_items_path(amount: @total_price, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout' %>
     <!-- END CHECKOUT FORM to send params -->
 
     <!-- RESERVATIONS -->
