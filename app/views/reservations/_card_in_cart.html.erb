@@ -39,7 +39,7 @@
                 <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f|
                   f.error_notification
                   f.hidden_field :user, value: current_user.id
-                  f.hidden_field :item_id, value: reservation.id
+                  f.hidden_field :item_id, value: @reservation.id
                   f.button :button, class: 'card-icon-cart' do %>
                   <%= icon('fas', 'plus') %>
                   <% end
@@ -50,7 +50,7 @@
                   <%= simple_form_for @reservation, url: @reservation, method: :patch do |f| %>
                   <%= f.error_notification %>
                   <%= f.hidden_field :user, value: current_user.id %>
-                  <%= f.hidden_field :item_id, value: reservation.id %>
+                  <%= f.hidden_field :item_id, value: @reservation.id %>
                   <%= f.hidden_field :in_cart, value: true %>
                   <%= f.hidden_field :quantity, value: (reservation.quantity + 1) %>
                   <%= f.button :button, class: 'card-icon-cart' do %>
