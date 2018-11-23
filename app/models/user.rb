@@ -23,4 +23,20 @@ class User < ApplicationRecord
   def subscribe_to_newsletter
     SubscribeToNewsletterService.new(self).call if self.subscribed
   end
+
+
+  def items_rescued
+    self.orders.map { |order| order.purchased_items.count }.sum
+  end
+
+  def money_saved
+    self.orders.map do |order|
+      order.purchased_items.map { |item| item.item_purchase_price }.sum
+    end.sum
+  end
+
+  def food_rescued
+   0.25*(self.orders.map { |order| order.purchased_items.count }.sum)
+  end
+
 end
