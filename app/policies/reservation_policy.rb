@@ -1,8 +1,16 @@
 class ReservationPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      scope.where(user_id: user.id)
+      if consumer?
+        scope.where(user_id: user.id)
+      else
+        false
+      end
     end
+  end
+
+  def index?
+    consumer?
   end
 
   def create?

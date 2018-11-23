@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  get 'users/show'
-  root to: 'items#index'
+  root to: 'pages#home'
   devise_for :users
 
   resources :items
   resources :purchases, only: %i[create new index show]
 
+  get    '/home',          to: 'pages#home',  as: 'home'
   get    '/cart',          to: 'reservations#index',  as: 'cart'
   post   '/cart',          to: 'reservations#create', as: 'create_reservation'
   get    '/cart/:id',      to: 'reservations#show',   as: 'reservation'

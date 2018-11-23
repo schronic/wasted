@@ -1,6 +1,6 @@
 <div class="navbar-wagon">
   <!-- Logo -->
-  <%= link_to root_path, class: "navbar-wagon-brand" do %>
+  <%= link_to items_path, class: "navbar-wagon-brand" do %>
     <%= "waste'd" %>
   <% end %>
 
@@ -11,15 +11,18 @@
 
       <!-- Links when logged in -->
 
-      <%= link_to "Why us?", "#", class: "navbar-wagon-item navbar-wagon-link underline-black" %>
-      <%= link_to "Discover", "#", class: "navbar-wagon-item navbar-wagon-link underline-black" %>
+      <%= link_to "Why us", home_path, class: "navbar-wagon-item navbar-wagon-link underline-black" %>
       <%= link_to "Connect", "#", class: "navbar-wagon-item navbar-wagon-link underline-black" %>
-      <%= link_to "Upload", new_item_path , class: "navbar-wagon-item navbar-wagon-link underline-black" %>
+      <%= link_to "Discover", items_path, class: "navbar-wagon-item navbar-wagon-link underline-black" %>
+      <% if policy(Item).create? %>
+        <%= link_to "Upload", new_item_path , class: "navbar-wagon-item navbar-wagon-link underline-black" %>
+
+      <% end %>
 
       <!-- Avatar with dropdown menu -->
       <div class="navbar-wagon-item">
         <div class="dropdown">
-          <%= image_tag "http://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" %>
+          <%= cl_image_tag(current_user.avatar, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" ) %>
           <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
             <li>
               <%= link_to "#" do %>
@@ -41,9 +44,10 @@
       </div>
     <% else %>
       <!-- Login link (when logged out) -->
-      <%= link_to "Why us?", "#", class: "navbar-wagon-item navbar-wagon-link underline-black" %>
-      <%= link_to "Discover", "#", class: "navbar-wagon-item navbar-wagon-link underline-black" %>
+
+      <%= link_to "Why us", home_path, class: "navbar-wagon-item navbar-wagon-link underline-black" %>
       <%= link_to "Connect", "#", class: "navbar-wagon-item navbar-wagon-link underline-black" %>
+      <%= link_to "Discover", items_path, class: "navbar-wagon-item navbar-wagon-link underline-black" %>
       <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link underline-black" %>
     <% end %>
   </div>
@@ -58,10 +62,12 @@
       <div class="dropdown">
         <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
         <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
-          <li><%= link_to "Why us?", "#" %></li>
+          <li><%= link_to "Why us", home_path %></li>
           <li><%= link_to "Discover", "#"  %></li>
-          <li><%= link_to "Other one", "#" %></li>
-          <li><%= link_to "Upload", new_item_path %></li>
+          <% if policy(Item).create? %>
+            <li><%= link_to "Upload", new_item_path %></li>
+          <% end %>
+
           <li><%= link_to "Settings", new_item_path %></li>
           <li>
             <%= link_to destroy_user_session_path, method: :delete do %>
@@ -81,9 +87,10 @@
     <div class="dropdown">
       <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
       <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
-        <li><%= link_to "Why us?", "#" %></li>
+        <li><%= link_to "Why us", home_path %></li>
         <li><%= link_to "Discover", "#"  %></li>
         <li><%= link_to "Other one", "#" %></li>
+        <li><%= link_to "Discover", items_path %></li>
         <li>
           <%= link_to new_user_session_path, method: :get do %>
             <i class="fa fa-sign-in-alt"></i>  <%= t(".sign_in", default: "Sign in") %>

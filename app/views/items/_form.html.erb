@@ -1,27 +1,33 @@
 <%= simple_form_for item do |f| %>
-  <%= f.error_notification %>
-  <%= f.input :name %>
-  <%= f.input :description %>
-  <%= f.input :address %>
-  <%= f.input :category, collection: Item::CATEGORY %>
-  <%= f.input :food_type, collection: Item::TYPES %>
-  <div class='input-group date' id='datetimepicker1'>
-    <%= f.input :expiration, class: "form-control" %>
-    <span class="input-group-addon">
-      <span class="glyphicon glyphicon-calendar"></span>
-    </span>
-  </div>
-    <div class='input-group date' id='datetimepicker1'>
-    <%= f.input :pickup_time, class: "form-control" %>
-    <span class="input-group-addon">
-    <span class="glyphicon glyphicon-calendar"></span>
-    </span>
-  </div>
+<%= f.error_notification %>
+
+<div class="container">
+   <div class="col-md-8 col-md-offset-2">
+  <h3>Add Food</h3>
+  <div><%= f.input :name, input_html: { class: "input-bar"} %></div>
+  <div><%= f.input :description, input_html: { class: "input-bar"} %></div>
+  <div><%= f.input :address, input_html: { class: "input-bar"} %></div>
+  <div><%= f.input :category, input_html: { class: "input-bar"}, collection: Item::CATEGORY %></div>
+  <div><%= f.input :food_type, input_html: { class: "input-bar"}, collection: Item::TYPES %></div>
+
+  <div><%= f.input :expiration, as: :string, class: "datepicker" %></div>
+
+
+  <div><%= f.input :pickup_time, as: :string, class: "datepicker" %></div>
+
   <%= f.input :picture %>
   <%= f.input :picture_cache, as: :hidden %>
-  <%= f.input :price %>
-  <%= f.input :quantity %>
-  <%= f.button :submit  %>
-<% end %>
+  <div class="row">
+    <div class="col-md-6">
+      <div><%= f.input :price, input_html: { class: "input-bar"} %></div>
+    </div>
+    <div class="col-md-6">
+      <div><%= f.input :quantity, input_html: { class: "input-bar"} %></div>
+    </div>
+  </div>
+  <div style="margin:20px;"><%= f.button :submit  %></div>
+  <% end %>
+</div>
+</div>
 
 

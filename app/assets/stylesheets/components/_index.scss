@@ -3,8 +3,26 @@
 @import "navbar";
 @import "footer";
 @import "card";
+@import "banner";
+@import "home";
+@import "button";
+@import "form";
+@import "card_in_cart";
+@import "itemized_reservations";
+
 
 .filter-body {
-  height: 2000px;
+  height: auto;
+}
+
+.filter-modal {
+    display: flex;
+    width: 100%;
+    flex: 0 0 50%;
+}
+
+.filter, .search {
+  height: 30px;
+  width: auto;
 }
 

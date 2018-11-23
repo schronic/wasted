@@ -1,0 +1,71 @@
+.main-container {
+  display: flex;
+  width: 100vw;
+  justify-content: space-between;
+  hr {
+      text-align: center;
+      display: block;
+      height: 0;
+      width: 80%;
+      border: 0;
+      border-top: 2px solid #ccc;
+      margin: 1em 0;
+      padding: 0;
+  }
+  .carousels-container {
+    flex: 1 1 auto;
+    padding: 10px;
+    .card-holder {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      .card-cart {
+        min-width: 250px;
+        max-width: 300px;
+        margin: 0 10px;
+        // margin: 10px;
+        p {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+  }
+  .shopping-cart-container {
+  flex: 0 0 400px;
+  height: 100vh;
+  position: sticky !important;
+  padding-top: 10px;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+    .btn-checkout {
+    }
+    .reservations-container {
+      padding: 10px 0;
+      .reservation {
+        display: flex;
+        justify-content: flex-start;
+        min-width: 300px;
+        padding: 5px 0;
+        .quantity {
+          flex: 0 0 60px;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+        }
+        .name {
+          flex: 1 1 auto;
+          padding: 0 15px;
+        }
+        .price {
+          flex: 0 0 50px;
+          margin-left: auto;
+        }
+      }
+    }
+  }
+}
+

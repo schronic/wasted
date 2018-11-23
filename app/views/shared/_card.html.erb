@@ -1,116 +1,88 @@
-<div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= item.picture %>); margin-top: 10px;">
-  <div class="card-description">
-    <h2><%= item.name %></h2>
-  </div>
-  <div class="add" data-toggle="modal" data-target="#myModal-<%= item.id %>">
-    <i class="fas fa-plus"></i>
-  </div>
-</div>
+<div  data-toggle="modal" data-target="#myModal-<%= item.id %>">
+  <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= item.picture %>); margin-top: 10px;">
+    <!-- <div class="add"> -->
 
-<<<<<<< HEAD
-</div>
 
-<div class="item-description">
-  <h6><%= item.user.username.capitalize %></h6>
-  <h6>$ <%= item.price %> </h6>
-  <p><%= item.pickup_time.strftime("pickup before %I:%M%p | 120m") %></p>
-</div>
 
-<!--modal-->
-<div class="modal fade" id="myModal-<%= item.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h3 class="modal-title" id="myModalLabel"><%= item.name %></h3>
-        <h6><%= item.user.username.capitalize %></h6>
-        <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= item.picture %>); margin-top: 10px;">
-        </div>
-        <p style="margin-top: 10px; font-size: 14px !important;">Availability: <strong><%= item.quantity %></strong></p>
-        <p style="margin-top: -5px; font-size: 14px !important;">Category: <strong><%= item.category %></strong></p>
-        <p style="margin-top: -5px; font-size: 14px !important;">Description: <strong><%= item.description %></strong></p>
-        <p style="margin-top: -5px; font-size: 14px !important;">Expiration Date: <%= item.expiration %></p>
 
-=======
 
-<div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= item.picture %>); margin-top: 10px;">
-  <div class="card-description">
-    <h2><%= item.name %></h2>
-  </div>
-  <div class="add" data-toggle="modal" data-target="#myModal-<%= item.id %>"><i class="fas fa-plus"></i></div>
-</div>
-<div class="item-description">
-  <h6><%= item.user.username.capitalize %></h6>
-  <h6>$ <%= item.price %> </h6>
-  <p><%= item.pickup_time.strftime("pickup before %I:%M%p |") %>
-    <%= Geocoder::Calculations.distance_between([-34.587880, -34.587880],([item.latitude, item.longitude])).round(2) %>km
-  </p>
-</div>
+        <!-- Icons to add or remove from cart -->
+        <div class="card-btn">
 
-<!--modal-->
-<div class="modal fade" id="myModal-<%= item.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title" id="myModalLabel"><%= item.name %></h3>
-        <h6><%= item.user.name %></h6>
-        <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= item.picture %>); margin-top: 10px;"></div>
-        <p style="margin-top: 10px; font-size: 14px !important;">Availability: <strong><%= item.quantity %></strong></p>
-        <p style="margin-top: -5px; font-size: 14px !important;">Category: <strong><%= item.category %></strong></p>
-        <p style="margin-top: -5px; font-size: 14px !important;">Description: <strong><%= item.description %></strong></p>
-        <p style="margin-top: -5px; font-size: 14px !important;">Expiration Date: <%= item.expiration %></p>
+          <!-- Set item's cart status based on current user -->
+          <%  if user_signed_in? && !params[:arena_id].present?
+                # Marked item as owned
+                if current_user.id == item.user_id
+                  status = 'owned'
+                # Mark item as available
+              else
+                status = 'available'
+              end
+                # Mark item as in cart
+                @reservations.each do |reservation|
+                  if reservation.item_id == item.id && reservation.user_id == current_user.id
+                    status = 'reserved'
+                    @reservation = reservation
+                  end
+                  end %>
 
->>>>>>> master
-        <div class="editlinks">
-          <!-- Edit and Delete if you own this item -->
-          <% if policy(item).edit? %>
-          <%= link_to "Edit |", edit_item_path(item) %>
-          <% end %>
-          <% if policy(item).destroy? %>
-          <%= link_to "Delete", item_path(item),
-          method: :delete,
-          data: { confirm: "Are you sure?" } %>
-          <% end %>
-        </div>
-      </div>
-      <div class="modal-body" style="padding-bottom: 20px;">
-        <div class="row">
-          <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4">
-            <div class=" form-modal">
-              <label>Quantity: </label>
-              <div class="input-group">
-                <div class="input-group-btn">
-<<<<<<< HEAD
-                  <button id="down" class="btn btn-default circles" onclick=" down('0')">
-                    <span class="glyphicon glyphicon-minus"></span>
-                  </button>
-                </div>
-                <input type="text" id="myNumber" class="form-control input-number circle" value="1" />
-                <div class="input-group-btn">
-                  <button id="up" class="btn btn-default circles" onclick="up(<%= item.quantity %>)"><span class="glyphicon glyphicon-plus"></span>
-                  </button>
-=======
-                  <button id="down" class="btn btn-default circles" onclick=" down('0')"><span class="glyphicon glyphicon-minus"></span></button>
-                </div>
-                <input type="text" id="myNumber" class="form-control input-number circle" value="1" />
-                <div class="input-group-btn">
-                  <button id="up" class="btn btn-default circles" onclick="up(<%= item.quantity %>)"><span class="glyphicon glyphicon-plus"></span></button>
->>>>>>> master
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn">
-            <button type="button" class="btn btn-dark btn-lg">ADD TO CART</button>
-          </div>
-          <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn1">
-            <button type="button" class="btn btn-dark ">One-Click Shop</button>
-          </div>
-        </div>
-      </div>
+                  <!-- Icon: item owned -->
+                  <% if status == 'owned' %>
+                  <%= link_to icon('fas', 'user'), item_path(item),
+                  class: 'card-icon',
+                    data: { confirm: "You already own this item. Go to his page?" } %>
+
+                    <!-- Icon: Add item to cart -->
+                    <% elsif status == 'available' %>
+                    <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f| %>
+                      <%= f.error_notification %>
+                      <%= f.hidden_field :user_id, value: current_user.id %>
+                      <%= f.hidden_field :item_id, value: item.id %>
+                         <%= f.button :button, class: 'add' do %>
+                        <%= icon('fas', 'plus') %>
+                      <% end %>
+                    <% end %>
+
+
+
+                    <!-- Icon: Remove item from cart -->
+                    <% elsif status == 'reserved'%>
+                    <div class='add'>
+                      <%= @reservation.quantity %> in cart
+                    </div>
+
+
+                    <!-- Don't show an icon if something weird happens -->
+                    <% else %>
+                    <% end %>
+                    <% end %>
+
+                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- </div> -->
+    <div class="card-description">
+      <h2><%= item.name %></h2>
     </div>
+  </div>
+
+  <div class="item-description">
+    <h6><%= item.user.username.capitalize %></h6>
+    <h6>$ <%= item.price %> </h6>
+    <p><%= item.pickup_time.strftime("pickup before %I:%M%p |") %></p>
+     <p><%= item.distance %>km</p>
   </div>
 </div>

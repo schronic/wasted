@@ -3,16 +3,22 @@ class ItemsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
-
     @current_lat = request.location.latitude
     @current_lng = request.location.longitude
 # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
     @results = Geocoder.search([-34.587880, -58.418150])
     @items = policy_scope(Item).order(created_at: :desc)
 
+    @reservation = Reservation.new
+    @items.each do |item|
+      item.update(distance: Geocoder::Calculations.distance_between([-34.587880, -34.587880], ([item.latitude, item.longitude])).round(2))
+    end
+
     if params[:term]
       categories_clean = params[:term][:catg].drop(1) if params[:term][:catg]
       types_clean = params[:term][:att].drop(1) if params[:term][:att]
+
+      @query = true
 
       if params[:term][:query].present?
         @results = Geocoder.search(params[:term][:query])
@@ -31,8 +37,15 @@ class ItemsController < ApplicationController
         end
       end
 
+      @items = @items.where.not(user_id: current_user)
     end
 
+    @markers = @items.map do |item|
+      {
+        lng: item.longitude,
+        lat: item.latitude
+      }
+    end
   end
 
   def show
@@ -88,6 +101,6 @@ end
 #modal that moves everything down
 #and then foodora like
 
-#Flat.near('Tour Eiffel', 10)      # venues within 10 km of Tour Eiffel
-#Flat.near([40.71, 100.23], 20)    # venues within 20 km of a point
+#item.near('Tour Eiffel', 10)      # venues within 10 km of Tour Eiffel
+#item.near([40.71, 100.23], 20)    # venues within 20 km of a point
 #
