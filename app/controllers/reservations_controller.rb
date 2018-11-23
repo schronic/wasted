@@ -43,7 +43,7 @@ class ReservationsController < ApplicationController
       end
       percent = 0.05
       @commission = @subtotal_price * percent
-      @total_price = @subtotal_price * (1 + percent)
+      @amount = @subtotal_price * (1 + percent)
     else
       redirect_to reservations_error_path
     end
