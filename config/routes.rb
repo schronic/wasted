@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'users/show'
   root to: 'items#index'
   devise_for :users
 
@@ -14,6 +15,8 @@ Rails.application.routes.draw do
   resources :orders, only: [:new, :index, :show, :create] do
     resources :payments, only: [:new, :create]
   end
+
+  resources :users, only: [:show]
 
   resources :reservations, only: [:index]
   get '/reservations/error', to: 'reservations#error', as: 'reservations_error'

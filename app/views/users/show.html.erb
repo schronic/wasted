@@ -1,0 +1,101 @@
+<% if current_user.role == "consumer" %>
+<div id=user-show-consumer>
+<div class="container">
+  <div class="profile-upperpart">
+    <div id="user-profile" class="col-xs-12 col-sm-8 col-sm-offset-2 table-col">
+          <!-- PROFILE CONTENT -->
+          <div class="style-user-profile">
+      <% avatar = current_user.avatar.present? ? current_user.avatar : "http://fuuse.net/wp-content/uploads/2016/02/avatar-placeholder.png" %>
+        <%= cl_image_tag(avatar, width: 150, height: 150, class: "img-circle") %>
+          </div>
+          </div>
+    </div>
+  <div class="profile-value col-xs-12 col-sm-8 col-sm-offset-2 table-col">
+      <div id="items-rescued">
+        <h3>0</h3>
+        <h2> items rescued</h2>
+       </div>
+        <div id="money-saved">
+        <h2>$ 0</h3>
+        <h2> saved</h2>
+        </div>
+    <div id="kg-saved">
+        <h3> 0 kg </h3>
+        <h2> food rescued</h2>
+  </div>
+  </div>
+    </div>
+
+<div class=background-color-profile>
+
+
+<div class="col-xs-12 col-sm-8 col-sm-offset-2 table-col">
+        <!-- INFORMATION -->
+        <div class="user-info">
+          <!-- CARD INFORMATION -->
+          <div class="user-card-info">
+            <!-- CARD TITLE / ACCOUNT INFO-->
+            <div class="user-card-title">
+              <h2>ACCOUNT INFO</h2>
+              <%= link_to "Edit", edit_user_registration_path %>
+            </div>
+            <!-- CARD DETAILS -->
+            <div class="user-card-details">
+              <p><%= current_user.name %></p>
+              <p><%= current_user.email %></p>
+            </div>
+          </div>
+
+          <!-- CARD INFORMATION -->
+          <div class="user-info">
+            <div class="user-card-info">
+              <!-- CARD TITLE / ADDRESS-->
+              <div class="user-card-title">
+                <h2>ADDRESSES & PAYMENTS</h2>
+                <%= link_to "Edit", edit_user_registration_path %>
+              </div>
+              <!-- CARD DETAILS -->
+              <div class="user-card-details">
+               <p><%= current_user.name %></p>
+              <p><%= current_user.email %></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="user-info">
+            <!-- CARD INFORMATION -->
+            <div class="user-card-info">
+              <!-- CARD TITLE / ARENAS-->
+              <div class="user-card-title">
+                <h2>PURCHASE HISTORY</h2>
+                <%= link_to "Edit", edit_user_registration_path %>
+              </div>
+              <!-- CARD DETAILS -->
+              <div class="user-card-details">
+                <p>purchase history</p>
+                <p></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+</div>
+</div>
+<% end %>
+
+
+<% if current_user.role == "supplier" %>
+<div id=user-show-supplier>
+
+</div>
+
+<% end %>
+
+<% if current_user.role == "both" %>
+<div id=user-show-both>
+
+</div>
+
+<% end %>
