@@ -1,174 +1,195 @@
-<!-- Iterate to create cards -->
-<% @same_supplier_items.each do |same_supplier_item| %>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
 
-  <!-- Set picture -->
-  <% if same_supplier_item.picture.present? %>
-    <!-- Card-cart -->
-    <div class="item-card">
-      <div class="card-body-cart" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= cl_image_path(same_supplier_item.picture) %>);">
-        <!-- Everything inside the picture -->
-        <div class="card-description-cart">
-
-          <!-- item ID and clickable card -->
-          <%= link_to "", item_path(same_supplier_item), class: 'card-link-cart' %>
-          <p class="item-number-cart">ID
-            <%= same_supplier_item.name %>
-          </p>
-          <!-- END item ID and clickable card -->
-
-          <!-- Clickable icons on cart -->
-          <div class="card-btn-cart">
-            <!-- Set item's cart status based on current user -->
-            <% status = 'available' %>
-            <% @same_supplier_items.each do |same_supplier_item|
-              if same_supplier_item.user_id == current_user.id
-                status = 'in-cart'
-                @same_supplier_item = same_supplier_item
-              end
-            end %>
-
-            <!-- Icon to add to cart if not already in cart -->
-            <% if status == 'available' %>
-              <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f|
-                f.error_notification
-                f.hidden_field :user, value: current_user.id
-                f.hidden_field :item_id, value: reservation.id
-                f.button :button, class: 'card-icon-cart' do %>
-                  <%= icon('fas', 'plus') %>
-                <% end
-              end %>
-
-            <!-- Icon to remove from cart if already in cart -->
-            <% elsif status == 'in-cart' %>
-              <%= simple_form_for @reservation, url: @reservation, method: :patch do |f| %>
-                <%= f.error_notification %>
-                <%= f.hidden_field :user, value: current_user.id %>
-                <%= f.hidden_field :item_id, value: reservation.id %>
-                <%= f.hidden_field :in_cart, value: true %>
-                <%= f.hidden_field :quantity, value: (reservation.quantity + 1) %>
-                <%= f.button :button, class: 'card-icon-cart' do %>
-                  <%= icon('fas', 'minus') %>
-                <% end %>
-              <% end %>
-
-            <!-- Don't show an icon if something weird happens -->
-            <% else %>
-            <% end %>
-          </div>
-          <!-- END clickable icons -->
-        </div>
-        <!-- END card description inside picture -->
-      </div>
-
-      <!-- Card footer -->
-      <div class="card-footer-cart">
-        <p class="item-name-cart"> <%= same_supplier_item.name %></p>
-        <p class="item-price-cart"><%= same_supplier_item.price %> $ </p>
-
-        <p class="item-name-cart">
-          Added: <em><%= same_supplier_item.updated_at.strftime("%b %e, %l:%M %p") %></em>
-        </p>
-      </div>
-      <!-- END Card footer -->
-    </div>
-    <!-- END card-cart -->
-
-  <% else %>
-    <!-- Card-cart -->
-    <div class="card-cart">
-      <div class="card-body-cart" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://picsum.photos/800/300/?random');">
+    <!-- Iterate to create cards -->
+    <% @same_supplier_items.each_with_index do |same_supplier_item, index| %>
 
 
-        <!-- Everything inside the picture -->
-        <div class="card-description-cart">
+    <div class="item <%= 'active' if index == 0 %> ">
 
-          <!-- item ID and clickable card -->
-          <%= link_to "", item_path(same_supplier_item), class: 'card-link-cart' %>
-          <p class="item-number-cart">
-            <%= same_supplier_item.name %> x
-            <%= same_supplier_item.quantity %>
-          </p>
-          <!-- END item ID and clickable card -->
+      <!-- Set picture -->
+      <% if same_supplier_item.picture.present? %>
+      <!-- Card-cart -->
+      <div class="item-card">
+        <div class="card-body-cart" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= cl_image_path(same_supplier_item.picture) %>);">
+          <!-- Everything inside the picture -->
+          <div class="card-description-cart">
 
-          <!-- Clickable icons on cart -->
-          <div class="card-btn-cart">
-            <!-- Set item's cart status based on current user -->
-            <% status = 'available' %>
-            <% @same_supplier_items.each do |same_supplier_item|
-              same_supplier_item.reservations.each do |item_reservation|
-                current_user.reservations.each do |user_reservation|
+            <!-- item ID and clickable card -->
+            <%= link_to "", item_path(same_supplier_item), class: 'card-link-cart' %>
+            <p class="item-number-cart">ID
+              <%= same_supplier_item.name %>
+            </p>
+            <!-- END item ID and clickable card -->
 
-                  if user_reservation.id == item_reservation.id
-                    status = 'in-cart'
-                    break
-                  end
-                break if status == 'in-cart'
+            <!-- Clickable icons on cart -->
+            <div class="card-btn-cart">
+              <!-- Set item's cart status based on current user -->
+              <% status = 'available' %>
+              <% @same_supplier_items.each do |same_supplier_item|
+                if same_supplier_item.user_id == current_user.id
+                  status = 'in-cart'
+                  @same_supplier_item = same_supplier_item
                 end
-              break if status == 'in-cart'
-              end
-            end %>
+                end %>
 
-            <!-- Icon to add to cart if not already in cart -->
-            <% if status == 'available' %>
-
-              <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f| %>
-                <%= f.error_notification %>
-                <%= f.hidden_field :in_cart, value: true %>
-                <%= f.hidden_field :user_id, value: current_user.id %>
-                <%= f.hidden_field :item_id, value: same_supplier_item.id %>
-                   <%= f.button :button, class: 'card-icon-cart' do %>
+                <!-- Icon to add to cart if not already in cart -->
+                <% if status == 'available' %>
+                <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f|
+                  f.error_notification
+                  f.hidden_field :user, value: current_user.id
+                  f.hidden_field :item_id, value: reservation.id
+                  f.button :button, class: 'card-icon-cart' do %>
                   <%= icon('fas', 'plus') %>
-                <% end %>
-              <% end %>
+                  <% end
+                  end %>
 
-
-
-
-
-
-
-
-
-
-
-            <!-- Icon to remove from cart if already in cart -->
-            <% elsif status == 'in-cart' %>
-              <%= simple_form_for @reservation, url: reservation_path(same_supplier_item), method: :delete do |f| %>
-                <%= f.error_notification %>
-                <%= f.hidden_field :user, value: current_user.id %>
-                <%= f.hidden_field :item_id, value: same_supplier_item.id %>
-                <%= f.button :button, class: 'card-icon-cart' do %>
+                  <!-- Icon to remove from cart if already in cart -->
+                  <% elsif status == 'in-cart' %>
+                  <%= simple_form_for @reservation, url: @reservation, method: :patch do |f| %>
+                  <%= f.error_notification %>
+                  <%= f.hidden_field :user, value: current_user.id %>
+                  <%= f.hidden_field :item_id, value: reservation.id %>
+                  <%= f.hidden_field :in_cart, value: true %>
+                  <%= f.hidden_field :quantity, value: (reservation.quantity + 1) %>
+                  <%= f.button :button, class: 'card-icon-cart' do %>
                   <%= icon('fas', 'minus') %>
-                <% end %>
-              <% end %>
+                  <% end %>
+                  <% end %>
 
-            <!-- Don't show an icon if something weird happens -->
-            <% else %>
-            <% end %>
+                  <!-- Don't show an icon if something weird happens -->
+                  <% else %>
+                  <% end %>
+                </div>
+                <!-- END clickable icons -->
+              </div>
+              <!-- END card description inside picture -->
+            </div>
+
+            <!-- Card footer -->
+            <div class="card-footer-cart">
+              <p class="item-name-cart"> <%= same_supplier_item.name %></p>
+              <p class="item-price-cart"><%= same_supplier_item.price %> $ </p>
+
+              <p class="item-name-cart">
+                Added: <em><%= same_supplier_item.updated_at.strftime("%b %e, %l:%M %p") %></em>
+              </p>
+            </div>
+            <!-- END Card footer -->
           </div>
-          <!-- END clickable icons -->
+          <!-- END card-cart -->
+
+          <% else %>
+          <!-- Card-cart -->
+          <div class="card-cart">
+            <div class="card-body-cart" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://picsum.photos/800/300/?random');">
+
+
+              <!-- Everything inside the picture -->
+              <div class="card-description-cart">
+
+                <!-- item ID and clickable card -->
+                <%= link_to "", item_path(same_supplier_item), class: 'card-link-cart' %>
+                <p class="item-number-cart">
+                  <%= same_supplier_item.name %> x
+                  <%= same_supplier_item.quantity %>
+                </p>
+                <!-- END item ID and clickable card -->
+
+                <!-- Clickable icons on cart -->
+                <div class="card-btn-cart">
+                  <!-- Set item's cart status based on current user -->
+                  <% status = 'available' %>
+                  <% @same_supplier_items.each do |same_supplier_item|
+                    same_supplier_item.reservations.each do |item_reservation|
+                      current_user.reservations.each do |user_reservation|
+
+                        if user_reservation.id == item_reservation.id
+                          status = 'in-cart'
+                          break
+                        end
+                        break if status == 'in-cart'
+                      end
+                      break if status == 'in-cart'
+                    end
+                    end %>
+
+                    <!-- Icon to add to cart if not already in cart -->
+                    <% if status == 'available' %>
+
+                    <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f| %>
+                    <%= f.error_notification %>
+                    <%= f.hidden_field :in_cart, value: true %>
+                    <%= f.hidden_field :user_id, value: current_user.id %>
+                    <%= f.hidden_field :item_id, value: same_supplier_item.id %>
+                    <%= f.button :button, class: 'card-icon-cart' do %>
+                    <%= icon('fas', 'plus') %>
+                    <% end %>
+                    <% end %>
+
+
+
+
+
+
+
+
+
+
+
+                    <!-- Icon to remove from cart if already in cart -->
+                    <% elsif status == 'in-cart' %>
+                    <%= simple_form_for @reservation, url: reservation_path(same_supplier_item), method: :delete do |f| %>
+                    <%= f.error_notification %>
+                    <%= f.hidden_field :user, value: current_user.id %>
+                    <%= f.hidden_field :item_id, value: same_supplier_item.id %>
+                    <%= f.button :button, class: 'card-icon-cart' do %>
+                    <%= icon('fas', 'minus') %>
+                    <% end %>
+                    <% end %>
+
+                    <!-- Don't show an icon if something weird happens -->
+                    <% else %>
+                    <% end %>
+                  </div>
+                  <!-- END clickable icons -->
+                </div>
+                <!-- END card description inside picture -->
+              </div>
+              <!-- END .card-body-cart -->
+
+              <!-- Card footer -->
+              <div class="card-footer-cart">
+
+                <p>
+                  Offered by: <%= same_supplier_item.user.name %> (<%= same_supplier_item.user.items.size %> dishes)
+                </p>
+
+                <p class="item-price-cart"><%= humanized_money_with_symbol(same_supplier_item.price) %> ea.</p>
+
+              </div>
+              <!-- Card footer ends above this line -->
+            </div>
+            <!-- END .card-cart -->
+
+            <% end %>
+            <!-- END set picture -->
+          </div>
+
+
+          <% end %>
+          <!-- END iterate to create cards -->
+
         </div>
-        <!-- END card description inside picture -->
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+          <span class="sr-only">Next</span>
+        </a>
       </div>
-      <!-- END .card-body-cart -->
-
-      <!-- Card footer -->
-      <div class="card-footer-cart">
-
-        <p>
-          Offered by: <%= same_supplier_item.user.name %> (<%= same_supplier_item.user.items.size %> dishes)
-        </p>
-
-        <p class="item-price-cart"><%= humanized_money_with_symbol(same_supplier_item.price) %> ea.</p>
-
-      </div>
-      <!-- Card footer ends above this line -->
-    </div>
-    <!-- END .card-cart -->
-
-  <% end %>
-  <!-- END set picture -->
-
-
-<% end %>
-<!-- END iterate to create cards -->
