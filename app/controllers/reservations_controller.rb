@@ -12,7 +12,7 @@ class ReservationsController < ApplicationController
     @same_supplier_items = []
     @in_cart = []
     @reservations.each do |reservation|
-      @same_supplier_items += reservation.item.user.items
+      @same_supplier_items |= reservation.item.user.items
       @in_cart << reservation.item
     end
     @same_supplier_items -= @in_cart
@@ -44,7 +44,6 @@ class ReservationsController < ApplicationController
       percent = 0.05
       @commission = @subtotal_price * percent
       @total_price = @subtotal_price * (1 + percent)
-      @amount_cents = @total_price * 100
     else
       redirect_to reservations_error_path
     end
