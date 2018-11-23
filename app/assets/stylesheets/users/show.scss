@@ -1,0 +1,144 @@
+#user-show {
+  margin-top: 25px;
+  background-color:white;
+}
+
+#user-show-consumer {
+  background-color:white;
+}
+
+.profile-value{
+  background-color:white;
+}
+
+.profile-upperpart{
+  background-color: white;
+}
+
+.user-card-info{
+  font-family:"Roboto";
+  font-size: 15px;
+}
+
+#items-rescued h3{
+  font-family: "Montserrat";
+  font-size: 30px;
+}
+
+#money-saved h3{
+  font-family: "Montserrat";
+  font-size: 30px;
+}
+
+#kg-saved h3{
+  font-family: "Montserrat";
+  font-size: 30px;
+}
+
+.user-card-title{
+  border:none;
+  border-bottom: 1px solid;
+  border-bottom-color: gray;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  h2{
+    font-family:·"Roboto";
+    font-size: 15px;
+  }
+  a{
+    color:black;
+  }
+
+}
+
+.background-color-profile {
+  background-color: white;
+}
+
+.style-user-profile{
+
+  display: flex;
+  align-items: center;
+  margin: 20px auto;
+  align-items: center;
+  justify-content: center;
+  background-color:white;
+  margin-bottom: 30px;
+}
+
+.user-card-details{
+  font-family:"Montserrat";
+  p {
+    margin: 0;
+    color:gray;
+    font-family: "Montserrat";
+  }
+}
+
+#items-rescued {
+  justify:center;
+  h3{
+    margin-top:0;
+    text-align: center;
+  }
+  h2{
+    margin-top:0;
+    text-align: center;
+    font-size: 25px;
+  }
+}
+
+
+.img-circle {
+  border-radius: 50%;
+}
+
+
+.table-container {
+  display: table;
+}
+
+.table-container .table-row {
+  height: 100%;
+  display: table-row;
+}
+
+// .table-container .table-row .table-col {
+//   float: none;
+//   vertical-align: middle;
+// }
+
+.img-circle{
+
+  border-radius: 50%;
+
+}
+
+
+.profile-value {
+  display: flex;
+}
+
+
+
+#profile-picture {
+  display: flex;
+  padding-top: 80px;
+  align-items: center;
+  justify-content: center;
+}
+
+#items-holder {
+  padding: 50px 40px;
+  p, h2, h3 {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
