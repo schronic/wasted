@@ -17,6 +17,7 @@
 
       <h3> MY BASKET</h3>
 
+
     <!-- RESERVATIONS -->
     <%= render 'itemized_reservations' %>
     <!-- END RESERVATIONS -->
@@ -31,7 +32,7 @@
     <!-- END PRICES -->
 
     <!-- CHECKOUT FORM to send params -->
-    <%= link_to "Buy now", purchased_items_path(amount_cents: @amount_cents, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout' %>
+    <%= link_to "Checkout", purchased_items_path(amount_cents: @amount_cents, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout' %>
     <!-- END CHECKOUT FORM to send params -->
 
   </div>

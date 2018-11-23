@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     resources :payments, only: [:new, :create]
   end
 
+  resources :users, only: [:show]
+
   resources :reservations, only: [:index]
   get '/reservations/error', to: 'reservations#error', as: 'reservations_error'
 
