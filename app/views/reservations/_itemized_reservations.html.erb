@@ -1,12 +1,11 @@
 <div class="reservations-container">
-  <hr>
   <!-- RESERVATIONS FROM ALL SUPPLIERS -->
   <div class="itemized-reservations">
     <% @reservations_suppliers_with_reserved.each do |supplier| %>
       <div class="itemized-by-supplier">
         <!-- SUPPLIER NAME -->
         <div class="supplier-name">
-          <%= supplier[0].name %>
+          <%= supplier[0].name.upcase %>
         </div>
         <!-- END SUPPLIER NAME -->
 
@@ -64,13 +63,13 @@
             <!-- END QUANTITY AND PLUS/MINUS BUTTONS -->
 
             <!-- NAME -->
-            <div class="name">
+            <div class="name cart-items-list2">
               <%= reservation.item.name %>
             </div>
             <!-- NAME -->
 
             <!-- ITEM PRICE -->
-            <div class="price">
+            <div class="price cart-items-list2">
               <%= humanized_money_with_symbol(reservation.item.price) %>
             </div>
             <!-- END ITEM PRICE -->
@@ -82,6 +81,6 @@
     <% end %>
   </div>
   <!-- END RESERVATIONS FROM ALL SUPPLIERS -->
-  <hr>
+
 </div>
 <!-- END RESERVATIONS CONTAINER -->

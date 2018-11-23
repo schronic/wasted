@@ -1,5 +1,7 @@
 <div class="main-container">
 
+
+
   <!-- CAROUSELS CONTAINER -->
   <div class="carousels-container">
     <div class="card-holder">
@@ -10,9 +12,10 @@
 
   <!-- SHOPPING CART -->
   <div class="shopping-cart-container">
-    <!-- CHECKOUT FORM to send params -->
-    <%= link_to "Buy now", purchased_items_path(amount_cents: @amount_cents, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout' %>
-    <!-- END CHECKOUT FORM to send params -->
+
+    <div class="shopping-cart-box">
+
+      <h3> MY BASKET</h3>
 
     <!-- RESERVATIONS -->
     <%= render 'itemized_reservations' %>
@@ -20,14 +23,19 @@
 
     <!-- PRICES  -->
     <div class="total-prices-container">
-      <h5>Items: <%= @total_items %></h5>
+  <!--     <h5>Items: <%= @total_items %></h5> -->
       <h5>Subtotal: <%= humanized_money_with_symbol(@subtotal_price) %></h5>
       <h6>5% site fee: <%= humanized_money_with_symbol(@commission) %></h6>
       <h4>Total price: <%= humanized_money_with_symbol(@total_price) %></h4>
     </div>
     <!-- END PRICES -->
+
+    <!-- CHECKOUT FORM to send params -->
+    <%= link_to "Buy now", purchased_items_path(amount_cents: @amount_cents, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout' %>
+    <!-- END CHECKOUT FORM to send params -->
+
   </div>
   <!-- END SHOPPING CART -->
-
+   </div>
 </div>
 <!-- END .main-container -->
