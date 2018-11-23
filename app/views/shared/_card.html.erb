@@ -15,11 +15,9 @@
                 if current_user.id == item.user_id
                   status = 'owned'
                 # Mark item as available
-
                 else
                   status = 'available'
                 end
-
                 # Mark item as in cart
                 @reservations.each do |reservation|
                   if reservation.item_id == item.id && reservation.user_id == current_user.id
