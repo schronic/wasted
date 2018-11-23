@@ -18,7 +18,7 @@
 
               <!-- MINUS BUTTON -->
               <% if reservation.quantity > 1 %>
-                <%= simple_form_for @reservation, url: reservation, method: :patch do |f| %>
+                <%= simple_form_for reservation do |f| %>
                   <%= f.error_notification %>
                   <%= f.hidden_field :in_cart, value: true %>
                   <%= f.hidden_field :quantity, value: reservation.quantity - 1 %>
@@ -27,7 +27,7 @@
                   <% end %>
                 <% end %>
               <% elsif reservation.quantity == 1 %>
-                <%= simple_form_for @reservation, url: reservation, method: :delete do |f| %>
+                <%= simple_form_for reservation, method: :delete do |f| %>
                   <%= f.error_notification %>
                   <%= f.hidden_field :in_cart, value: true %>
                   <%= f.button :button, class: 'plus-minus' do %>
@@ -41,7 +41,7 @@
 
               <!-- PLUS BUTTON -->
               <% if reservation.quantity < reservation.item.quantity %>
-                <%= simple_form_for @reservation, url: reservation, method: :patch do |f| %>
+                <%= simple_form_for reservation do |f| %>
                   <%= f.error_notification %>
                   <%= f.hidden_field :in_cart, value: true %>
                   <%= f.hidden_field :quantity, value: reservation.quantity + 1 %>
@@ -50,7 +50,7 @@
                   <% end %>
                 <% end %>
               <% else %>
-                <%= simple_form_for @reservation do |f| %>
+                <%= simple_form_for reservation do |f| %>
                   <%= f.error_notification %>
                      <%= f.button :button, disabled: true, class: 'plus-minus' do %>
                     <%= icon('fas', 'plus') %>
