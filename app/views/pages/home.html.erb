@@ -1,7 +1,13 @@
-<%= render 'banner' %>
+<div class="cat-parent banner">
+ <div class="cat-container" style="text-align: center;">
+  <h1>
+    <span id="banner-typed-text";"></span>
+  </h1>
+  <button class="button-banner">Eat consciously!</button>
+</div>
+</div>
 
-<div class="container-fluid cfhome">
-
+<div class="container-fluid cfhome ">
   <div class="container home-one">
     <div class="row">
       <div class="col-md-6">
@@ -18,21 +24,21 @@
   <div class="row">
     <div class="col-sm-12 col-md-4 caps">
       <div class="whatever">
-          <div class="image"><%= image_tag "revenue.svg" %></div>
-      INCREASE REVENUE
+        <div class="image"><%= image_tag "revenue.svg" %></div>
+        INCREASE REVENUE
       </div>
 
     </div>
     <div class="col-sm-12 col-md-4 caps">
       <div class="whatever">
-      <div class="image"><%= image_tag "piggy-bank.svg" %></div>
-      REDUCE COSTS
+        <div class="image"><%= image_tag "piggy-bank.svg" %></div>
+        REDUCE COSTS
       </div>
     </div>
     <div class="col-sm-12 col-md-4 caps">
       <div class="whatever">
-      <div class="image"><%= image_tag "success.svg" %></div>
-      IMPROVE BRAND IMAGE
+        <div class="image"><%= image_tag "success.svg" %></div>
+        IMPROVE BRAND IMAGE
       </div>
     </div>
   </div>
@@ -58,7 +64,7 @@
 <div class="container carousel-pictures">
   <div class="row">
     <div class="col-xs-10 col-md-10 col-centered">
-    <h1 style="text-transform: uppercase; font-weight: bold;">Get inspired</h1>
+      <h1 style="text-transform: uppercase; font-weight: bold;">Get inspired</h1>
       <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="2500">
         <div class="carousel-inner">
           <% @items.each_with_index do |item, index| %>
@@ -71,7 +77,7 @@
           </div>
           <% end %>
         </div>
-        
+
         <!-- Controls -->
         <div class="left carousel-control">
           <a href="#carousel" role="button" data-slide="prev">
