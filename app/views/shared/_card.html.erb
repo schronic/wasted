@@ -2,27 +2,36 @@
   <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= item.picture %>); margin-top: 10px;">
     <!-- <div class="add"> -->
     <!-- Icons to add or remove from cart -->
-    <div class="card-btn">
-      <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f| %>
-        <%= f.error_notification %>
-        <%= f.hidden_field :user_id, value: current_user.id %>
-        <%= f.hidden_field :item_id, value: item.id %>
-        <%= f.hidden_field :quantity, value: 1 %>
-        <%= f.button :button, class: 'add' do %>
-          <%= icon('fas', 'plus') %>
-        <% end %>
-      <% end %>
-    </div>
+    <% if user_signed_in? %>
 
-    <!-- </div> -->
-    <div class="card-description">
-      <h2><%= item.name %></h2>
+      <div class="card-btn">
+        <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f| %>
+          <%= f.error_notification %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+          <%= f.hidden_field :item_id, value: item.id %>
+          <%= f.hidden_field :quantity, value: 1 %>
+          <%= f.button :button, class: 'add' do %>
+            <%= icon('fas', 'plus') %>
+          <% end %>
+        <% end %>
+      </div>
+
+    <% end %>
+
+
+
+
+      <!-- </div> -->
+      <div class="card-description">
+        <h2><%= item.name %></h2>
+      </div>
+    </div>
+    <div class="item-description">
+      <h6><%= item.user.username.capitalize %></h6>
+      <h6>$ <%= item.price %> </h6>
+      <p><%= item.pickup_time.strftime("pickup before %I:%M%p |") %></p>
+      <p><%= item.distance %>km</p>
+
+
     </div>
   </div>
-  <div class="item-description">
-    <h6><%= item.user.username.capitalize %></h6>
-    <h6>$ <%= item.price %> </h6>
-    <p><%= item.pickup_time.strftime("pickup before %I:%M%p |") %></p>
-    <p><%= item.distance %>km</p>
-  </div>
-</div>
