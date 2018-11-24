@@ -12,13 +12,13 @@
           <div class="col-md-3 col-md-offset-1">
             <p style="font-size: 14px !important;">Availability: <strong><%= item.quantity %></strong></p></div>
             <div class="col-md-1">
-            <p><i class="fas fa-circle line-breaker"></i></p>
+              <p><i class="fas fa-circle line-breaker"></i></p>
             </div>
             <div class="col-md-3">
               <p style="font-size: 14px !important;"><strong><%= item.category %></strong></p>
             </div>
             <div class="col-md-1">
-            <p><i class="fas fa-circle line-breaker"></i></p>
+              <p><i class="fas fa-circle line-breaker"></i></p>
             </div>
             <div class="col-md-3">
               <p style="font-size: 14px !important;"><strong><%= item.food_type %></strong></p>
@@ -31,12 +31,12 @@
           <div class="editlinks">
             <!-- Edit and Delete if you own this item -->
             <% if policy(item).edit? %>
-            <%= link_to "Edit |", edit_item_path(item) %>
+              <%= link_to "Edit |", edit_item_path(item) %>
             <% end %>
             <% if policy(item).destroy? %>
-            <%= link_to "Delete", item_path(item),
-            method: :delete,
-            data: { confirm: "Are you sure?" } %>
+              <%= link_to "Delete", item_path(item),
+              method: :delete,
+              data: { confirm: "Are you sure?" } %>
             <% end %>
           </div>
         </div>
@@ -50,23 +50,23 @@
 
 
                 <!-- Set item's cart status based on current user -->
-                <%  if user_signed_in?
-                      # Marked item as owned
-                      if current_user.id == item.user_id
-                        status = 'owned'
-                      # Mark item as available
-                      else
-                        status = 'available'
-                        @reservation.item = item
-                      end
-                      # Mark item as in cart
-                      @reservations.each do |reservation|
-                        if reservation.item_id == item.id && reservation.user_id == current_user.id
-                          status = 'reserved'
-                          @reservation = reservation
-                        end
-                      end
-                    end %>
+                <!-- Set item's cart @status based on current user -->
+                 <%  if user_signed_in? %>
+                 <%  @status = 'available' %>
+                 <%     # Mark item as in cart %>
+                 <%     @reservations.each do |reservation| %>
+                 <%       if reservation.item_id == item.id && reservation.user_id == current_user.id %>
+                 <%         @status = 'reserved' %>
+                 <%         @reservation = reservation %>
+                 <%         break %>
+                 <%       end %>
+                 <%     end %>
+                 <%   end %>
+
+
+                 <% if @status == 'available' %>
+                 <%   @reservation.item = item %>
+                 <% end %>
 
 
 
@@ -74,8 +74,8 @@
                 <div class="quantity">
 
                   <!-- MINUS BUTTON -->
-                  <% if item.quantity > 1 && status == 'reserved' %>
-                    <%= simple_form_for @reservation, url: patch_reservation_path(@reservation) do |f| %>
+                  <% if item.quantity > 1 %>
+                    <%= simple_form_for @reservation do |f| %>
                       <%= f.error_notification %>
                       <%= f.hidden_field :in_cart, value: true %>
                       <%= f.hidden_field :quantity, value: @reservation.quantity - 1 %>
@@ -105,21 +105,21 @@
 
 
 
-                <div class="input-group">
-                  <div class="input-group-btn">
-                    <button id="down" class="btn btn-default circles" onclick="down('0')">
-                      <span class="glyphicon glyphicon-minus"></span>
-                    </button>
-                  </div>
+                  <div class="input-group">
+                    <div class="input-group-btn">
+                      <button id="down" class="btn btn-default circles" onclick="down('0')">
+                        <span class="glyphicon glyphicon-minus"></span>
+                      </button>
+                    </div>
 
-                  <input type="text" id="myNumber" class="form-control input-number circle" value="1" />
+                    <input type="text" id="myNumber" class="form-control input-number circle" value="1" />
 
-                  <div class="input-group-btn">
-                    <button id="up" class="btn btn-default circles" onclick="up(<%= item.quantity %>)">
-                      <span class="glyphicon glyphicon-plus"></span>
-                    </button>
+                    <div class="input-group-btn">
+                      <button id="up" class="btn btn-default circles" onclick="up(<%= item.quantity %>)">
+                        <span class="glyphicon glyphicon-plus"></span>
+                      </button>
+                    </div>
                   </div>
-                </div>
 
 
 
@@ -132,9 +132,11 @@
 
                   <!-- PLUS BUTTON -->
                   <% if @reservation.quantity < @reservation.item.quantity %>
-                    <%= simple_form_for @reservation, url: patch_reservation_path(@reservation) do |f| %>
+                    <%= simple_form_for @reservation do |f| %>
                       <%= f.error_notification %>
                       <%= f.hidden_field :in_cart, value: true %>
+                      <%= f.hidden_field :item_id, value: item.id %>
+                      <%= f.hidden_field :user_id, value: current_user.id %>
                       <%= f.hidden_field :quantity, value: @reservation.quantity + 1 %>
                          <%= f.button :button, class: 'plus-minus' do %>
                         <%= icon('fas', 'plus') %>
@@ -161,30 +163,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
               </div>
             </div>
             <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn">
@@ -198,3 +176,4 @@
       </div>
     </div>
   </div>
+</div>

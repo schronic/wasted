@@ -1,13 +1,27 @@
 <div class="container">
   <h1>All Orders</h1>
-
-  <ul>
-    <% @orders.each do |order| %>
-      <li>Order ID: <%= link_to order.id, order %></li>
-      <li>Status: <%= order.state %></li>
-      <li>Item: <%= order.item_sku %></li>
-      <li>Amount: <%= humanized_money_with_symbol(order.amount) %></li>
-      <li>Order date: <%= order.created_at %></li>
+  <div class="row">
+    <h3 class='text-center'><%= @paid.size %> Completed Orders</h3>
+    <% @paid.each do |order| %>
+      <div class='text-center'>
+        <div class="col-xs-3 col-sm-2 col-md-1">
+          <%= link_to "##{order.id}", order %>
+          <%= humanized_money_with_symbol(order.amount) %>
+          <%= order.created_at.strftime('%b %e') %>
+        </div>
+      </div>
     <% end %>
-  </ul>
+  </div>
+  <div class="row">
+    <h3 class='text-center'><%= @pending.size %> Pending Orders</h3>
+    <% @pending.each do |order| %>
+      <div>
+        <div class="col-xs-3 col-sm-2 col-md-1">
+          <%= link_to "##{order.id}", order %>
+          <%= humanized_money_with_symbol(order.amount) %>
+          <%= order.created_at.strftime('%b %e') %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
