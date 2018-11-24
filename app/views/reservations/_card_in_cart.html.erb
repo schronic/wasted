@@ -25,18 +25,19 @@
 
             <!-- Clickable icons on cart -->
             <div class="card-btn-cart">
-              <!-- Set item's cart status based on current user -->
-              <% status = 'available' %>
+              <!-- Set item's cart @status based on current user -->
+              <% @status = 'available' %>
               <% @same_supplier_items.each do |same_supplier_item|
                 if same_supplier_item.user_id == current_user.id
-                  status = 'in-cart'
+                  @status = 'in-cart'
                   @same_supplier_item = same_supplier_item
                 end
-                end %>
+                break
+              end %>
 
                 <!-- Icon to add to cart if not already in cart -->
-                <% if status == 'available' %>
-                <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f|
+                <% if @status == 'available' %>
+                <%= simple_form_for @reservation, url: create_reservation_path do |f|
                   f.error_notification
                   f.hidden_field :user, value: current_user.id
                   f.hidden_field :item_id, value: @reservation.id
@@ -46,7 +47,7 @@
                   end %>
 
                   <!-- Icon to remove from cart if already in cart -->
-                  <% elsif status == 'in-cart' %>
+                  <% elsif @status == 'in-cart' %>
                   <%= simple_form_for @reservation, url: patch_reservation_path(@reservation) do |f| %>
                   <%= f.error_notification %>
                   <%= f.hidden_field :user, value: current_user.id %>
@@ -99,24 +100,24 @@
 
                 <!-- Clickable icons on cart -->
                 <div class="card-btn-cart">
-                  <!-- Set item's cart status based on current user -->
-                  <% status = 'available' %>
+                  <!-- Set item's cart @status based on current user -->
+                  <% @status = 'available' %>
                   <% @same_supplier_items.each do |same_supplier_item|
                     same_supplier_item.reservations.each do |item_reservation|
                       current_user.reservations.each do |user_reservation|
 
                         if user_reservation.id == item_reservation.id
-                          status = 'in-cart'
+                          @status = 'in-cart'
                           break
                         end
-                        break if status == 'in-cart'
+                        break if @status == 'in-cart'
                       end
-                      break if status == 'in-cart'
+                      break if @status == 'in-cart'
                     end
                     end %>
 
                     <!-- Icon to add to cart if not already in cart -->
-                    <% if status == 'available' %>
+                    <% if @status == 'available' %>
 
                     <%= simple_form_for @reservation, url: create_reservation_path do |f| %>
                     <%= f.error_notification %>
@@ -139,7 +140,7 @@
 
 
                     <!-- Icon to remove from cart if already in cart -->
-                    <% elsif status == 'in-cart' %>
+                    <% elsif @status == 'in-cart' %>
                     <%= simple_form_for @reservation, url: reservation_path(same_supplier_item), method: :delete do |f| %>
                     <%= f.error_notification %>
                     <%= f.hidden_field :user, value: current_user.id %>

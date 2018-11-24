@@ -3,38 +3,13 @@
     <!-- <div class="add"> -->
     <!-- Icons to add or remove from cart -->
     <div class="card-btn">
-
-      <!-- Set item's cart @status based on current user -->
-      <%  if user_signed_in? %>
-      <%     @status = 'available' %>
-      <%     # Mark item as in cart %>
-      <%     @reservations.each do |reservation| %>
-      <%       if reservation.item_id == item.id && reservation.user_id == current_user.id %>
-      <%         @status = 'reserved' %>
-      <%         @reservation = reservation %>
-      <%         break %>
-      <%       end %>
-      <%     end %>
-      <%   end %>
-      <% if @status == 'available' %>
-      <%   @reservation.item = item %>
-      <% end %>
-
-      <!-- Icon: Add item to cart -->
-      <% if @status == 'available' %>
-        <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f| %>
-          <%= f.error_notification %>
-          <%= f.hidden_field :user_id, value: current_user.id %>
-          <%= f.hidden_field :item_id, value: item.id %>
-          <%= f.button :button, class: 'add' do %>
-            <%= icon('fas', 'plus') %>
-          <% end %>
+      <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f| %>
+        <%= f.error_notification %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.hidden_field :item_id, value: item.id %>
+        <%= f.button :button, class: 'add' do %>
+          <%= icon('fas', 'plus') %>
         <% end %>
-      <!-- Icon: Remove item from cart -->
-      <% elsif @status == 'reserved'%>
-        <div class='add'>
-          <%= @reservation.quantity %> in cart
-        </div>
       <% end %>
     </div>
 
