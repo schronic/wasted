@@ -1,7 +1,6 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: %i[show edit update destroy]
   # before_action :set_item, only: [:create]
-  skip_before_action :authenticate_user!, only: %i[index show new create edit update destroy]
 
   def index
     @reservations = policy_scope(Reservation).order(created_at: :desc)
@@ -65,8 +64,7 @@ class ReservationsController < ApplicationController
     elsif @reservation.save
       redirect_to items_path
     else
-      render html: "<h1>You received the following error:</h1>
-      <h3><em>#{@reservation.errors.full_messages}</em></h3>".html_safe
+      redirect_to items_path
     end
   end
 
@@ -107,7 +105,7 @@ private
   end
 
   # def set_item
-  #   @item = item.find(params[:reservation[:item_id]])
+  #   @item = item.find(params[:reservation][:item_id])
   # end
 
   def reservation_params

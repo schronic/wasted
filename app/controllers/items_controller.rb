@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   def index
     @current_lat = request.location.latitude
     @current_lng = request.location.longitude
-# @results = Geocoder.search([current_lat, current_lng]) Enable only in production
+    # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
     @results = Geocoder.search([-34.587880, -58.418150])
     @items = policy_scope(Item).order(created_at: :desc)
 
