@@ -9,79 +9,7 @@
     <div class="item <%= 'active' if index == 0 %> ">
 
       <!-- Set picture -->
-      <% if same_supplier_item.picture.present? %>
-      <!-- Card-cart -->
-      <div class="item-card">
-        <div class="card-body-cart" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= cl_image_path(same_supplier_item.picture) %>);">
-          <!-- Everything inside the picture -->
-          <div class="card-description-cart">
 
-            <!-- item ID and clickable card -->
-            <%= link_to "", item_path(same_supplier_item), class: 'card-link-cart' %>
-            <p class="item-number-cart">ID
-              <%= same_supplier_item.name %>
-            </p>
-            <!-- END item ID and clickable card -->
-
-            <!-- Clickable icons on cart -->
-            <div class="card-btn-cart">
-              <!-- Set item's cart @status based on current user -->
-              <% @status = 'available' %>
-              <% @same_supplier_items.each do |same_supplier_item|
-                if same_supplier_item.user_id == current_user.id
-                  @status = 'in-cart'
-                  @same_supplier_item = same_supplier_item
-                end
-                break
-              end %>
-
-                <!-- Icon to add to cart if not already in cart -->
-                <% if @status == 'available' %>
-                <%= simple_form_for @reservation, url: create_reservation_path do |f|
-                  f.error_notification
-                  f.hidden_field :user, value: current_user.id
-                  f.hidden_field :item_id, value: @reservation.id
-                  f.button :button, class: 'card-icon-cart' do %>
-                  <%= icon('fas', 'plus') %>
-                  <% end
-                  end %>
-
-                  <!-- Icon to remove from cart if already in cart -->
-                  <% elsif @status == 'in-cart' %>
-                  <%= simple_form_for @reservation, url: patch_reservation_path(@reservation) do |f| %>
-                  <%= f.error_notification %>
-                  <%= f.hidden_field :user, value: current_user.id %>
-                  <%= f.hidden_field :item_id, value: @reservation.id %>
-                  <%= f.hidden_field :in_cart, value: true %>
-                  <%= f.hidden_field :quantity, value: (@reservation.quantity + 1) %>
-                  <%= f.button :button, class: 'card-icon-cart' do %>
-                  <%= icon('fas', 'minus') %>
-                  <% end %>
-                  <% end %>
-
-                  <!-- Don't show an icon if something weird happens -->
-                  <% else %>
-                  <% end %>
-                </div>
-                <!-- END clickable icons -->
-              </div>
-              <!-- END card description inside picture -->
-            </div>
-
-            <!-- Card footer -->
-            <div class="card-footer-cart">
-              <p class="item-name-cart"> <%= same_supplier_item.name %></p>
-              <p class="item-price-cart"><%= same_supplier_item.price %> $ </p>
-
-              <p class="item-name-cart">
-                Added: <em><%= same_supplier_item.updated_at.strftime("%b %e, %l:%M %p") %></em>
-              </p>
-            </div>
-            <!-- END Card footer -->
-          </div>
-          <!-- END card-cart -->
-
-          <% else %>
           <!-- Card-cart -->
           <div class="card-cart">
             <div class="card-body-cart" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://picsum.photos/800/300/?random');">
@@ -124,34 +52,11 @@
                     <%= f.hidden_field :in_cart, value: true %>
                     <%= f.hidden_field :user_id, value: current_user.id %>
                     <%= f.hidden_field :item_id, value: same_supplier_item.id %>
+                    <%= f.hidden_field :quantity, value: 1 %>
                     <%= f.button :button, class: 'card-icon-cart' do %>
                     <%= icon('fas', 'plus') %>
                     <% end %>
                     <% end %>
-
-
-
-
-
-
-
-
-
-
-
-                    <!-- Icon to remove from cart if already in cart -->
-                    <% elsif @status == 'in-cart' %>
-                    <%= simple_form_for @reservation, url: reservation_path(same_supplier_item), method: :delete do |f| %>
-                    <%= f.error_notification %>
-                    <%= f.hidden_field :user, value: current_user.id %>
-                    <%= f.hidden_field :item_id, value: same_supplier_item.id %>
-                    <%= f.button :button, class: 'card-icon-cart' do %>
-                    <%= icon('fas', 'minus') %>
-                    <% end %>
-                    <% end %>
-
-                    <!-- Don't show an icon if something weird happens -->
-                    <% else %>
                     <% end %>
                   </div>
                   <!-- END clickable icons -->
@@ -174,7 +79,6 @@
             </div>
             <!-- END .card-cart -->
 
-            <% end %>
             <!-- END set picture -->
           </div>
 
