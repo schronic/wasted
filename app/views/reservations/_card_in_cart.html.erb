@@ -47,7 +47,7 @@
 
                   <!-- Icon to remove from cart if already in cart -->
                   <% elsif status == 'in-cart' %>
-                  <%= simple_form_for @reservation, patch_reservation do |f| %>
+                  <%= simple_form_for @reservation, url: patch_reservation_path(@reservation) do |f| %>
                   <%= f.error_notification %>
                   <%= f.hidden_field :user, value: current_user.id %>
                   <%= f.hidden_field :item_id, value: @reservation.id %>
