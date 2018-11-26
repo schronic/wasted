@@ -9,31 +9,42 @@ class PurchasedItemsController < ApplicationController
   end
 
   def create
-    @order = Order.new(
-      amount: amount_params,
-      user_id: current_user.id,
-      state: 'pending'
-    )
-    authorize @order
-    render html: "<h3><em>#{@order.errors.full_messages}</em></h3>".html_safe unless @order.save
-
-    @purchased_items = []
-    @reservations.each do |reservation|
-      purchased_item = PurchasedItem.new(
-        item_purchase_price: reservation.item.price,
-        item_purchase_quantity: reservation.quantity,
-        item_id: reservation.item.id,
-        order_id: @order.id,
-        item_purchase_name: reservation.item.name,
-        item_purchase_description: reservation.item.description,
-        item_purchase_expiration: reservation.item.expiration,
-        item_purchase_pickup_time: reservation.item.pickup_time,
-        item_purchase_picture: reservation.item.picture
+    if @reservations.any?
+      @order = Order.new(
+        amount: amount_params,
+        user_id: current_user.id,
+        state: 'pending'
       )
-      render html: "<h3><em>#{purchased_item.errors.full_messages}</em></h3>".html_safe unless purchased_item.save
-      @purchased_items << purchased_item
+      authorize @order
+      render html: "<h3><em>#{@order.errors.full_messages}</em></h3>".html_safe unless @order.save
+
+      @purchased_items = []
+      @reservations.each do |reservation|
+        purchased_item = PurchasedItem.new(
+          item_purchase_price: reservation.item.price,
+          item_purchase_quantity: reservation.quantity,
+          item_id: reservation.item.id,
+          order_id: @order.id,
+          item_purchase_name: reservation.item.name,
+          item_purchase_description: reservation.item.description,
+          item_purchase_expiration: reservation.item.expiration,
+          item_purchase_pickup_time: reservation.item.pickup_time,
+          item_purchase_picture: reservation.item.picture
+        )
+        render html: "<h3><em>#{purchased_item.errors.full_messages}</em></h3>".html_safe unless purchased_item.save
+        @purchased_items << purchased_item
+        reservation.item.quantity -= 1
+        reservation.item.save
+        raise
+        reservation.destroy
+      end
+      Item.where('quantity < 1').destroy_all
+      redirect_to new_order_payment_path(@order)
+    else
+      authorize @reservations
+      sleep(5)
+      redirect_to cart_path
     end
-    redirect_to new_order_payment_path(@order)
   end
 
   def edit
