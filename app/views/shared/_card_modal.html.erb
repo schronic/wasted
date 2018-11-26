@@ -14,14 +14,20 @@
             <div class="col-md-1">
             <p><i class="fas fa-circle line-breaker"></i></p>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <p style="font-size: 14px !important;"><strong><%= item.category %></strong></p>
             </div>
             <div class="col-md-1">
             <p><i class="fas fa-circle line-breaker"></i></p>
             </div>
             <div class="col-md-3">
-              <p style="font-size: 14px !important;"><strong><%= item.food_type %></strong></p>
+              <p style="font-size: 14px !important;">
+                <strong>
+                  <% item.types.each do |type| %>
+                  <%= type.name %> |
+                  <% end %>
+                </strong>
+              </p>
             </div>
           </div>
           <br>
