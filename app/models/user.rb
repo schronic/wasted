@@ -75,4 +75,6 @@ class User < ApplicationRecord
                  .each { |i| money_earned += i.item_purchase_price }
     money_earned
   end
+
 end
+

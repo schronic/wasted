@@ -8,7 +8,7 @@
   <div class="row"><%= f.input :description, input_html: { class: "input-bar"} %></div>
   <div class="row"><%= f.input :address, input_html: { class: "input-bar"} %></div>
   <div class="row"><%= f.input :category, input_html: { class: "input-bar"}, collection: Item::CATEGORY %></div>
-  <div class="row"><%= f.input :food_type, input_html: { class: "input-bar"}, collection: Item::TYPES %></div>
+  <div class="row"><%= f.input :types, as: :check_boxes, collection: Type::TYPES, input_html: { class: "input-bar"} %></div>
 
   <div class="row">
     <div class="col-md-6">

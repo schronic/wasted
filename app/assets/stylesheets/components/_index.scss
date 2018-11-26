@@ -6,24 +6,10 @@
 @import "banner";
 @import "home";
 @import "button";
+@import "map_window";
+@import "filter";
 @import "form";
 @import "card_in_cart";
 @import "itemized_reservations";
 @import "hr_tag";
-
-
-.filter-body {
-  height: auto;
-}
-
-.filter-modal {
-  display: flex;
-  width: 100%;
-  flex: 0 0 50%;
-}
-
-.filter, .search {
-  height: 30px;
-  width: auto;
-}
 
