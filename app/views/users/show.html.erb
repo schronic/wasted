@@ -1,5 +1,5 @@
 <% if current_user.role == "consumer" %>
-<div class="container-fluid">
+<div class="container-fluid background-color-container">
   <div class="row">
     <div class="col-xs-12" id="profile-picture">
       <!-- PHOTO + NAME -->
@@ -75,21 +75,212 @@
           <p>purchase history</p>
           <p></p>
         </div>
+        <br>
+        <br>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+</div>
+
+<% end %>
+
+<% if current_user.role == "supplier" %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12" id="profile-picture">
+      <!-- PHOTO + NAME -->
+      <% if current_user.avatar.present? %>
+      <%= cl_image_tag(current_user.avatar, width: 150, height: 150, class: "img-circle") %>
+      <% else %>
+      <%= cl_image_tag("http://fuuse.net/wp-content/uploads/2016/02/avatar-placeholder.png", width: 150, height: 150, class: "img-circle") %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row" id="items-holder">
+    <div class="col-xs-4">
+      <h3><%= current_user.items_rescued %></h3>
+      <h2> items saved</h2>
+    </div>
+    <div class="col-xs-4">
+      <h3>$ <%= current_user.money_saved %></h3>
+      <h2> money earned</h2>
+    </div>
+    <div class="col-xs-4">
+      <h3> <%= current_user.food_rescued %> kg</h3>
+      <h2> food rescued</h2>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 table-col background-color-profile">
+      <!-- INFORMATION -->
+      <div class="user-info">
+        <!-- CARD INFORMATION -->
+        <div class="user-card-info">
+          <!-- CARD TITLE / ACCOUNT INFO-->
+          <div class="user-card-title">
+            <h2>ACCOUNT INFO</h2>
+            <%= link_to "Edit", edit_user_registration_path %>
+          </div>
+          <!-- CARD DETAILS -->
+          <div class="user-card-details">
+            <p><%= current_user.name %></p>
+            <p><%= current_user.email %></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD INFORMATION -->
+      <div class="user-info">
+        <div class="user-card-info">
+          <!-- CARD TITLE / ADDRESS-->
+          <div class="user-card-title">
+            <h2>ADDRESSES PAYMENTS</h2>
+            <%= link_to "Edit", edit_user_registration_path %>
+          </div>
+          <!-- CARD DETAILS -->
+          <div class="user-card-details">
+           <p><%= current_user.name %></p>
+           <p><%= current_user.email %></p>
+         </div>
+       </div>
+     </div>
+
+
+        <div class="user-info">
+        <div class="user-card-info">
+          <!-- CARD TITLE / ADDRESS-->
+          <div class="user-card-title">
+            <h2>UPLOAD HISTORY</h2>
+            <%= link_to "Upload Food", edit_user_registration_path %>
+          </div>
+          <!-- CARD DETAILS -->
+          <div class="user-card-details">
+           <p><%= current_user.name %></p>
+           <p><%= current_user.email %></p>
+         </div>
+       </div>
+     </div>
+
       </div>
     </div>
   </div>
 </div>
-</div>
-<% end %>
-
-<% if current_user.role == "supplier" %>
-<div id=user-show-supplier>
 </div>
 
 <% end %>
 
 <% if current_user.role == "both" %>
 <div id=user-show-both>
+  <div class="container-fluid background-color-container">
+  <div class="row">
+    <div class="col-xs-12" id="profile-picture">
+      <!-- PHOTO + NAME -->
+      <% if current_user.avatar.present? %>
+      <%= cl_image_tag(current_user.avatar, width: 150, height: 150, class: "img-circle") %>
+      <% else %>
+      <%= cl_image_tag("http://fuuse.net/wp-content/uploads/2016/02/avatar-placeholder.png", width: 150, height: 150, class: "img-circle") %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row" id="items-holder">
+    <div class="col-xs-4">
+      <h3><%= current_user.items_rescued %></h3>
+      <h2> items rescued</h2>
+    </div>
+    <div class="col-xs-4">
+      <h3>$ <%= current_user.money_saved %></h3>
+      <h2> saved</h2>
+    </div>
+    <div class="col-xs-4">
+      <h3> <%= current_user.food_rescued %> kg</h3>
+      <h2> food rescued</h2>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 table-col background-color-profile">
+      <!-- INFORMATION -->
+      <div class="user-info">
+        <!-- CARD INFORMATION -->
+        <div class="user-card-info">
+          <!-- CARD TITLE / ACCOUNT INFO-->
+          <div class="user-card-title">
+            <h2>ACCOUNT INFO</h2>
+            <%= link_to "Edit", edit_user_registration_path %>
+          </div>
+          <!-- CARD DETAILS -->
+          <div class="user-card-details">
+            <p><%= current_user.name %></p>
+            <p><%= current_user.email %></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD INFORMATION -->
+      <div class="user-info">
+        <div class="user-card-info">
+          <!-- CARD TITLE / ADDRESS-->
+          <div class="user-card-title">
+            <h2>ADDRESSES & PAYMENTS</h2>
+            <%= link_to "Edit", edit_user_registration_path %>
+          </div>
+          <!-- CARD DETAILS -->
+          <div class="user-card-details">
+           <p><%= current_user.name %></p>
+           <p><%= current_user.email %></p>
+         </div>
+       </div>
+     </div>
+
+     <div class="user-info">
+      <!-- CARD INFORMATION -->
+      <div class="user-card-info">
+        <!-- CARD TITLE / ARENAS-->
+        <div class="user-card-title">
+          <h2>PURCHASE HISTORY</h2>
+          <%= link_to "Edit", edit_user_registration_path %>
+        </div>
+        <!-- CARD DETAILS -->
+        <div class="user-card-details">
+          <p>purchase history</p>
+          <p></p>
+        </div>
+        <br>
+        <br>
+      </div>
+    </div>
+
+
+     <div class="user-info">
+      <!-- CARD INFORMATION -->
+      <div class="user-card-info">
+        <!-- CARD TITLE / ARENAS-->
+        <div class="user-card-title">
+          <h2>ORDER HISTORY</h2>
+          <%= link_to "Edit", edit_user_registration_path %>
+        </div>
+        <!-- CARD DETAILS -->
+        <div class="user-card-details">
+          <p>order history</p>
+          <p></p>
+        </div>
+        <br>
+        <br>
+      </div>
+    </div>
+
+
+  </div>
+</div>
 </div>
 
 <% end %>
