@@ -17,9 +17,34 @@
   font-size: 15px;
 }
 
+.btn-filter:focus {
+  text-decoration: none;
+  color: white;
+}
+
+.btn-filter:hover {
+  text-decoration: none;
+  color: white;
+}
+
 #type-filter2 label {
   font-weight: lighter;
   font-size: 15px;
+}
+
+#type-filter2 legend {
+  border:0;
+  font-size: 18px;
+}
+
+#type-filter3 label {
+  font-weight: lighter;
+  font-size: 15px;
+}
+
+#type-filter3 legend {
+  border:0;
+  font-size: 18px;
 }
 
 .filter-body {
@@ -55,12 +80,16 @@
 }
 
 .search-filter-box {
-  width: 60% !important;
+  width: 100% !important;
   display: flex;
   margin-top: 50px;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
 }
 
+.collapse.in {
+  padding: 15px 20px 20px;
+  border: 1px solid black;
+}
 .search-filter1-box {
   width: 70% !important;
   display: flex;
@@ -71,7 +100,7 @@
 .filter {
   flex: 0 0 200px;
   background-color: black;
-    font-size: 12px;
+  font-size: 12px;
 
 }
 
