@@ -123,3 +123,17 @@
   border:0;
 }
 
+.filter{
+  padding-left: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  a{
+    margin-left:50px;
+  }
+}
+
+#map{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}

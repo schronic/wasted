@@ -12,6 +12,7 @@
           <% end %>
         </div>
         <div class="filter">
+          <%= image_tag("equalizer.png", width:"16", height:"15", :class => "equalizer" )  %>
           <a class="btn-filter" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">FILTER</a>
         </div>
       </div>
@@ -128,11 +129,10 @@
 
 
 <div
+class="container"
 id="map"
-style="width: 100%;
-height: 600px;"
+style="width: 70%; height: 500px;"
 data-markers="<%= @markers.to_json %>"
 data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
-<<<<<<< HEAD
 >
 </div>

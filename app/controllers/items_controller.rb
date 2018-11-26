@@ -4,7 +4,6 @@ class ItemsController < ApplicationController
 
 # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
 
-
   def index
     @current_lat = request.location.latitude
     @current_lng = request.location.longitude
@@ -13,10 +12,6 @@ class ItemsController < ApplicationController
     @items = policy_scope(Item).order(expiration: :desc)
 
     @reservation = Reservation.new
-
-    @items.each do |item|
-      item.update(distance: Geocoder::Calculations.distance_between([-34.587880, -34.587880], ([item.latitude, item.longitude])).round(2))
-    end
 
 
 
