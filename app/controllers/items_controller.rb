@@ -4,7 +4,6 @@ class ItemsController < ApplicationController
 
 # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
 
-
   def index
     @current_lat = request.location.latitude
     @current_lng = request.location.longitude
@@ -13,7 +12,7 @@ class ItemsController < ApplicationController
     @items = policy_scope(Item).order(expiration: :desc)
 
     @reservation = Reservation.new
-  @features = Feature.all
+
 
 
   @items.each do |item|

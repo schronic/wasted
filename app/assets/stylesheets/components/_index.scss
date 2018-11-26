@@ -13,3 +13,128 @@
 @import "itemized_reservations";
 @import "hr_tag";
 
+
+.inline-item {
+  display: inline !important;
+  margin: 20px;
+  font-weight: lighter !important;
+  font-size: 15px;
+}
+
+.btn-filter:active {
+  text-decoration: none;
+  color: white;
+}
+
+.btn-filter:hover {
+  text-decoration: none;
+  color: white;
+}
+
+#type-filter2 label {
+  font-weight: lighter;
+  font-size: 15px;
+}
+
+#type-filter2 legend {
+  border:0;
+  font-size: 18px;
+}
+
+#type-filter3 label {
+  font-weight: lighter;
+  font-size: 15px;
+}
+
+#type-filter3 legend {
+  border:0;
+  font-size: 18px;
+}
+
+.filter-body {
+  height: auto;
+}
+
+.filter-modal {
+  // display: flex;
+  width: 100%;
+  flex: 0 0 50%;
+}
+
+.filter, .search {
+  height: 30px;
+  width: auto;
+
+}
+
+// .allign-button{
+// text-align: center;
+// }
+
+.filter-style{
+  font-size: 15px;
+  font-weight: lighter !important;
+}
+
+.my-button{
+  background-color: black;
+  font-size: 15px;
+  color:white;
+  width: 20%;
+}
+
+.search-filter-box {
+  width: 70% !important;
+  display: flex;
+  margin-top: 50px;
+  // margin-bottom: 30px;
+}
+
+.collapse.in {
+  padding: 15px 20px 20px;
+  border: 1px solid black;
+  box-shadow: rgb(237, 236, 236) 2px 2px 2px;
+  width:70%;
+}
+.search-filter1-box {
+  width: 70% !important;
+  display: flex;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.filter {
+  flex: 0 0 200px;
+  background-color: black;
+  font-size: 12px;
+
+}
+
+.search {
+  flex: 1 0 auto;
+  input {
+    width: 100%;
+  }
+  border: 0;
+  border-bottom: 2px solid black;
+}
+
+
+#term_query{
+  border:0;
+}
+
+.filter{
+  padding-left: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  a{
+    margin-left:50px;
+  }
+}
+
+#map{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
