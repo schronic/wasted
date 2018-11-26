@@ -16,4 +16,8 @@ class OrderPolicy < ApplicationPolicy
   def create?
     new?
   end
+
+  def destroy?
+    record.state == 'pending' && consumer?
+  end
 end
