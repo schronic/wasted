@@ -26,6 +26,7 @@
     <div class="total-prices-container">
   <!--     <h5>Items: <%= @total_items %></h5> -->
       <h5>Subtotal: <%= humanized_money_with_symbol(@subtotal_price) %></h5>
+
       <h6>5% site fee: <%= humanized_money_with_symbol(@commission) %></h6>
       <h4>Total price: <%= humanized_money_with_symbol(@total_price) %></h4>
     </div>

@@ -11,8 +11,7 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :purchased_items, through: :orders
 
- ROLES = %w[consumer supplier both]
-
+ROLES = %w[consumer supplier both]
 
   mount_uploader :avatar, PhotoUploader
 
@@ -23,7 +22,6 @@ class User < ApplicationRecord
   def subscribe_to_newsletter
     SubscribeToNewsletterService.new(self).call if self.subscribed
   end
-
 
   def items_rescued
     self.orders.map { |order| order.purchased_items.count }.sum
@@ -38,5 +36,5 @@ class User < ApplicationRecord
   def food_rescued
    0.25*(self.orders.map { |order| order.purchased_items.count }.sum)
   end
-
 end
+

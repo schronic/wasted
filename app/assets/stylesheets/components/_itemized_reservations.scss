@@ -36,6 +36,11 @@
   }
 }
 
+.subtotal-box{
+  display: flex;
+    justify-content: space-between;
+}
+
 .btn-checkout{
       border: 0px;
     background-color: black;
