@@ -25,9 +25,10 @@
               <div class="">
 
                 <div id="type-filter2">
-                  <div class="search-filter1-box">
-
-                    <%= f.input :catg, required: false, item_wrapper_class: "inline-item" ,label: 'CATEGORY', as: :check_boxes, collection: Item::CATEGORY%>
+                  <p>CATEGORY</p>
+                  <div class="search-filter1-box" style="display: flex;flex-wrap: wrap;">
+                    <%= f.collection_check_boxes :catg, Item::CATEGORY.map { |c| [c, c] }, :first, :last, input_html: { style: "display: flex; padding-right: 15px;"}, label_html: { style: "padding-left: 20px;"} %>
+                    <% f.input :catg, required: false ,label: 'CATEGORY', as: :check_boxes, collection: Item::CATEGORY%>
                   </div>
                 </div>
 
@@ -36,11 +37,12 @@
                 <div class="">
                   <br>
                   <div id="type-filter3">
-                    <div class="search-filter1-box">
 
+                  <p>TYPE</p>
+                  <div class="search-filter1-box" style="display: flex;flex-wrap: wrap;">
+                    <%= f.collection_check_boxes :catg, Item::TYPES.map { |c| [c, c] }, :first, :last, input_html: { style: "display: flex; padding-right: 15px;"}, label_html: { style: "padding-left: 20px;"} %>
+                    <% f.input :catg, required: false ,label: 'TYPE', as: :check_boxes, collection: Item::TYPES%>
 
-                      <%= f.input :att, required: false, item_wrapper_class: "inline-item", label: 'TYPE', as: :check_boxes, label_html: { class: "filter-style" },  collection: Item::TYPES%>
-                    </div>
                   </div>
                 </div>
                 <br>
@@ -49,6 +51,7 @@
                 </div>
 
               </div>
+                </div>
             </div>
           </div>
         </div>
@@ -123,6 +126,7 @@
     </div>
   </div>
 </div>
+  </div>
 <% end %>
 
 
