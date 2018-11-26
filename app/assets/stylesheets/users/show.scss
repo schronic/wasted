@@ -129,16 +129,18 @@
   justify-content: center;
 }
 
-#items-holder {
-  padding: 50px 40px;
+.item-holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  // background-color: #CCC;
+  color: green;
+  border-radius: 10px;
+  font-family: "Montserrat", sans-serif;
   p, h2, h3 {
     margin: 0;
-    font-family: "Montserrat", sans-serif;
-  }
-  div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 }

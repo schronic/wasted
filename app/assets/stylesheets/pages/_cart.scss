@@ -2,16 +2,6 @@
   display: flex;
   width: 100vw;
   justify-content: space-between;
-  hr {
-      text-align: center;
-      display: block;
-      height: 0;
-      width: 80%;
-      border: 0;
-      border-top: 2px solid #ccc;
-      margin: 1em 0;
-      padding: 0;
-  }
   .carousels-container {
     flex: 1 1 auto;
     padding: 10px;
