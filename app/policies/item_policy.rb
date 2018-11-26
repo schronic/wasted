@@ -3,14 +3,16 @@ class ItemPolicy < ApplicationPolicy
     def resolve
 
       if user_logged_in?
-        scope.where.not(user_id: user.id)
+        scope.where.not(id: Reservation
+            .where(user_id: user.id)
+            .pluck(:item_id))
+
+        # scope.joins(:reservations)
+        #      .where.not(reservations: { user_id: user.id })
+        #      .where.not(items: { user_id: user.id })
       else
         scope.all
       end
-    end
-
-    def user_logged_in?
-      user
     end
   end
 

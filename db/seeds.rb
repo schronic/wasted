@@ -93,6 +93,48 @@ end
     item: item,
     type: Type.all.sample
     )
+
+    @reservations << reservation1 << reservation2
+
+    @orders = []
+    @state = ['paid', 'paid', 'paid', 'paid', 'pending']
+    rand(1..2).times do
+      order1 = Order.create!(
+        total_price: rand(30..60),
+        user: @consumers.sample,
+        state: @state.sample
+      )
+      order2 = Order.create!(
+        total_price: rand(30..60),
+        user: @boths.sample
+        state: @state.sample
+      )
+      @orders << order1 << order2
+
+      @purchased_items = []
+      rand(1..2).times do
+        rand(1..2).times do
+          purchased_item = PurchasedItem.create!({
+            item_purchase_price: rand(1..30),
+            item_purchase_quantity: rand(1..3),
+            item: item,
+            item_purchase_name: item.name,
+            item_purchase_description: item.description,
+            item_purchase_expiration: item.expiration,
+            item_purchase_pickup_time: item.pickup_time,
+            order: @orders.sample
+          })
+          @purchased_items << purchased_item
+        end
+
+        @reservations.each do |reservation|
+          reservation.purchased_item = @purchased_items.sample
+          reservation.save
+        end
+      end
+    end
+  end
+  puts "Just created another item/reservation/order combination..."
 end
 end
 
@@ -103,3 +145,8 @@ puts "Just created another item/reservation/order combination..."
 puts 'Seed complete!'
 
 
+@items.each do |item|
+  Feature.create(
+    item: item,
+    type: Type::Types.sample)
+end

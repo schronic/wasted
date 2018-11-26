@@ -10,13 +10,14 @@ class PurchasedItemsController < ApplicationController
 
   def create
     @order = Order.new(
-      total_price: amount_cents_params,
+      amount: amount_params,
       user_id: current_user.id,
-      amount_cents: amount_cents_params
-      )
+      state: 'pending'
+    )
     authorize @order
     render html: "<h3><em>#{@order.errors.full_messages}</em></h3>".html_safe unless @order.save
 
+    @purchased_items = []
     @reservations.each do |reservation|
       purchased_item = PurchasedItem.new(
         item_purchase_price: reservation.item.price,
@@ -29,10 +30,10 @@ class PurchasedItemsController < ApplicationController
         item_purchase_pickup_time: reservation.item.pickup_time,
         item_purchase_picture: reservation.item.picture
       )
-    authorize purchased_item
-    render html: "<h3><em>#{purchased_item.errors.full_messages}</em></h3>".html_safe unless purchased_item.save
+      render html: "<h3><em>#{purchased_item.errors.full_messages}</em></h3>".html_safe unless purchased_item.save
+      @purchased_items << purchased_item
     end
-    redirect_to new_order_path(@order.id, id: @order.id)
+    redirect_to new_order_payment_path(@order)
   end
 
   def edit
@@ -50,7 +51,7 @@ class PurchasedItemsController < ApplicationController
     params.require(:reservations)
   end
 
-  def amount_cents_params
-    params.require(:amount_cents)
+  def amount_params
+    params.require(:amount)
   end
 end

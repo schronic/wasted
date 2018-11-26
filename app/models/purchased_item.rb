@@ -7,4 +7,7 @@ class PurchasedItem < ApplicationRecord
             :item_purchase_name,
             :item_purchase_quantity,
             presence: true
+
+  monetize :item_purchase_price_cents
+
 end

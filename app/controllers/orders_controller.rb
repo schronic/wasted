@@ -2,9 +2,12 @@ class OrdersController < ApplicationController
   before_action :set_order, only: %i[new show]
   def index
     @orders = policy_scope(Order).order(created_at: :desc)
+    @paid = @orders.where(state: 'paid')
+    @pending = @orders.where(state: 'pending')
   end
 
   def show
+    @order = current_user.orders.where.not(state: nil).find(params[:id])
     authorize @order
   end
 

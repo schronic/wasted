@@ -4,13 +4,17 @@ class ItemsController < ApplicationController
 
 # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
 
-def index
-  @current_lat = request.location.latitude
-  @current_lng = request.location.longitude
-  @results = Geocoder.search([-34.587880, -58.418150])
 
-  @items = policy_scope(Item).order(created_at: :desc)
+  def index
+    @current_lat = request.location.latitude
+    @current_lng = request.location.longitude
+    # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
+    @results = Geocoder.search([-34.587880, -58.418150])
+    @items = policy_scope(Item).order(expiration: :desc)
+
+    @reservation = Reservation.new
   @features = Feature.all
+
 
   @items.each do |item|
     item.update(distance_location: Geocoder::Calculations.distance_between([-34.587880, -34.587880], ([item.latitude, item.longitude])).round(2))

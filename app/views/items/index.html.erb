@@ -15,49 +15,50 @@
   <div class="filter-body">
     <div class="filter-modal">
       <div class="catg-filter">
-      <%= f.input :catg, label: 'Filter by category:', as: :check_boxes, collection: Item::CATEGORY%>
-    </div>
-    <div class="type-filter">
-      <%= f.input :att, label: 'Filter by type:', as: :check_boxes, collection: Item::TYPES%>
-    </div>
-      <%= f.button :submit %>
+        <%= f.input :catg, label: 'Filter by category:', as: :check_boxes, collection: Item::CATEGORY%>
+      </div>
+      <div class="type-filter">
+        <%= f.input :att, label: 'Filter by type:', as: :check_boxes, collection: Item::TYPES%>
+      </div>
+      <div>
+        <%= f.button :submit %>
+      </div>
     </div>
   </div>
 </div>
 <% end %>
 
-  <% @items.each do |item| %>
-  <%= render 'shared/card_modal', item: item %>
-  <% end %>
+<% @items.each do |item| %>
+<%= render 'shared/card_modal', item: item %>
+<% end %>
 
 <% if @query.present? %>
-  <div class="container">
-    <div class="row">
-      <% @items.each do |item| %>
-      <div class="col-md-3">
-        <%= render 'shared/card', item: item %>
-      </div>
-      <% end %>
+<div class="container">
+  <div class="row">
+    <% @items.each do |item| %>
+    <div class="col-md-3">
+      <%= render 'shared/card', item: item %>
     </div>
+    <% end %>
   </div>
+</div>
 <% else %>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-11 col-md-10 col-centered">
-        <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
-
-          <div class="carousel-inner">
-            <% @items.each_with_index do |item, index| %>
-            <div class="item <%= 'active' if index == 0 %>">
-              <div class="carousel-col">
-                <div class="img-responsive">
-                  <%= render 'shared/card', item: item %>
-                </div>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-11 col-md-10 col-centered">
+      <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
+        <div class="carousel-inner">
+          <% @items.each_with_index do |item, index| %>
+          <div class="item <%= 'active' if index == 0 %>">
+            <div class="carousel-col">
+              <div class="img-responsive">
+                <%= render 'shared/card', item: item %>
               </div>
             </div>
-            <% end %>
           </div>
+          <% end %>
+        </div>
+
         <!-- Controls -->
         <div class="left carousel-control">
           <a href="#carousel" role="button" data-slide="prev">
@@ -74,6 +75,7 @@
       </div>
     </div>
   </div>
+</div>
 <% end %>
 
 <div

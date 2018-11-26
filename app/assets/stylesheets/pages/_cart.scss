@@ -3,6 +3,7 @@
   width: 100vw;
   justify-content: space-between;
   hr {
+      text-align: center;
       display: block;
       height: 0;
       width: 80%;
@@ -11,13 +12,28 @@
       margin: 1em 0;
       padding: 0;
   }
-
   .carousels-container {
-
+    flex: 1 1 auto;
+    padding: 10px;
+    .card-holder {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      .card-cart {
+        min-width: 250px;
+        max-width: 300px;
+        margin: 0 10px;
+        // margin: 10px;
+        p {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
   }
   .shopping-cart-container {
   flex: 0 0 400px;
-  min-height: 100vh;
+  height: 100vh;
   position: sticky !important;
   padding-top: 10px;
   top: 0;
@@ -50,8 +66,7 @@
         }
       }
     }
-
-
   }
 }
+
 

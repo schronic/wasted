@@ -1,0 +1,86 @@
+<div class="reservations-container">
+  <!-- RESERVATIONS FROM ALL SUPPLIERS -->
+  <div class="itemized-reservations">
+    <% @reservations_suppliers_with_reserved.each do |supplier| %>
+      <div class="itemized-by-supplier">
+        <!-- SUPPLIER NAME -->
+        <div class="supplier-name">
+          <%= supplier[0].name.upcase %>
+        </div>
+        <!-- END SUPPLIER NAME -->
+
+        <% supplier[1].each do |reservation| %>
+
+          <!-- RESERVATIONS FROM SINGLE SUPPLIER -->
+          <div class="reservation">
+            <!-- QUANTITY AND PLUS/MINUS BUTTONS -->
+            <div class="quantity">
+
+              <!-- MINUS BUTTON -->
+              <% if reservation.quantity > 1 %>
+                <%= simple_form_for reservation do |f| %>
+                  <%= f.error_notification %>
+                  <%= f.hidden_field :in_cart, value: true %>
+                  <%= f.hidden_field :quantity, value: reservation.quantity - 1 %>
+                     <%= f.button :button, class: 'plus-minus' do %>
+                    <%= icon('fas', 'minus') %>
+                  <% end %>
+                <% end %>
+              <% elsif reservation.quantity == 1 %>
+                <%= simple_form_for @reservation, url: reservation, method: :delete do |f| %>
+                  <%= f.error_notification %>
+                  <%= f.hidden_field :in_cart, value: true %>
+                  <%= f.button :button, class: 'plus-minus' do %>
+                    <%= icon('fas', 'minus') %>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <!-- END MINUS BUTTON -->
+
+              <%= reservation.quantity %>
+
+              <!-- PLUS BUTTON -->
+              <% if reservation.quantity < reservation.item.quantity %>
+                <%= simple_form_for reservation do |f| %>
+                  <%= f.error_notification %>
+                  <%= f.hidden_field :in_cart, value: true %>
+                  <%= f.hidden_field :quantity, value: reservation.quantity + 1 %>
+                     <%= f.button :button, class: 'plus-minus' do %>
+                    <%= icon('fas', 'plus') %>
+                  <% end %>
+                <% end %>
+              <% else %>
+                <%= simple_form_for @reservation do |f| %>
+                  <%= f.error_notification %>
+                     <%= f.button :button, disabled: true, class: 'plus-minus' do %>
+                    <%= icon('fas', 'plus') %>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <!-- END PLUS BUTTON -->
+
+            </div>
+            <!-- END QUANTITY AND PLUS/MINUS BUTTONS -->
+
+            <!-- NAME -->
+            <div class="name cart-items-list2">
+              <%= reservation.item.name %>
+            </div>
+            <!-- NAME -->
+
+            <!-- ITEM PRICE -->
+            <div class="price cart-items-list2">
+              <%= humanized_money_with_symbol(reservation.item.price) %>
+            </div>
+            <!-- END ITEM PRICE -->
+          </div>
+          <!-- END RESERVATIONS FROM SINGLE SUPPLIER -->
+        <% end %>
+      </div>
+      <!-- END ITEMIZED BY SUPPLIER -->
+    <% end %>
+  </div>
+  <!-- END RESERVATIONS FROM ALL SUPPLIERS -->
+
+</div>
+<!-- END RESERVATIONS CONTAINER -->
