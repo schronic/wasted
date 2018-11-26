@@ -3,8 +3,9 @@
   <div class="row">
     <div class="col-xs-11 col-xs-offset-1">
       <div class="search-filter-box">
-          <i class="fas fa-search"></i>
+        <span style="border-bottom: 2px solid black;"><i class="fas fa-search"></i></span>
         <div class="search">
+
           <%= simple_form_for :term, url: items_path, method: :get do |f| %>
           <%= f.input_field :query, label: false, placeholder: "",
           input_html: { value: @results.first.address } do %>
@@ -64,7 +65,7 @@
     <div class="col-xs-11 col-xs-offset-1">
 
       <div class="search-filter1-box">
-        <h2> NEW FOOD </h2>
+        <h2 style="margin-top: 60px;"> NEW FOOD </h2>
       </div>
     </div>
   </div>

@@ -17,7 +17,7 @@
   font-size: 15px;
 }
 
-.btn-filter:focus {
+.btn-filter:active {
   text-decoration: none;
   color: white;
 }
@@ -80,15 +80,17 @@
 }
 
 .search-filter-box {
-  width: 100% !important;
+  width: 70% !important;
   display: flex;
   margin-top: 50px;
-  margin-bottom: 0px;
+  // margin-bottom: 30px;
 }
 
 .collapse.in {
   padding: 15px 20px 20px;
   border: 1px solid black;
+  box-shadow: rgb(237, 236, 236) 2px 2px 2px;
+  width:70%;
 }
 .search-filter1-box {
   width: 70% !important;
