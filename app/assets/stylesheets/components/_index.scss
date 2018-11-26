@@ -10,13 +10,24 @@
 @import "card_in_cart";
 @import "itemized_reservations";
 
+.inline-item {
+  display: inline !important;
+  margin: 20px;
+  font-weight: lighter !important;
+  font-size: 15px;
+}
+
+#type-filter2 label {
+  font-weight: lighter;
+  font-size: 15px;
+}
 
 .filter-body {
   height: auto;
 }
 
 .filter-modal {
-  display: flex;
+  // display: flex;
   width: 100%;
   flex: 0 0 50%;
 }
@@ -24,5 +35,56 @@
 .filter, .search {
   height: 30px;
   width: auto;
+
 }
 
+// .allign-button{
+// text-align: center;
+// }
+
+.filter-style{
+  font-size: 15px;
+  font-weight: lighter !important;
+}
+
+.my-button{
+  background-color: black;
+  font-size: 15px;
+  color:white;
+  width: 20%;
+}
+
+.search-filter-box {
+  width: 60% !important;
+  display: flex;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.search-filter1-box {
+  width: 70% !important;
+  display: flex;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.filter {
+  flex: 0 0 200px;
+  background-color: black;
+    font-size: 12px;
+
+}
+
+.search {
+  flex: 1 0 auto;
+  input {
+    width: 100%;
+  }
+  border: 0;
+  border-bottom: 2px solid black;
+}
+
+
+#term_query{
+  border:0;
+}

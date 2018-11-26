@@ -28,7 +28,7 @@
   left: 10px;
 }
 .card-description h2 {
-  font-size: 24px;
+  font-size: 20px;
 }
 .card-description p {
   font-size: 14px;
@@ -71,14 +71,16 @@
   p {
     font-size: 15px;
     color: gray;
+    font-weight:lighter;
     line-height: 4px;
     margin: 16px 0px;
   }
   h6 {
-    font-size: 18px;
-    font-weight:bold;
+    font-size: 15px;
+    font-weight:bolder;
     padding: 0px;
     margin: 6px 0px;
+    color: black !important;
   }
 }
 

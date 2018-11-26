@@ -7,16 +7,38 @@
   width: 0px;
 }
 
+.carousel-inner {
+  position: relative;
+}
+
+.carousel-control.left {
+  position: absolute !important;
+  left: -40px !important;
+}
+.carousel-control.right {
+  position: absolute !important;
+  right: 0 !important;
+}
+
+.carousel-control > a > span {
+  color: black !important;
+  box-shadow: none !important;
+}
+
+.item-description h6 {
+  overflow: hidden;
+}
+
 .carousel-control.left,
 .carousel-control.right {
-  margin-right: -10px;
-  margin-left: -45px;
+  margin-right: 0px !important;
+  margin-left: 0px !important;
   margin-top: 110px;
   background-image: none;
   opacity: 1;
 }
 .carousel-control > a > span {
-  color: black;
+  color: black !important;
   font-size: 40px !important;
   font-weight: 100 !important;
 }
@@ -42,8 +64,8 @@
 
   .carousel-control.left,
   .carousel-control.right {
-    margin-right: 10px;
-    margin-left: -30px;
+    // margin-right: 10px;
+    // margin-left: -30px;
     margin-top: 110px;
     background-image: none;
     opacity: 1;
@@ -60,10 +82,10 @@
   .carousel-col                { width: 50%; }
   .active > div:first-child + div { display:block; }
 
-    .carousel-control.left,
+  .carousel-control.left,
   .carousel-control.right {
-    margin-right: 10px;
-    margin-left: -30px;
+    // margin-right: 10px;
+    // margin-left: -30px;
     margin-top: 110px;
     background-image: none;
     opacity: 1;

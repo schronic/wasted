@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
 
     @reservation = Reservation.new
     @items.each do |item|
-      item.update(distance: Geocoder::Calculations.distance_between([-34.587880, -34.587880], ([item.latitude, item.longitude])).round(2))
+      # item.update(distance: Geocoder::Calculations.distance_between([-34.587880, -34.587880], ([item.latitude, item.longitude])).round(2))
     end
 
     if params[:term]

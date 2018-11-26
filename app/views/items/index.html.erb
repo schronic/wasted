@@ -1,87 +1,129 @@
-<%= simple_form_for :term, url: items_path, method: :get do |f| %>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 col-md-offset-3 search">
-        <%= f.input_field :query, label: false, placeholder: "Address",
-        input_html: { value: @results.first.address }%>
-      </div>
-      <div class="col-md-2 filter">
-        <a class="btn-filter" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Filter</a>
-      </div>
-    </div>
-  </div>
 
-  <div class="collapse" id="collapseExample">
-    <div class="filter-body">
-      <div class="filter-modal">
-        <div class="catg-filter">
-          <%= f.input :catg, label: 'Filter by category:', as: :check_boxes, collection: Item::CATEGORY%>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-11 col-xs-offset-1">
+      <div class="search-filter-box">
+        <i class="fas fa-search"></i>
+          <div class="search">
+            <%= simple_form_for :term, url: items_path, method: :get do |f| %>
+            <%= f.input_field :query, label: false, placeholder: "",
+            input_html: { value: @results.first.address }%>
+          </div>
+          <div class="filter">
+            <a class="btn-filter" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">FILTER</a>
+          </div>
         </div>
-        <div class="type-filter">
-          <%= f.input :att, label: 'Filter by type:', as: :check_boxes, collection: Item::TYPES%>
-        </div>
-        <div>
-          <%= f.button :submit %>
+
+      <div class="collapse" id="collapseExample">
+        <div class="filter-body">
+          <div class="filter-modal">
+            <div class="catg-filter">
+               <div class="box-category-type">
+              <div class="row">
+
+              <div id="type-filter2">
+              <div class="search-filter1-box">
+
+              <%= f.input :catg, item_wrapper_class: "inline-item" ,label: 'CATEGORY', as: :check_boxes, collection: Item::CATEGORY%>
+            </div>
+             </div>
+
+            </div>
+            <div class="type-filter">
+              <div class="row">
+                <br>
+                <div class="search-filter1-box">
+                <div id="type-filter2">
+
+              <%= f.input :att, item_wrapper_class: "inline-item", label: 'TYPE', as: :check_boxes, label_html: { class: "filter-style" },  collection: Item::TYPES%>
+            </div>
+             </div>
+             <br>
+            <div class="allign-button">
+              <%= f.button :submit, "APPLY", class: "my-button" %>
+            </div>
+            </div>
+            </div>
+             </div>
+             </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-<% end %>
-
-<% @items.each do |item| %>
-  <%= render 'shared/card_modal', item: item %>
-<% end %>
-
-<% if @query.present? %>
-  <div class="container">
-    <div class="row">
-      <% @items.each do |item| %>
-        <div class="col-md-3">
-          <%= render 'shared/card', item: item %>
-        </div>
       <% end %>
     </div>
   </div>
+</div>
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-11 col-xs-offset-1">
+
+<div class="search-filter1-box">
+<h2> NEW FOOD </h2>
+</div>
+</div>
+</div>
+</div>
+
+<% @items.each do |item| %>
+<%= render 'shared/card_modal', item: item %>
+<% end %>
+
+<% if @query.present? %>
+<div class="container">
+  <div class="row">
+    <% @items.each do |item| %>
+    <div class="col-md-3">
+      <%= render 'shared/card', item: item %>
+    </div>
+    <% end %>
+  </div>
+</div>
 <% else %>
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-11 col-md-10 col-centered">
-        <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
-          <div class="carousel-inner">
-            <% @items.each_with_index do |item, index| %>
-              <div class="item <%= 'active' if index == 0 %>">
-                <div class="carousel-col">
-                  <div class="img-responsive">
-                    <%= render 'shared/card', item: item %>
-                  </div>
-                </div>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-11 col-md-10 col-centered">
+      <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
+        <div class="carousel-inner">
+          <% @items.each_with_index do |item, index| %>
+          <div class="item <%= 'active' if index == 0 %>">
+            <div class="carousel-col">
+              <div class="img-responsive">
+                <%= render 'shared/card', item: item %>
               </div>
-            <% end %>
+            </div>
           </div>
-          <!-- Controls -->
-          <div class="left carousel-control">
-            <a href="#carousel" role="button" data-slide="prev">
-              <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-              <span class="sr-only"></span>
-            </a>
-          </div>
-          <div class="right carousel-control">
-            <a href="#carousel" role="button" data-slide="next">
-              <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-              <span class="sr-only"></span>
-            </a>
-          </div>
+          <% end %>
+        </div>
+        <!-- Controls -->
+        <div class="left carousel-control">
+          <a href="#carousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+          </a>
+        </div>
+        <div class="right carousel-control">
+          <a href="#carousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+          </a>
         </div>
       </div>
     </div>
   </div>
+</div>
 <% end %>
 
+
+
+
 <div
-  id="map"
-  style="width: 100%;
-  height: 600px;"
-  data-markers="<%= @markers.to_json %>"
-  data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
+id="map"
+style="width: 100%;
+height: 600px;"
+data-markers="<%= @markers.to_json %>"
+data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
 >
 </div>
