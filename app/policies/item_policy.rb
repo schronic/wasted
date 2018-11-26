@@ -2,6 +2,7 @@ class ItemPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
 
+      # Don't show items uploaded by the user (supplier), OR in the user's cart (consumer)
       if user_logged_in?
         scope.where.not(id: Reservation
             .where(user_id: user.id)

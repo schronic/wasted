@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :purchased_items, through: :orders
 
-ROLES = %w[consumer supplier both]
+  ROLES = %w[consumer supplier both]
 
   mount_uploader :avatar, PhotoUploader
 
@@ -22,25 +22,61 @@ ROLES = %w[consumer supplier both]
   end
 
   def subscribe_to_newsletter
-    begin
-      SubscribeToNewsletterService.new(self).call if self.subscribed
+    SubscribeToNewsletterService.new(self).call if subscribed
     rescue Gibbon::MailChimpError => e
       # Do nothing
-    end
   end
 
-  def items_rescued
-    self.orders.map { |order| order.purchased_items.count }.sum
+  def items_rescued_by_consumer
+    orders.where(state: 'paid')
+          .map do |order|
+            order.purchased_items
+                 .map(&:item_purchase_quantity)
+                 .sum
+          end.sum
   end
 
-  def money_saved
-    self.orders.map do |order|
-      order.purchased_items.map { |item| item.item_purchase_price }.sum
+  def food_rescued_by_consumer
+    items_rescued_by_consumer * 0.25
+  end
+
+  def items_rescued_by_supplier
+    items.map do |item|
+      item.purchased_items
+          .joins(:order)
+          .where(orders: { state: 'paid' })
+          .map(&:item_purchase_quantity)
+          .sum
     end.sum
   end
 
-  def food_rescued
-   0.25*(self.orders.map { |order| order.purchased_items.count }.sum)
+  def food_rescued_by_supplier
+    items_rescued_by_supplier * 0.25
   end
+
+  def money_saved
+    orders.where(state: 'paid')
+          .map do |order|
+            order.purchased_items
+                 .map(&:item_purchase_price)
+                 .zip(order.purchased_items
+                           .map(&:item_purchase_quantity))
+                 .map { |price, quantity| price * quantity }
+                 .inject(:+)
+          end.inject(:+)
+
+          # Same as Lines 59-62
+          #.map { |purchased_item| purchased_item.item_purchase_price * purchased_item.item_purchase_quantity }
+  end
+
+  def money_earned
+    money_earned = 0
+    PurchasedItem.joins(:item, :order)
+                 .where(items: { user_id: id })
+                 .where(orders: { state: 'paid' })
+                 .each { |i| money_earned += i.item_purchase_price }
+    money_earned
+  end
+
 end
 
