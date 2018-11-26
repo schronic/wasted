@@ -34,6 +34,10 @@ class ApplicationPolicy
     false
   end
 
+  def user_logged_in?
+    user
+  end
+
   def supplier?
     user.role == 'supplier' || user.role == 'both'
   end
