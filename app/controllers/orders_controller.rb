@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: %i[new show]
+  before_action :set_order, only: %i[new show destroy]
+
   def index
     @orders = policy_scope(Order).order(created_at: :desc)
     @paid = @orders.where(state: 'paid')
@@ -20,6 +21,12 @@ class OrdersController < ApplicationController
     order = Order.create!(item_sku: item.sku, amount: item.price, state: 'pending', user: current_user)
 
     redirect_to new_order_payment_path(order)
+  end
+
+  def destroy
+    authorize @order
+    @order.destroy
+    redirect_to user_path(current_user)
   end
 
   private
