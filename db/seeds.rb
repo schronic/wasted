@@ -107,14 +107,17 @@ puts "Creating new items..."
     @reservations << reservation1 << reservation2
 
     @orders = []
+    @state = ['paid', 'paid', 'paid', 'paid', 'pending']
     rand(1..2).times do
       order1 = Order.create!(
         total_price: rand(30..60),
-        user: @consumers.sample
+        user: @consumers.sample,
+        state: @state.sample
       )
       order2 = Order.create!(
         total_price: rand(30..60),
         user: @boths.sample
+        state: @state.sample
       )
       @orders << order1 << order2
 

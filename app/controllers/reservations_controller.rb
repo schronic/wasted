@@ -1,7 +1,6 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: %i[show edit update destroy]
   # before_action :set_item, only: [:create]
-  skip_before_action :authenticate_user!, only: %i[index show new create edit update destroy]
 
   def index
     @reservations = policy_scope(Reservation).order(created_at: :desc)
@@ -43,7 +42,7 @@ class ReservationsController < ApplicationController
       end
       percent = 0.05
       @commission = @subtotal_price * percent
-      @total_price = @subtotal_price * (1 + percent)
+      @amount = @subtotal_price * (1 + percent)
     else
       redirect_to reservations_error_path
     end
@@ -58,15 +57,14 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @reservation = current_user.reservations.new(reservation_params)
+    @reservation = Reservation.new(reservation_params)
     authorize @reservation
     if @reservation.save && params.dig(:reservation, :in_cart)
       redirect_to cart_path
     elsif @reservation.save
       redirect_to items_path
     else
-      render html: "<h1>You received the following error:</h1>
-      <h3><em>#{@reservation.errors.full_messages}</em></h3>".html_safe
+      redirect_to items_path
     end
   end
 
@@ -107,7 +105,7 @@ private
   end
 
   # def set_item
-  #   @item = item.find(params[:reservation[:item_id]])
+  #   @item = item.find(params[:reservation][:item_id])
   # end
 
   def reservation_params

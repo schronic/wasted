@@ -20,7 +20,11 @@ ROLES = %w[consumer supplier both]
   end
 
   def subscribe_to_newsletter
-    SubscribeToNewsletterService.new(self).call if self.subscribed
+    begin
+      SubscribeToNewsletterService.new(self).call if self.subscribed
+    rescue Gibbon::MailChimpError => e
+      # Do nothing
+    end
   end
 
   def items_rescued
