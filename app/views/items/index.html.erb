@@ -52,6 +52,7 @@
           </div>
         </div>
       </div>
+
     </div>
     <% end %>
   </div>
@@ -66,10 +67,12 @@
 
       <div class="search-filter1-box">
         <h2 style="margin-top: 60px;"> NEW FOOD </h2>
+
       </div>
     </div>
   </div>
 </div>
+
 
 <% @items.each do |item| %>
 <%= render 'shared/card_modal', item: item %>
@@ -101,6 +104,7 @@
           </div>
           <% end %>
         </div>
+
         <!-- Controls -->
         <div class="left carousel-control">
           <a href="#carousel" role="button" data-slide="prev">
@@ -129,5 +133,6 @@ style="width: 100%;
 height: 600px;"
 data-markers="<%= @markers.to_json %>"
 data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
+<<<<<<< HEAD
 >
 </div>

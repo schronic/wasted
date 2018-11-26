@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   devise_for :users
 
-  resources :items
+  resources :items do
+    resources :features, only: [:show, :index, :new, :create]
+  end
   resources :purchases, only: %i[create new index show]
 
   get    '/home',          to: 'pages#home',  as: 'home'

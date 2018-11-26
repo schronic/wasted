@@ -6,9 +6,12 @@
 @import "banner";
 @import "home";
 @import "button";
+@import "map_window";
+@import "filter";
 @import "form";
 @import "card_in_cart";
 @import "itemized_reservations";
+
 
 .inline-item {
   display: inline !important;
@@ -119,3 +122,4 @@
 #term_query{
   border:0;
 }
+
