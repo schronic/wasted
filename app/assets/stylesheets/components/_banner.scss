@@ -1,8 +1,8 @@
 .banner {
-  background-image:linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url("veg.png");
+  background-image:linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2)), url("veg.png");
   color: white;
   text-align: center;
-  height: 80vh;
+  height: 60vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,9 +11,9 @@
 .cat-container {
   text-align: center;
   h1 {
-    padding-top: 215px;
+    padding-top: 10px;
     margin: 0;
-    padding-bottom: 35px;
+    padding-bottom: 5px;
     font-weight: bold;
     text-shadow: 3px 5px rgba(0, 0, 0, 0.7);
     font-family: "Roboto", sans-serif;
