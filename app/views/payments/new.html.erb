@@ -2,44 +2,66 @@
   <div class="row">
     <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
       <div class="checkout">
-        <h1>Checkout Summary: </h1>
-        <ol class="checkout-list">
-          <% @order.purchased_items.each do |item| %>
-            <li>
-              <%= item.item_purchase_name %> |
-              <%= item.item_purchase_price %> x
-              <%= item.item_purchase_quantity %> =
-              <%= humanized_money_with_symbol(item.item_purchase_price * item.item_purchase_quantity) %>
-            </li>
-          <% end %>
-        </ol>
-        <p>
-          <%= humanized_money_with_symbol(@order.amount * (1 / 1.05)) %> +
-          <%= humanized_money_with_symbol(
-              @order.amount - (@order.amount * (1 / 1.05))
-              ) %> tax (5%)
-        </p>
-        <%= form_tag order_payments_path(@order) do %>
-          <article>
-            <label class="amount">
-              <span>
-                Total: <%= humanized_money_with_symbol(@order.amount,
-                    # disambiguate: true,
-                    no_cents_if_whole: false
-                    ) %>
-              </span>
-            </label>
-          </article>
-        <!--   # Commented for the lecture, remove comments. -->
-        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-            data-name="<%= @order.purchased_items.first.item_purchase_name %>, etc."
-            data-email="<%= current_user.email %>"
-            data-description="(<%= @order.purchased_items.size %> distinct foods)"
-            data-amount="<%= @order.amount_cents %>"
-            data-currency="<%= @order.amount.currency %>"></script>
+        <h1>Checkout Summary </h1>
+
+        <table style="width: 100%;">
+          <tbody>
+        <% @order.purchased_items.each do |item| %>
+            <tr>
+              <td class="text-left"><%= item.item_purchase_name %></td>
+              <td class="text-center"><%= item.item_purchase_price %> x
+              <%= item.item_purchase_quantity %><%= item.item_purchase_quantity %></td>
+              <td class="text-right"><%= humanized_money_with_symbol(item.item_purchase_price * item.item_purchase_quantity) %></td>
+            </tr>
         <% end %>
+            <tr>
+              <td class=total-checkout></td>
+              <td class=total-checkout></td>
+              <td class="text-right total-checkout"><%= humanized_money_with_symbol(@order.amount * (1 / 1.05)) %> +
+            <%= humanized_money_with_symbol(
+              @order.amount - (@order.amount * (1 / 1.05))
+              ) %> tax (5%)</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td class="text-right total-bold">Total: <%= humanized_money_with_symbol(@order.amount,
+                  # disambiguate: true,
+                  no_cents_if_whole: false
+                  ) %></td>
+            </tr>
+          </tbody>
+        </table>
+            <%= form_tag order_payments_path(@order) do %>
+            <article>
+              <label class="amount">
+                <span class="hidden" >
+                  Total: <%= humanized_money_with_symbol(@order.amount,
+                  # disambiguate: true,
+                  no_cents_if_whole: false
+                  ) %>
+                </span>
+              </label>
+            </article>
+
+            <!--   # Commented for the lecture, remove comments. -->
+            <div class="allign-center">
+
+
+              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+              data-name="<%= @order.purchased_items.first.item_purchase_name %>, etc."
+              data-email="<%= current_user.email %>"
+              data-description="(<%= @order.purchased_items.size %> distinct foods)"
+              data-amount="<%= @order.amount_cents %>"
+              data-currency="<%= @order.amount.currency %>" ></script>
+              <% end %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+          </div>
+    </div>
+      </div>
+

@@ -96,7 +96,7 @@
 
 <!-- ORDERS CONTAINER -->
 <% if policy(User).consumer? %>
-<div class="container" style="margin-bottom: 20px;">
+<div class="container" >
   <div class="row">
     <div class="col-xs-67 table-col background-color-profile">
       <!-- ACCOUNT INFO -->
@@ -111,14 +111,14 @@
           <!-- CARD DETAILS -->
           <div class="user-card-details">
             <p><%= current_user.name %></p>
-            <p><%= current_user.email %></p>
+            <p><%= current_user.username %></p>
           </div>
         </div>
       </div>
       <!-- END ACCOUNT INFO -->
 
       <!-- ADDRESSES & PAYMENTS -->
-      <div class="user-info">
+      <div class="user-info" style="margin-bottom: 20px;">
         <div class="user-card-info">
           <!-- CARD TITLE / ADDRESS-->
           <div class="user-card-title">
@@ -135,7 +135,7 @@
      <!-- END ADDRESSES & PAYMENTS -->
 
      <!-- COMPLETED ORDERS -->
-     <div class="user-info">
+     <div class="user-info" style="margin-bottom: 30px;">
       <!-- CARD INFORMATION -->
       <div class="user-card-info">
         <!-- CARD TITLE / ARENAS-->
@@ -167,7 +167,7 @@
     <!-- END COMPLETED ORDERS -->
 
     <!-- PENDING ORDERS -->
-    <div class="user-info">
+    <div class="user-info" style="margin-bottom: 60px;">
      <!-- CARD INFORMATION -->
      <div class="user-card-info">
       <!-- CARD TITLE -->
