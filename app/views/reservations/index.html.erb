@@ -28,7 +28,7 @@
 
 
       <!-- CHECKOUT FORM to send params -->
-      <%= link_to "Checkout", purchased_items_path(amount: @amount, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout' %>
+      <%= link_to "Checkout", purchased_items_path(amount: @amount, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout', id: 'cart-empty-button' %>
       <!-- END CHECKOUT FORM to send params -->
 
 

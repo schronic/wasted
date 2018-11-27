@@ -1,32 +1,81 @@
-<%= simple_form_for :term, url: items_path, method: :get do |f| %>
+
 <div class="container">
   <div class="row">
-    <div class="col-md-4 col-md-offset-3 search">
-      <%= f.input_field :query, label: false, placeholder: "Address",
-      input_html: { value: @results.first.address }%>
+    <div class="col-xs-11 col-xs-offset-1">
+      <div class="search-filter-box">
+        <span style="border-bottom: 2px solid black;"><i class="fas fa-search"></i></span>
+        <div class="search">
+
+          <%= simple_form_for :term, url: items_path, method: :get do |f| %>
+          <%= f.input_field :query, label: false, placeholder: "",
+          input_html: { value: @results.first.address } do %>
+          <% end %>
+        </div>
+        <div class="filter">
+          <%= image_tag("equalizer.png", width:"16", height:"15", :class => "equalizer" )  %>
+          <a class="btn-filter" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">FILTER</a>
+        </div>
+      </div>
+
+      <div class="collapse" id="collapseExample">
+        <div class="filter-body">
+          <div class="filter-modal">
+            <div class="catg-filter">
+             <div class="box-category-type">
+              <div class="">
+
+                <div id="type-filter2">
+                  <p>CATEGORY</p>
+                  <div class="search-filter1-box" style="display: flex;flex-wrap: wrap;">
+                    <%= f.collection_check_boxes :catg, Item::CATEGORY.map { |c| [c, c] }, :first, :last, input_html: { style: "display: flex; padding-right: 15px;"}, label_html: { style: "padding-left: 20px;"} %>
+                    <% f.input :catg, required: false ,label: 'CATEGORY', as: :check_boxes, collection: Item::CATEGORY%>
+                  </div>
+                </div>
+
+              </div>
+              <div class="type-filter">
+                <div class="">
+                  <br>
+                  <div id="type-filter3">
+
+                  <p>TYPE</p>
+                  <div class="search-filter1-box" style="display: flex;flex-wrap: wrap;">
+                    <%= f.collection_check_boxes :catg, Item::TYPES.map { |c| [c, c] }, :first, :last, input_html: { style: "display: flex; padding-right: 15px;"}, label_html: { style: "padding-left: 20px;"} %>
+                    <% f.input :catg, required: false ,label: 'TYPE', as: :check_boxes, collection: Item::TYPES%>
+
+                  </div>
+                </div>
+                <br>
+                <div class="allign-button">
+                  <%= f.button :submit, "APPLY", class: "my-button" %>
+                </div>
+
+              </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-md-2 filter">
-      <a class="btn-filter" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Filter</a>
+    <% end %>
+  </div>
+</div>
+</div>
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-11 col-xs-offset-1">
+
+      <div class="search-filter1-box">
+        <h2 style="margin-top: 60px;"> NEW FOOD </h2>
+
+      </div>
     </div>
   </div>
 </div>
 
-<div class="collapse" id="collapseExample">
-  <div class="filter-body">
-    <div class="filter-modal">
-      <div class="catg-filter">
-        <%= f.input :catg, label: 'Filter by category:', as: :check_boxes, collection: Item::CATEGORY%>
-      </div>
-      <div class="type-filter">
-        <%= f.input :att, label: 'Filter by type:', as: :check_boxes, collection: Item::TYPES%>
-      </div>
-      <div>
-        <%= f.button :submit %>
-      </div>
-    </div>
-  </div>
-</div>
-<% end %>
 
 <% @items.each do |item| %>
 <%= render 'shared/card_modal', item: item %>
@@ -77,13 +126,17 @@
     </div>
   </div>
 </div>
+  </div>
 <% end %>
 
+
+
+
 <div
+class="container"
 id="map"
-style="width: 100%;
-height: 600px;"
+style="width: 70%; height: 500px;"
 data-markers="<%= @markers.to_json %>"
 data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
-></div>
-
+>
+</div>

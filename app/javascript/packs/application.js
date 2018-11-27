@@ -3,7 +3,7 @@ import { loadDynamicBannerText } from '../components/banner';
 import rangePlugin from 'flatpickr/dist/plugins/rangePlugin';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css'
-
+import { cartEmptyCheckoutButton } from '../components/cart';
 
 const banner = document.getElementById('banner-typed-text')
 if (banner) {
@@ -18,3 +18,4 @@ flatpickr("#start_date", {
 });
 
 
+cartEmptyCheckoutButton();

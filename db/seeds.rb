@@ -3,17 +3,10 @@ puts 'Destroying old data...'
 User.destroy_all
 PurchasedItem.destroy_all
 Item.destroy_all
-Order.destroy_all
 Reservation.destroy_all
-Type.destroy_all
-Feature.destroy_all
+Order.destroy_all
 
 puts 'Creating new users...'
-
-Type::TYPES.each do |type|
-  Type.create(name: type)
-end
-
 
 @consumers = []
 @suppliers = []
@@ -45,12 +38,23 @@ end
   @suppliers << supplier
 end
 
-
+2.times do
+  both = User.new({
+    name: Faker::FunnyName.three_word_name,
+    email: Faker::Internet.unique.email,
+    password: 'wasted',
+    username: Faker::Internet.unique.username(8),
+    role: 'both'
+  })
+  # both.remote_avatar = Cloudinary::Uploader.upload('https://picsum.photos/100/100/?random')['url']
+  both.save!
+  @boths << both
+end
 
 puts "Finished creating 6 users (2 suppliers, 2 consumers, 2 both)"
 puts "Creating new items..."
 @items = []
-3.times do
+10.times do
   item1 = Item.new({
     name: Faker::Food.dish,
     description: Faker::Food.description,
@@ -60,11 +64,12 @@ puts "Creating new items..."
     quantity: rand(1..5),
     user: @suppliers.sample,
     category: Item::CATEGORY.sample,
+    food_type: Item::TYPES.sample,
     address: Faker::Address.full_address,
     latitude: Faker::Address.latitude,
     longitude: Faker::Address.longitude
   })
-  #item1.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
+  # item1.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
   item1.save!
 
   item2 = Item.new({
@@ -74,42 +79,47 @@ puts "Creating new items..."
     price: rand(3..5),
     pickup_time: Faker::Date.between(1.day.from_now, 3.days.from_now),
     quantity: rand(1..5),
-    user: @suppliers.sample,
+    user: @boths.sample,
     category: Item::CATEGORY.sample,
+    food_type: Item::TYPES.sample,
     address: Faker::Address.full_address,
     latitude: Faker::Address.latitude,
     longitude: Faker::Address.longitude
   })
-  #item2.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
+  # item2.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
   item2.save!
 
   @items << item1 << item2
   item = @items.sample
-end
 
-@items.each do |item|
-  3.times do
-  Feature.create(
-    item: item,
-    type: Type.all.sample
+  @reservations = []
+  rand(2..4).times do
+    reservation1 = Reservation.create({
+      item: item,
+      user: @consumers.sample,
+      quantity: rand(1..3)
+    })
+    reservation2 = Reservation.create(
+      item: item,
+      user: @boths.sample,
+      quantity: rand(1..3)
     )
-
     @reservations << reservation1 << reservation2
 
     @orders = []
     @state = ['paid', 'paid', 'paid', 'paid', 'pending']
     rand(1..2).times do
-      order1 = Order.create!(
-        total_price: rand(30..60),
+      @order1 = Order.new(
+        amount: rand(30..60),
         user: @consumers.sample,
         state: @state.sample
       )
-      order2 = Order.create!(
-        total_price: rand(30..60),
-        user: @boths.sample
+      @order2 = Order.new(
+        amount: rand(30..60),
+        user: @boths.sample,
         state: @state.sample
       )
-      @orders << order1 << order2
+      @orders << @order1 << @order2
 
       @purchased_items = []
       rand(1..2).times do
@@ -131,22 +141,16 @@ end
           reservation.purchased_item = @purchased_items.sample
           reservation.save
         end
+        @order1.save
+        @order2.save
       end
     end
   end
   puts "Just created another item/reservation/order combination..."
 end
-end
 
-puts "Just created another item/reservation/order combination..."
-
-
+Order.left_joins(:purchased_items)
+     .where(purchased_items: { order_id: nil })
+     .destroy_all
 
 puts 'Seed complete!'
-
-
-@items.each do |item|
-  Feature.create(
-    item: item,
-    type: Type::Types.sample)
-end

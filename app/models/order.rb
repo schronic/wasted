@@ -4,6 +4,9 @@ class Order < ApplicationRecord
 
   validates :amount, presence: true
 
+  # STATES = %w[paid pending]
+  # validates :state, inclusion: { in: STATES }
+
   monetize :amount_cents
 
   def order_purchased_items
