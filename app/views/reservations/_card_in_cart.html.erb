@@ -1,9 +1,6 @@
 <div class="row">
   <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
 
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-
         <% @same_supplier_items.each_with_index do |same_supplier_item, index| %>
 
 
@@ -75,18 +72,4 @@
         </div>
 
       </div>
-    </div>
-  </div>
 
-  <div class="left carousel-control">
-    <a href="#carousel" role="button" data-slide="prev">
-      <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-      <span class="sr-only"></span>
-    </a>
-  </div>
-  <div class="right carousel-control">
-    <a href="#carousel" role="button" data-slide="next">
-      <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-      <span class="sr-only"></span>
-    </a>
-  </div>
