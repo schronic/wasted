@@ -22,6 +22,7 @@ def index
       item.update(distance_location: Geocoder::Calculations.distance_between([-34.587880, -34.587880], ([item.latitude, item.longitude])).round(2))
     end
     if params[:term]
+  raise
       categories_clean = params[:term][:catg].drop(1) if params[:term][:catg]
       types_clean = params[:term][:types].drop(1) if params[:term][:types]
 

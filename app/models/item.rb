@@ -29,12 +29,11 @@ class Item < ApplicationRecord
                   Pizza Sandwiches Sushih Thai Vietnamese]
 
   include PgSearch
-
-  multisearchable against: [ :name, :description, :price, :address ]
-
-  PgSearch.multisearch_options = {
-  using: { tsearch: { prefix: true } }
-  }
+  pg_search_scope :search_by_title_and_syllabus,
+    against: [ :name, :description, :price, :address ],
+    using: {
+      tsearch: { prefix: true } # <-- now `superman batm` will return something!
+    }
 
   def pickup_date_must_be_in_the_future
     errors.add(:pickup_time, "can't be in the past") if
