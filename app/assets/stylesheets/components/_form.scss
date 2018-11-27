@@ -33,5 +33,28 @@
 }
 
 #formnew .row{
-margin-bottom: 20px,
+  margin-bottom: 20px,
+}
+
+.select2{
+    width: 100% !important;
+
+  }
+
+.select2-selection{
+  border: none !important;
+  border-bottom: 1px solid black !important;
+  border-radius: 0px !important;
+}
+
+.form-control{
+  border: none !important;
+  border-bottom: 1px solid black !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  background-color: white !important;
+  &:active{
+   box-shadow: none !important;
+   background-color: white !important;
+  }
 }
