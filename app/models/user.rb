@@ -20,9 +20,11 @@ class User < ApplicationRecord
   end
 
   def subscribe_to_newsletter
-    SubscribeToNewsletterService.new(self).call if subscribed
+    begin
+      SubscribeToNewsletterService.new(self).call if subscribed
     rescue Gibbon::MailChimpError => e
       # Do nothing
+    end
   end
 
   def items_rescued_by_consumer
