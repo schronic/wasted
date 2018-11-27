@@ -6,8 +6,12 @@
   <div class="row"><%= f.input :name, input_html: { class: "input-bar"} %></div>
   <div class="row"><%= f.input :description, input_html: { class: "input-bar"} %></div>
   <div class="row"><%= f.input :address, input_html: { class: "input-bar"} %></div>
-  <div class="row"><%= f.input :category, input_html: { class: "input-bar"}, collection: Item::CATEGORY %></div>
-  <div class="row"><%= f.input :types, as: :check_boxes, collection: Type::TYPES, input_html: { class: "input-bar"} %></div>
+  <div class="row"><%= f.input :category, input_html: { class: "input-bar"}, collection: Item::CATEGORY, multiple: true %></div>
+  <div class="row row2">
+    <%= f.input :types do %>
+    <%= f.select :types, Type::TYPES, {}, {class: "select2", multiple: true} %>
+    <% end %>
+  </div>
 
   <div class="row">
     <div class="col-md-6">
