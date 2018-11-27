@@ -3,6 +3,7 @@ ruby '2.4.4'
 
 gem 'pg_search'
 gem "geocoder"
+gem "simple_token_authentication"
 
 
 gem "pundit"

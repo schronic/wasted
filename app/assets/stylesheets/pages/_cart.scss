@@ -3,14 +3,14 @@
   width: 100vw;
   justify-content: space-between;
   .carousels-container {
-    flex: 1 1 auto;
     padding: 10px;
+    width: 50%;
     .card-holder {
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
       .card-cart {
-        min-width: 250px;
+        min-width: 100px;
         max-width: 300px;
         margin: 0 10px;
         // margin: 10px;
@@ -22,6 +22,7 @@
     }
   }
   .shopping-cart-container {
+    width: 50%;
   flex: 0 0 400px;
   height: 100vh;
   position: sticky !important;

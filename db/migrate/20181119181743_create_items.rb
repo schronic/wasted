@@ -13,7 +13,6 @@ class CreateItems < ActiveRecord::Migration[5.2]
       t.float       :latitude
       t.float       :longitude
       t.string      :category
-      t.string      :food_type
 
       t.timestamps
     end

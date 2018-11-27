@@ -21,3 +21,5 @@ $('.carousel[data-type="multi"] .item').each(function() {
       .appendTo($(this));
   }
 });
+
+
