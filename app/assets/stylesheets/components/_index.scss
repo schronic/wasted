@@ -43,6 +43,10 @@
   font-size: 18px;
 }
 
+#type-filter2 p {
+  margin-bottom: 0px;
+}
+
 #type-filter3 label {
   font-weight: lighter;
   font-size: 15px;
@@ -98,11 +102,15 @@
   box-shadow: rgb(237, 236, 236) 2px 2px 2px;
   width:70%;
 }
+
 .search-filter1-box {
   width: 70% !important;
   display: flex;
   margin-top: 0px;
   margin-bottom: 10px;
+  span {
+    padding: 5px;
+  }
 }
 
 .filter {
@@ -139,4 +147,31 @@
 #map{
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+
+
+// CHECKBOXES
+
+input[type="checkbox"] {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+}
+
+input[type="checkbox"] + label::before {
+  content: '\a0';
+  display: inline-block;
+  margin: .2em .5em;
+  width: .8em;
+  height: .8em;
+  line-height: .75em;
+  transition: all .5s;
+  border: 1px solid silver;
+}
+
+input[type="checkbox"]:checked + label::before {
+  content: '\a0';
+  background: black;
+  border: 1px solid white;
+  box-shadow: inset 0 0 0 1px white, 0 0 0 1px black;
 }
