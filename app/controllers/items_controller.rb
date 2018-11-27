@@ -88,20 +88,28 @@ end
     redirect_to items_path
   end
 
-
 def edit
 end
 
 def update
-  raise
+  @feature = Feature.where(item: @item)
+  @feature.each do |feature|
+    feature.destroy
+  end
+
+  params[:item][:types].each do |type|
+      @type = Type.find_by(name: type)
+      Feature.create(item: @item, type: @type)
+  end
+
   @item.update(item_params)
-  redirect_to items_path
   @item.save
+  redirect_to user_path(current_user)
 end
 
   def destroy
     @item.destroy
-    redirect_to items_path
+    redirect_to user_path(current_user)
   end
 
   private
