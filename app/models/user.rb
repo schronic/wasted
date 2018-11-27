@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+    acts_as_token_authenticatable
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   after_create :send_welcome_email
@@ -16,12 +18,12 @@ class User < ApplicationRecord
   mount_uploader :avatar, PhotoUploader
 
   def send_welcome_email
-    UserMailer.welcome(self).deliver_now
+    #UserMailer.welcome(self).deliver_now
   end
 
   def subscribe_to_newsletter
     begin
-      SubscribeToNewsletterService.new(self).call if subscribed
+      #SubscribeToNewsletterService.new(self).call if subscribed
     rescue Gibbon::MailChimpError => e
       # Do nothing
     end
