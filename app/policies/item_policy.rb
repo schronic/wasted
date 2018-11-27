@@ -4,13 +4,15 @@ class ItemPolicy < ApplicationPolicy
 
       # Don't show items uploaded by the user (supplier), OR in the user's cart (consumer)
       if user_logged_in?
-        scope.where.not(id: Reservation
-            .where(user_id: user.id)
-            .pluck(:item_id))
+        scope.where.not(id: Reservation.where(user_id: user.id)
+                                       .pluck(:item_id))
+             .where('pickup_time > ?', Time.now)
+             .where('quantity > ?', 0)
 
         # scope.joins(:reservations)
         #      .where.not(reservations: { user_id: user.id })
         #      .where.not(items: { user_id: user.id })
+        #      .where('pickup_time > ?', Time.now)
       else
         scope.all
       end

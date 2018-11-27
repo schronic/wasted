@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+    acts_as_token_authenticatable
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   after_create :send_welcome_email
@@ -16,13 +18,15 @@ class User < ApplicationRecord
   mount_uploader :avatar, PhotoUploader
 
   def send_welcome_email
-    UserMailer.welcome(self).deliver_now
+    #UserMailer.welcome(self).deliver_now
   end
 
   def subscribe_to_newsletter
-    SubscribeToNewsletterService.new(self).call if subscribed
+    begin
+      #SubscribeToNewsletterService.new(self).call if subscribed
     rescue Gibbon::MailChimpError => e
       # Do nothing
+    end
   end
 
   def items_rescued_by_consumer
@@ -64,17 +68,14 @@ class User < ApplicationRecord
           end.inject(:+)
 
           # Same as Lines 59-62
-          #.map { |purchased_item| purchased_item.item_purchase_price * purchased_item.item_purchase_quantity }
+          #.map { |purchased_item| purchased_item.item_purchase_price_cents * purchased_item.item_purchase_quantity }
   end
 
   def money_earned
-    money_earned = 0
     PurchasedItem.joins(:item, :order)
                  .where(items: { user_id: id })
                  .where(orders: { state: 'paid' })
-                 .each { |i| money_earned += i.item_purchase_price }
-    money_earned
+                 .map(&:item_purchase_price)
+                 .inject(:+)
   end
-
 end
-

@@ -2,6 +2,7 @@
 
 <div class="main-container">
 
+
   <div class="container">
     <div class="row">
     <div class="col-xs-11 col-md-10 col-centered">
@@ -61,7 +62,7 @@
 
 
       <!-- CHECKOUT FORM to send params -->
-      <%= link_to "Checkout", purchased_items_path(amount: @amount, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout' %>
+      <%= link_to "Checkout", purchased_items_path(amount: @amount, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout', id: 'cart-empty-button' %>
       <!-- END CHECKOUT FORM to send params -->
 
 
