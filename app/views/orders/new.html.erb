@@ -1,31 +1,69 @@
-<div class="container">
+<div class="container-fluid confirmation-page">
+<div class="container" style="text-align: center;"">
   <h1>Thank you for your order!</h1>
-  <h3>Here is a summary of Order #<%= @order.id %>:</h3>
+  <p>Confirmation number: 765JGIUSF78689S</p>
 
-  <ul>
-    <li>Status: <%= @order.state %></li>
-    <li>Amount (incl. fee):
-      <%= humanized_money_with_symbol(@order.amount) %>
-    </li>
-    <li>Order date: <%= @order.created_at.strftime("%b %e, %l:%M %p") %></li>
-    <li>Distinct items in order: <%= @order.purchased_items.size %></li>
-  </ul>
-  <br>
+<div class="smaller" style="margin-top: -100px;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+ viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
+ <style type="text/css">
+</style>
+<path class="check" d="M40.61,23.03L26.67,36.97L13.495,23.788c-1.146-1.147-1.359-2.936-0.504-4.314
+c3.894-6.28,11.169-10.243,19.283-9.348c9.258,1.021,16.694,8.542,17.622,17.81c1.232,12.295-8.683,22.607-20.849,22.042
+c-9.9-0.46-18.128-8.344-18.972-18.218c-0.292-3.416,0.276-6.673,1.51-9.578"/>
+</svg>
+</div>
 
-  <% @order.purchased_items.each do |purchased_item| %>
+<!-- Button trigger modal -->
+<button type="button" class="btn cart-btn-confirmation" data-toggle="modal" data-target="#exampleModalCenter" style="margin-top:-260px;">
+  See order details
+</button>
+<div class="confirmation-back"><a><%= link_to "Go Back", items_path %></a></div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title" id="exampleModalLongTitle">Here is a summary of Order #<%= @order.id %>:</h3>
+      </div>
+      <div class="modal-body">
 
-    <strong>
-      <%= purchased_item.item_purchase_name %>
-    </strong>
-    <ul>
-      <li>Quantity: <%= purchased_item.item_purchase_quantity %></li>
-      <li>Price each: <%= humanized_money_with_symbol(purchased_item.item_purchase_price) %></li>
-      <li>Description: <%= purchased_item.item_purchase_description %></li>
-      <li>Item expiration: <%= purchased_item.item_purchase_expiration.strftime("%b %e, %l:%M %p") %></li>
-      <li>Item pickup time: <%= purchased_item.item_purchase_pickup_time.strftime("%b %e, %l:%M %p") %></li>
-    </ul>
-    <br>
-  <% end %>
+        <div class="modal-body-confirmation">
+          <ul>
+            <li>Status: <%= @order.state %></li>
+            <li>Amount (incl. fee):
+              <%= humanized_money_with_symbol(@order.amount) %>
+            </li>
+            <li>Order date: <%= @order.created_at.strftime("%b %e, %l:%M %p") %></li>
+            <li>Distinct items in order: <%= @order.purchased_items.size %></li>
+          </ul>
+          <br>
+        </div>
 
-  <%= link_to 'All orders', orders_path %>
+        <div class="modal-body-confirmation">
+          <% @order.purchased_items.each do |purchased_item| %>
+          <strong>
+            <%= purchased_item.item_purchase_name %>
+          </strong>
+          <ul>
+            <li>Quantity: <%= purchased_item.item_purchase_quantity %></li>
+            <li>Price each: <%= humanized_money_with_symbol(purchased_item.item_purchase_price) %></li>
+            <li>Description: <%= purchased_item.item_purchase_description %></li>
+            <li>Item expiration: <%= purchased_item.item_purchase_expiration.strftime("%b %e, %l:%M %p") %></li>
+            <li>Item pickup time: <%= purchased_item.item_purchase_pickup_time.strftime("%b %e, %l:%M %p") %></li>
+          </ul>
+          <br>
+          <% end %>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div>

@@ -12,7 +12,6 @@ class ItemsController < ApplicationController
     @items = policy_scope(Item).order(expiration: :desc)
 
     @reservation = Reservation.new
-    @features = Feature.all
 
     @items.each do |item|
       item.update(distance_location: Geocoder::Calculations.distance_between([-34.587880, -34.587880], ([item.latitude, item.longitude])).round(2))
