@@ -45,6 +45,19 @@ end
   @suppliers << supplier
 end
 
+2.times do
+  both = User.new({
+    name: Faker::FunnyName.name,
+    email: Faker::Internet.unique.email,
+    password: 'wasted',
+    username: Faker::Internet.unique.username(8),
+    role: 'both'
+  })
+  # supplier.remote_avatar = Cloudinary::Uploader.upload('https://picsum.photos/100/100/?random')['url']
+  both.save!
+  @boths << both
+end
+
 
 
 puts "Finished creating 6 users (2 suppliers, 2 consumers, 2 both)"
@@ -94,6 +107,19 @@ end
     type: Type.all.sample
     )
 
+  @reservations = []
+  rand(4..10).times do
+    reservation1 = Reservation.create({
+      item: item,
+      user: @consumers.sample,
+      quantity: rand(1..3)
+    })
+    reservation2 = Reservation.create(
+      item: item,
+      user: @boths.sample,
+      quantity: rand(1..3)
+    )
+
     @reservations << reservation1 << reservation2
 
     @orders = []
@@ -106,7 +132,7 @@ end
       )
       order2 = Order.create!(
         total_price: rand(30..60),
-        user: @boths.sample
+        user: @boths.sample,
         state: @state.sample
       )
       @orders << order1 << order2
@@ -134,9 +160,10 @@ end
       end
     end
   end
+end
   puts "Just created another item/reservation/order combination..."
 end
-end
+
 
 puts "Just created another item/reservation/order combination..."
 
@@ -148,5 +175,5 @@ puts 'Seed complete!'
 @items.each do |item|
   Feature.create(
     item: item,
-    type: Type::Types.sample)
+    type: Type::TYPES.sample)
 end
