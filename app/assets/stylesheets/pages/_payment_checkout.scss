@@ -1,9 +1,61 @@
 .checkout {
-  text-align: center;
+  text-align: left;
   margin-bottom: 20px;
-  .checkout-list {
-    list-style-type: none;
+
+  .items-checkout{
 
   }
+  .checkout-list {
+    list-style-type: none;
+        padding: 0;
+
+  }
+  h1 {
+    border-bottom: 2px solid black;
+    text-align: left;
+    font-size: 30px;
+    font-family: "Monsterrat", sans-serif;
+  }
+  p{
+    border-top: 2px solid black;
+        text-align: right;
+        padding: 12px;
+        margin-bottom: 0px;
+  }
+  .each-item-checkout{
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+    font-size: 10px;
+    h3{
+      font-size: 18px;
+      font-family: "Roboto";
+    }
+     h4{
+      font-size: 18px;
+      font-family: "Roboto";
+    }
+    h5{
+      font-size: 18px;
+      font-family: "Roboto";
+    }
+}
+ .allign-center{
+  text-align:center;
+ }
+
 }
 
+article {
+      text-align: right;
+      padding-right: 12px;
+          margin-bottom: 20px;
+}
+
+.stripe-button-el {
+  background:black !important;
+
+span{
+  background: black !important;
+      width: 200px;
+}}
