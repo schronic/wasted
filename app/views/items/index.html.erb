@@ -7,7 +7,7 @@
         <div class="search">
 
           <%= simple_form_for :term, url: items_path, method: :get do |f| %>
-          <%= f.input_field :query, label: false, placeholder: "",
+          <%= f.input_field :query, label: false, placeholder: "Address",
           input_html: { value: @results.first.address } do %>
           <% end %>
         </div>
