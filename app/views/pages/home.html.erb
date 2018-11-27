@@ -1,19 +1,21 @@
 <div class="banner"></div>
 <div class="container-fluid cfhome ">
   <div class="container home-one">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="cat-parent">
-         <div class="cat-container" style="text-align: center;">
-          <h1>
-            <span id="banner-typed-text";"></span>
-          </h1>
-          <!-- <button class="button-banner">Eat consciously!</button> -->
+    <div class="why-us">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="cat-parent">
+           <div class="cat-container" style="text-align: center;">
+            <h1>
+              <span id="banner-typed-text";"></span>
+            </h1>
+            <!-- <button class="button-banner">Eat consciously!</button> -->
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-6">
-      <p>Eat for a fair price and save unsold food from being wasted. Over 1/3 of all food produced globally goes to waste. The annual value of food wasted globally is $1 trillion, and it weighs 1.3 billion tonnes. Restaurants and cafes throw away food that they can't sell anymore everyday. Food is wasted and money is lost. Let's change that.</p>
+      <div class="col-md-6">
+        <p>Eat for a fair price and save unsold food from being wasted. Over 1/3 of all food produced globally goes to waste. The annual value of food wasted globally is $1 trillion, and it weighs 1.3 billion tonnes. Restaurants and cafes throw away food that they can't sell anymore everyday. Food is wasted and money is lost. Let's change that.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -45,7 +47,8 @@
 </div>
 
 <div class="container-fluid cfhome">
-   <div class="row">
+ <div class="row">
+  <div id="become-supplier">
     <div class="col-md-6">
       <h2 class="caps caps1">This is how you can connect.</h2>
     </div>
@@ -59,24 +62,26 @@
     </div>
   </div>
 </div>
+</div>
 
 <div class="container carousel-pictures">
   <div class="row">
-    <div class="col-xs-10 col-md-10 col-centered">
-      <h1 style="text-transform: uppercase; font-weight: bold;">Get inspired</h1>
-      <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="2500">
-        <div class="carousel-inner">
-          <% @items.each_with_index do |item, index| %>
-          <div class="item <%= 'active' if index == 0 %>">
-            <div class="carousel-col">
-              <div class="img-responsive">
-                <%= render 'shared/pictures', item: item %>
+    <div id="become-user">
+      <div class="col-xs-10 col-md-10 col-centered">
+        <h1 style="text-transform: uppercase; font-weight: bold;">Get inspired</h1>
+        <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="2500">
+          <div class="carousel-inner">
+            <% @items.each_with_index do |item, index| %>
+            <div class="item <%= 'active' if index == 0 %>">
+              <div class="carousel-col">
+                <div class="img-responsive">
+                  <%= render 'shared/pictures', item: item %>
+                </div>
               </div>
             </div>
+            <% end %>
           </div>
-          <% end %>
         </div>
-
         <!-- Controls -->
         <div class="left carousel-control">
           <a href="#carousel" role="button" data-slide="prev">

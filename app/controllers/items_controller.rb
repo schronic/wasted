@@ -4,28 +4,32 @@ class ItemsController < ApplicationController
 
 # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
 
-  def index
-    @current_lat = request.location.latitude
-    @current_lng = request.location.longitude
+def index
+  @current_lat = request.location.latitude
+  @current_lng = request.location.longitude
     # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
     @results = Geocoder.search([-34.587880, -58.418150])
-    @items = policy_scope(Item).order(expiration: :desc)
+
+    if user_signed_in?
+      @items = policy_scope(Item).order(expiration: :desc).where.not(user_id: current_user.id)
+    else
+      @items = policy_scope(Item).order(expiration: :desc)
+    end
 
     @reservation = Reservation.new
 
     @items.each do |item|
       item.update(distance_location: Geocoder::Calculations.distance_between([-34.587880, -34.587880], ([item.latitude, item.longitude])).round(2))
     end
-
     if params[:term]
       categories_clean = params[:term][:catg].drop(1) if params[:term][:catg]
-      types_clean = params[:term][:att].drop(1) if params[:term][:att]
+      types_clean = params[:term][:types].drop(1) if params[:term][:types]
 
       @query = true
 
       if params[:term][:query].present?
         @results = Geocoder.search(params[:term][:query])
-        @items = Item.near(params[:term][:query])
+        @items = @items.near(params[:term][:query])
       end
 
       if categories_clean.present?
@@ -44,10 +48,9 @@ class ItemsController < ApplicationController
         @items = Item.where(id: bubu.flatten.map(&:id))
       end
 
-      if @items.present?
-        @items = @items.where.not(user_id: current_user.id)
-        #else
-        #  @items = policy_scope(Item).order(created_at: :desc)
+      unless @items.present?
+        @empty = true
+        @items = policy_scope(Item).order(created_at: :desc).where.not(user_id: current_user.id)
       end
     end
     # raise message saying nothing found and redirect to index
@@ -59,57 +62,57 @@ class ItemsController < ApplicationController
         infoWindow: { content: render_to_string(partial: "/items/map_window", locals: { item: item }) }
       }
     end
+end
+
+  def show
   end
 
-def show
-end
+  def new
+    @item = Item.new
+    @feature = Feature.new
+    @types = Type.all
 
-def new
-  @item = Item.new
-  @feature = Feature.new
-  @types = Type.all
-
-  authorize @item
-end
-
-def create
-  @item = Item.new(item_params)
-  @item.user = current_user
-  authorize @item
-  @item.save
-
-  params[:item][:types].each do |type|
-    @type = Type.find_by(name: type)
-    Feature.create(item: @item, type: @type)
+    authorize @item
   end
-  redirect_to items_path
-end
 
-def edit
-  authorize @item
-end
+  def create
+    @item = Item.new(item_params)
+    @item.user = current_user
+    authorize @item
+    @item.save
 
-def update
-  @item.update(item_params)
-  redirect_to items_path
-  @item.save
-end
+    params[:item][:types].each do |type|
+      @type = Type.find_by(name: type)
+      Feature.create(item: @item, type: @type)
+    end
+    redirect_to items_path
+  end
 
-def destroy
-  @item.destroy
-  redirect_to items_path
-end
+  def edit
+    authorize @item
+  end
 
-private
+  def update
+    @item.update(item_params)
+    redirect_to items_path
+    @item.save
+  end
 
-def set_item
-  @item = Item.find(params[:id])
-  authorize @item
-end
+  def destroy
+    @item.destroy
+    redirect_to items_path
+  end
 
-def item_params
-  params.require(:item).permit(:types, :category, :address, :description, :expiration, :name, :price, :pickup_time, :picture, :quantity, :user_id)
-end
+  private
+
+  def set_item
+    @item = Item.find(params[:id])
+    authorize @item
+  end
+
+  def item_params
+    params.require(:item).permit(:types, :category, :address, :description, :expiration, :name, :price, :pickup_time, :picture, :quantity, :user_id)
+  end
 end
 
 
