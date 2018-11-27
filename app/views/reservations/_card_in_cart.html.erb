@@ -1,34 +1,27 @@
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner">
+<div class="row">
+  <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
 
-    <!-- Iterate to create cards -->
-    <% @same_supplier_items.each_with_index do |same_supplier_item, index| %>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+
+        <% @same_supplier_items.each_with_index do |same_supplier_item, index| %>
 
 
-    <div class="item <%= 'active' if index == 0 %> ">
-
-      <!-- Set picture -->
-
-          <!-- Card-cart -->
+        <div class="item <%= 'active' if index == 0 %> ">
+          ure -->
           <div class="card-cart">
             <div class="card-body-cart" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://picsum.photos/800/300/?random');">
 
 
-              <!-- Everything inside the picture -->
               <div class="card-description-cart">
 
-                <!-- item ID and clickable card -->
                 <%= link_to "", item_path(same_supplier_item), class: 'card-link-cart' %>
                 <p class="item-number-cart">
                   <%= same_supplier_item.name %> x
                   <%= same_supplier_item.quantity %>
                 </p>
-                <!-- END item ID and clickable card -->
 
-                <!-- Clickable icons on cart -->
                 <div class="card-btn-cart">
-                  <!-- Set item's cart @status based on current user -->
                   <% @status = 'available' %>
                   <% @same_supplier_items.each do |same_supplier_item|
                     same_supplier_item.reservations.each do |item_reservation|
@@ -44,7 +37,6 @@
                     end
                     end %>
 
-                    <!-- Icon to add to cart if not already in cart -->
                     <% if @status == 'available' %>
 
                     <%= simple_form_for @reservation, url: create_reservation_path do |f| %>
@@ -59,42 +51,40 @@
                     <% end %>
                     <% end %>
                   </div>
-                  <!-- END clickable icons -->
+
                 </div>
-                <!-- END card description inside picture -->
+
+                <div class="card-footer-cart">
+
+                  <p>
+                    Offered by: <%= same_supplier_item.user.name %> (<%= same_supplier_item.user.items.size %> dishes)
+                  </p>
+
+                  <p class="item-price-cart"><%= humanized_money_with_symbol(same_supplier_item.price) %> ea.</p>
+
+                </div>
               </div>
-              <!-- END .card-body-cart -->
 
-              <!-- Card footer -->
-              <div class="card-footer-cart">
-
-                <p>
-                  Offered by: <%= same_supplier_item.user.name %> (<%= same_supplier_item.user.items.size %> dishes)
-                </p>
-
-                <p class="item-price-cart"><%= humanized_money_with_symbol(same_supplier_item.price) %> ea.</p>
-
-              </div>
-              <!-- Card footer ends above this line -->
             </div>
-            <!-- END .card-cart -->
 
-            <!-- END set picture -->
           </div>
-
-
           <% end %>
-          <!-- END iterate to create cards -->
 
         </div>
 
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right"></span>
-          <span class="sr-only">Next</span>
-        </a>
       </div>
+    </div>
+  </div>
+
+  <div class="left carousel-control">
+    <a href="#carousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+      <span class="sr-only"></span>
+    </a>
+  </div>
+  <div class="right carousel-control">
+    <a href="#carousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+      <span class="sr-only"></span>
+    </a>
+  </div>
