@@ -4,27 +4,38 @@
       <div class="checkout">
         <h1>Checkout Summary </h1>
 
+        <table style="width: 100%;">
+          <tbody>
         <% @order.purchased_items.each do |item| %>
-        <div class="items-checkout">
-          <div class="each-item-checkout">
-            <h3><%= item.item_purchase_name %></h3>
-            <h4><%= item.item_purchase_price %> x
-              <%= item.item_purchase_quantity %><%= item.item_purchase_quantity %></h4>
-              <h5><%= humanized_money_with_symbol(item.item_purchase_price * item.item_purchase_quantity) %></h5>
-            </div>
-            <% end %>
-          </div>
-
-          <p>
-            <%= humanized_money_with_symbol(@order.amount * (1 / 1.05)) %> +
+            <tr>
+              <td class="text-left"><%= item.item_purchase_name %></td>
+              <td class="text-center"><%= item.item_purchase_price %> x
+              <%= item.item_purchase_quantity %><%= item.item_purchase_quantity %></td>
+              <td class="text-right"><%= humanized_money_with_symbol(item.item_purchase_price * item.item_purchase_quantity) %></td>
+            </tr>
+        <% end %>
+            <tr>
+              <td class=total-checkout></td>
+              <td class=total-checkout></td>
+              <td class="text-right total-checkout"><%= humanized_money_with_symbol(@order.amount * (1 / 1.05)) %> +
             <%= humanized_money_with_symbol(
               @order.amount - (@order.amount * (1 / 1.05))
-              ) %> tax (5%)
-            </p>
+              ) %> tax (5%)</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td class="text-right total-bold">Total: <%= humanized_money_with_symbol(@order.amount,
+                  # disambiguate: true,
+                  no_cents_if_whole: false
+                  ) %></td>
+            </tr>
+          </tbody>
+        </table>
             <%= form_tag order_payments_path(@order) do %>
             <article>
               <label class="amount">
-                <span >
+                <span class="hidden" >
                   Total: <%= humanized_money_with_symbol(@order.amount,
                   # disambiguate: true,
                   no_cents_if_whole: false
