@@ -10,6 +10,7 @@
           <%= f.hidden_field :user_id, value: current_user.id %>
           <%= f.hidden_field :item_id, value: item.id %>
           <%= f.hidden_field :quantity, value: 1 %>
+          <%= f.hidden_field :in_cart, value: true %>
           <%= f.button :button, class: 'add' do %>
             <%= icon('fas', 'plus') %>
           <% end %>

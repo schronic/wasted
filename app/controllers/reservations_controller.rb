@@ -3,6 +3,8 @@ class ReservationsController < ApplicationController
   # before_action :set_item, only: [:create]
 
   def index
+
+    @suggestions = policy_scope(Item).order(expiration: :desc)
     @reservations = policy_scope(Reservation).order(created_at: :desc)
     @reservation = Reservation.new
     authorize @reservation

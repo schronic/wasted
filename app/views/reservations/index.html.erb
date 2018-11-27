@@ -1,12 +1,46 @@
+
+
 <div class="main-container">
 
-  <!-- CAROUSELS CONTAINER -->
-  <div class="carousels-container">
-    <div class="card-holder">
-      <%= render 'card_in_cart' %>
+  <div class="container">
+    <div class="row">
+    <div class="col-xs-11 col-md-10 col-centered">
+      <h2>RECOMMENDATIONS</h2>
+      <br>
+    </div>
+    </div>
+
+  <div class="row">
+    <div class="col-xs-11 col-md-10 col-centered">
+      <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
+        <div class="carousel-inner">
+          <% @suggestions.each_with_index do |item, index| %>
+          <div class="item <%= 'active' if index == 0 %>">
+            <div class="carousel-col">
+              <div class="img-responsive">
+                <%= render 'shared/card', item: item %>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+
+        <div class="left carousel-control">
+          <a href="#carousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+          </a>
+        </div>
+        <div class="right carousel-control">
+          <a href="#carousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
-  <!-- END CAROUSELS CONTAINER -->
+  </div>
 
   <!-- SHOPPING CART -->
   <div class="shopping-cart-container">
