@@ -13,55 +13,54 @@ class ItemsController < ApplicationController
 
     @reservation = Reservation.new
 
-
-
-  @items.each do |item|
-    item.update(distance_location: Geocoder::Calculations.distance_between([-34.587880, -34.587880], ([item.latitude, item.longitude])).round(2))
-  end
-
-  if params[:term]
-    categories_clean = params[:term][:catg].drop(1) if params[:term][:catg]
-    types_clean = params[:term][:att].drop(1) if params[:term][:att]
-
-    @query = true
-
-    if params[:term][:query].present?
-      @results = Geocoder.search(params[:term][:query])
-      @items = Item.near(params[:term][:query])
+    @items.each do |item|
+      item.update(distance_location: Geocoder::Calculations.distance_between([-34.587880, -34.587880], ([item.latitude, item.longitude])).round(2))
     end
 
-    if categories_clean.present?
-      categories_clean.each do |catg|
-        @items = @items.where(category: catg)
-        # does that only select for the last catg?
+    if params[:term]
+      categories_clean = params[:term][:catg].drop(1) if params[:term][:catg]
+      types_clean = params[:term][:att].drop(1) if params[:term][:att]
+
+      @query = true
+
+      if params[:term][:query].present?
+        @results = Geocoder.search(params[:term][:query])
+        @items = Item.near(params[:term][:query])
+      end
+
+      if categories_clean.present?
+        categories_clean.each do |catg|
+          @items = @items.where(category: catg)
+          # does that only select for the last catg?
+        end
+      end
+
+      if types_clean.present?
+        @types = Type.where(name: types_clean)
+        bubu = []
+        @types.each do |type|
+          bubu << @items.joins(:features).where('features.type_id = ?', type.id)
+        end
+        @items = Item.where(id: bubu.flatten.map(&:id))
+      end
+
+      if @items.present?
+        @items = @items.where.not(user_id: current_user.id)
+        #else
+        #  @items = policy_scope(Item).order(created_at: :desc)
       end
     end
-
-  if types_clean.present?
-    @types = Type.where(name: types_clean)
-    bubu = []
-    @types.each do |type|
-     bubu << @items.joins(:features).where('features.type_id = ?', type.id)
-    end
-    @items = Item.where(id: bubu.flatten.map(&:id))
-  end
-
-    if @items.present?
-      @items = @items.where.not(user_id: current_user.id)
-    #else
-    #  @items = policy_scope(Item).order(created_at: :desc)
-    end
-  end
     # raise message saying nothing found and redirect to index
 
-      @markers = @items.map do |item|
-        {
-          lng: item.longitude,
-          lat: item.latitude,
-          infoWindow: { content: render_to_string(partial: "/items/map_window", locals: { item: item }) }
-        }
-      end
+    @markers = @items.map do |item|
+      {
+        lng: item.longitude,
+        lat: item.latitude,
+        infoWindow: { content: render_to_string(partial: "/items/map_window", locals: { item: item }) }
+      }
     end
+  end
+
 def show
 end
 

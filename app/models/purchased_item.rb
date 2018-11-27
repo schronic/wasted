@@ -9,5 +9,4 @@ class PurchasedItem < ApplicationRecord
             presence: true
 
   monetize :item_purchase_price_cents
-
 end
