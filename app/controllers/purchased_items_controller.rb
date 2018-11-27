@@ -35,10 +35,8 @@ class PurchasedItemsController < ApplicationController
         @purchased_items << purchased_item
         reservation.item.quantity -= 1
         reservation.item.save
-        raise
         reservation.destroy
       end
-      Item.where('quantity < 1').destroy_all
       redirect_to new_order_payment_path(@order)
     else
       authorize @reservations
