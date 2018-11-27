@@ -28,13 +28,13 @@ class Item < ApplicationRecord
                   International Italian Japanese Mediterranean Mexican Middle Eastern Nepalese
                   Pizza Sandwiches Sushih Thai Vietnamese]
 
-  include PgSearch
+#  include PgSearch
 
-  multisearchable against: [ :name, :description, :price, :address, :category, :food_type ]
-
-  PgSearch.multisearch_options = {
-  using: { tsearch: { prefix: true } }
-  }
+#  multisearchable against: [ :name, :description, :price, :address, :category ]
+#
+#  PgSearch.multisearch_options = {
+#  using: { tsearch: { prefix: true } }
+#  }
 
   def pickup_date_must_be_in_the_future
     errors.add(:pickup_time, "can't be in the past") if
