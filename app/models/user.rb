@@ -64,17 +64,14 @@ class User < ApplicationRecord
           end.inject(:+)
 
           # Same as Lines 59-62
-          #.map { |purchased_item| purchased_item.item_purchase_price * purchased_item.item_purchase_quantity }
+          #.map { |purchased_item| purchased_item.item_purchase_price_cents * purchased_item.item_purchase_quantity }
   end
 
   def money_earned
-    money_earned = 0
     PurchasedItem.joins(:item, :order)
                  .where(items: { user_id: id })
                  .where(orders: { state: 'paid' })
-                 .each { |i| money_earned += i.item_purchase_price }
-    money_earned
+                 .map(&:item_purchase_price)
+                 .inject(:+)
   end
-
 end
-
