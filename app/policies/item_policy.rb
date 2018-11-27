@@ -7,6 +7,7 @@ class ItemPolicy < ApplicationPolicy
         scope.where.not(id: Reservation.where(user_id: user.id)
                                        .pluck(:item_id))
              .where('pickup_time > ?', Time.now)
+             .where('quantity > ?', 0)
 
         # scope.joins(:reservations)
         #      .where.not(reservations: { user_id: user.id })
