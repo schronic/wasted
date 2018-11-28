@@ -25,7 +25,7 @@ def index
 
     @items.each do |item|
       if  Rails.env.production?
-        item.update(distance_location: Geocoder::Calculations.distance_between([@current_lat, @current_lng], ([item.latitude, item.longitude])).round(2))      else
+        item.update(distance_location: Geocoder::Calculations.distance_between([@current_lat, @current_lng], ([item.latitude, item.longitude])).round(2))
       else
         item.update(distance_location: Geocoder::Calculations.distance_between([0, 0], ([item.latitude, item.longitude])).round(2))
       end
