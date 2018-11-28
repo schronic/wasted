@@ -57,6 +57,7 @@
   </div>
 </div>
 
+<% if @items.present?%>
 
 <% @items.each do |item| %>
 <%= render 'shared/card_modal', item: item %>
@@ -179,3 +180,5 @@ data-markers="<%= @markers.to_json %>"
 data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
 >
 </div>
+
+<% end %>

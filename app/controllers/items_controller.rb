@@ -83,7 +83,9 @@ def index
       }
     end
 
-    @items_close = @items.sort_by { |i| i.distance_location }
+    if @items.present?
+      @items_close = @items.sort_by { |i| i.distance_location }
+    end
   end
 
   def show
