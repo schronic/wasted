@@ -4,10 +4,10 @@ class ItemsController < ApplicationController
 
 # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
 
-def index
-  @current_lat = request.location.latitude
-  @current_lng = request.location.longitude
-    # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
+  def index
+    @current_lat = request.location.latitude
+    @current_lng = request.location.longitude
+      # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
 
     if Rails.env.production?
       @results = Geocoder.search([@current_lat, @current_lng])
@@ -40,12 +40,12 @@ def index
       @query = true
 
       if params[:term][:search].present?
-        @items = Item.search_by_title_and_syllabus(params[:term][:search])
+        @items = @items.search_by_title_and_syllabus(params[:term][:search])
       end
 
       if params[:term][:query].present?
         @results = Geocoder.search(params[:term][:query])
-        @items = @items.near(params[:term][:query])
+        @items = @items.near(@results.first.address, 50)
       end
 
       if categories_clean.present?
@@ -83,6 +83,7 @@ def index
       }
     end
 
+
     if @items.present?
       @items_close = @items.sort_by { |i| i.distance_location }
     end
@@ -106,7 +107,7 @@ def index
     @item.save
     results = Geocoder.search(@item.address)
     coor = results.first.coordinates
-    @item.update(latitude: coor(0), longitude: coor(1))
+    @item.update(latitude: coor[0], longitude: coor[1])
 
     params[:item][:types].each do |type|
       @type = Type.find_by(name: type)
