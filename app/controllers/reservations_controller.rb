@@ -3,8 +3,6 @@ class ReservationsController < ApplicationController
   # before_action :set_item, only: [:create]
 
   def index
-
-
     @suggestions = policy_scope(Item).order(expiration: :desc)
 
     Reservation.joins(:item)
@@ -96,7 +94,7 @@ class ReservationsController < ApplicationController
     if params.dig(:reservation, :in_cart) && @reservations.any? # == 'true' (not a boolean in params)
       redirect_to cart_path
     else
-      redirect_to items_path
+      redirect_to cart_path
     end
     # split with if/else based on where you were when removed from cart
     # redirect_to cart_path

@@ -26,7 +26,7 @@
           <% if current_user.avatar.present? %>
           <%= cl_image_tag(current_user.avatar, class: "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown" ) %>
           <% else %>
-          <%= image_tag("avatar.png", class:  "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown")%>
+          <%= image_tag("http://fuuse.net/wp-content/uploads/2016/02/avatar-placeholder.png", class:  "avatar dropdown-toggle", id: "navbar-wagon-menu", "data-toggle" => "dropdown")%>
           <% end %>
           <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
             <li>
