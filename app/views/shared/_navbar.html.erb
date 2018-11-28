@@ -35,11 +35,6 @@
               <% end %>
             </li>
             <li>
-              <%= link_to "#" do %>
-                <i class="fa fa-cog"></i>  <%= t(".settings", default: "Settings") %>
-              <% end %>
-            </li>
-            <li>
               <%= link_to destroy_user_session_path, method: :delete do %>
                 <i class="fa fa-sign-out-alt"></i>  <%= t(".sign_out", default: "Log out") %>
               <% end %>
@@ -92,12 +87,6 @@
             </li>
           <% end %>
 
-          <li>
-            <%= link_to new_item_path do %>
-              <%= icon('fas', 'cog') %>
-              <%= t(".settings", default: "Settings") %>
-            <% end %>
-          </li>
           <li>
             <%= link_to current_user do %>
               <%= icon('fas', 'user') %>
