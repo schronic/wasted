@@ -12,7 +12,7 @@ def index
     if Rails.env.production?
       @results = Geocoder.search([@current_lat, @current_lng])
     else
-      @results = Geocoder.search([0, 0])
+      @results = Geocoder.search([20, 100])
     end
 
     if user_signed_in?
