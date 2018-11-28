@@ -3,7 +3,8 @@ import swal from 'sweetalert';
 
 function cartEmptyCheckoutButton() {
   const cartButton = document.getElementById('cart-empty-button');
-  if (cartButton) { // protect other pages
+  const reservations = document.getElementById('reservations-size').dataset.reservationsSize
+  if (cartButton && reservations == 0) { // protect other pages
     cartButton.addEventListener('click', () => {
       swal({
         title: "Cart empty",

@@ -11,17 +11,14 @@ class UsersController < ApplicationController
 
     @items_bought = []
     @items_pending = []
-
     @items.each do |item|
-      reservation = Reservation.find_by(item: item)
-      if reservation.present?
+      purchase = PurchasedItem.find_by(item: item)
+      if purchase.present?
 
-        if reservation.purchased_item_id == nil
+         if purchase.order.state == 'pending'
           @items_pending << item
-        else
-          purchase = PurchasedItem.find_by(item: item)
-          buyer_id = Order.find(purchase.order.id).user_id
-          buyer = User.find(buyer_id)
+        elsif purchase.order.state == 'paid'
+          buyer = purchase.order.user
           @items_bought << [item, buyer]
         end
       else
@@ -34,5 +31,4 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 end
-
 

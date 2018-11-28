@@ -10,6 +10,7 @@ class Item < ApplicationRecord
               :price,
               :quantity,
               :pickup_time,
+              :address,
               presence: true
   validate    :pickup_date_must_be_in_the_future
 

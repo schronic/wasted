@@ -63,14 +63,11 @@ class ReservationsController < ApplicationController
   end
 
   def create
+
     @reservation = current_user.reservations.new(reservation_params)
     authorize @reservation
-    if @reservation.save && params.dig(:reservation, :in_cart)
+    if @reservation.save && params[:reservation][:in_cart] == 'true'
       redirect_to cart_path
-    elsif @reservation.save
-      redirect_to items_path
-    else
-      render 'items/index'
     end
   end
 
@@ -96,8 +93,6 @@ class ReservationsController < ApplicationController
     else
       redirect_to cart_path
     end
-    # split with if/else based on where you were when removed from cart
-    # redirect_to cart_path
   end
 
   def error

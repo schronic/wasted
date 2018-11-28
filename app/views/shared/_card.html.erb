@@ -1,22 +1,28 @@
 <div  data-toggle="modal" data-target="#myModal-<%= item.id %>">
   <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= item.picture %>); margin-top: 10px;">
     <!-- <div class="add"> -->
-    <!-- Icons to add or remove from cart -->
-    <% if user_signed_in? %>
+      <!-- Icons to add or remove from cart -->
+      <% if user_signed_in? %>
 
-      <div class="card-btn add">
+      <%= simple_form_for @reservation, url: create_reservation_path do |f| %>
+      <%= f.error_notification %>
+      <%= f.hidden_field :in_cart, value: in_cart%>
+      <%= f.hidden_field :item_id, value: item.id %>
+      <%= f.hidden_field :quantity, value: 1 %>
+        <%= f.button :button, value: icon('fas', 'plus'), class: 'card-btn add' do %>
         <%= icon('fas', 'plus') %>
-      </div>
-    <% end %>
+      <% end %>
+      <% end %>
+      <% end %>
       <!-- </div> -->
-    <div class="card-description">
-      <h2><%= item.name %></h2>
+      <div class="card-description">
+        <h2><%= item.name %></h2>
+      </div>
+    </div>
+    <div class="item-description">
+      <h6><%= item.user.name.capitalize %></h6>
+      <h6>$ <%= item.price %> </h6>
+      <p><%= item.pickup_time.strftime("pickup before %I:%M%p |") %></p>
+      <p><%= item.distance_location %>km</p>
     </div>
   </div>
-  <div class="item-description">
-    <h6><%= item.user.username.capitalize %></h6>
-    <h6>$ <%= item.price %> </h6>
-    <p><%= item.pickup_time.strftime("pickup before %I:%M%p |") %></p>
-    <p><%= item.distance_location %>km</p>
-  </div>
-</div>
