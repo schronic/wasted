@@ -44,12 +44,12 @@
         <div class="editlinks">
           <!-- Edit and Delete if you own this item -->
           <% if policy(item).edit? %>
-            <%= link_to "Edit |", edit_item_path(item) %>
+          <%= link_to "Edit |", edit_item_path(item) %>
           <% end %>
           <% if policy(item).destroy? %>
-            <%= link_to "Delete", item_path(item),
-            method: :delete,
-            data: { confirm: "Are you sure?" } %>
+          <%= link_to "Delete", item_path(item),
+          method: :delete,
+          data: { confirm: "Are you sure?" } %>
           <% end %>
         </div>
       </div>
@@ -60,7 +60,7 @@
         <div class="row">
           <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4">
 
-                <!-- FORM WITH UP AND DOWN BUTTONS -->
+            <!-- FORM WITH UP AND DOWN BUTTONS -->
             <div id="<%= item.id %>" class="controls">
               <span data-item-quantity="<%= item.quantity %>" class="quantity"></span>
 
@@ -75,16 +75,14 @@
 
                   <!-- QUANTITY RESERVED -->
                   <%= form_with model: @reservation, url: create_reservation_path, id: "add-to-cart-<%= item.id %> ", local: true do |f| %>
-                    <%
-                      value = ""
-                      if item.reservations.where(user_id: current_user.id).any?
-                        value = item.reservations.find(user_id: current_user.id).quantity
-                      else
-                        value = 1
-                      end
-                     %>
-                    <%= f.text_field :quantity, value: value, class: "form-control input-number circle"  %>
-                    <%= f.hidden_field :item_id, value: item.id %>
+                  <% value = "" %>
+                  <%if item.reservations.where(user_id: current_user.id).any?%>
+                  <%  value = item.reservations.find(user_id: current_user.id).quantity%>
+                  <%else%>
+                  <%  value = 1%>
+                  <%end%>
+                  <%= f.text_field :quantity, value: value, class: "form-control input-number circle"  %>
+                  <%= f.hidden_field :item_id, value: item.id %>
 
                   <% end %>
                   <!-- END QUANTITY RESERVED -->
@@ -97,22 +95,22 @@
                 </div>
               </div>
             </div>
-                <!-- END FORM WITH UP AND DOWN BUTTONS -->
-            </div>
+            <!-- END FORM WITH UP AND DOWN BUTTONS -->
+          </div>
 
-            <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn">
+          <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn">
             <button type="submit" class="btn btn-dark btn-lg" form="add-to-cart-<%=item.id%>">
               <span class="glyphicon glyphicon-plus"></span>
               <span class="btn btn-dark btn-lg">Add to Cart</span>
             </button>
-            </div>
-            <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn1">
-              <button type="button" class="btn btn-dark ">One-Click Shop</button>
-            </div>
+          </div>
+          <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn1">
+            <button type="button" class="btn btn-dark ">One-Click Shop</button>
           </div>
         </div>
       </div>
-      <!-- END MODAL BODY -->
-
     </div>
+    <!-- END MODAL BODY -->
+
   </div>
+</div>
