@@ -16,7 +16,7 @@ def index
       @items = policy_scope(Item).order(expiration: :desc)
     end
 
-    @reservation = Reservation.new
+    @reservation = current_user.reservations.new(quantity: 0)
 
     @items.each do |item|
       item.update(distance_location: Geocoder::Calculations.distance_between([-34.587880, -34.587880], ([item.latitude, item.longitude])).round(2))

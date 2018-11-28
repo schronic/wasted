@@ -12,16 +12,20 @@
 
 }).call(this);
 
-function up(max) {
-    document.getElementById("myNumber").value = parseInt(document.getElementById("myNumber").value) + 1;
-    if (document.getElementById("myNumber").value >= parseInt(max)) {
-        document.getElementById("myNumber").value = max;
-    }
-}
-function down(min) {
-    document.getElementById("myNumber").value = parseInt(document.getElementById("myNumber").value) - 1;
-    if (document.getElementById("myNumber").value <= parseInt(min)) {
-        document.getElementById("myNumber").value = min;
-    }
-}
 
+// document.querySelector("[data-item-id='<%= item.id %>']")
+
+
+// function up(max) {
+//     document.querySelector(itemId).value = parseInt(document.querySelector(itemId).value) + 1;
+//     if (document.querySelector(itemId).value >= parseInt(max)) {
+//         document.querySelector(itemId).value = max;
+//     }
+// }
+
+// function down(min) {
+//     document.querySelector(itemId).value = parseInt(document.querySelector(itemId).value) - 1;
+//     if (document.querySelector(itemId).value <= parseInt(min)) {
+//         document.querySelector(itemId).value = min;
+//     }
+// }
