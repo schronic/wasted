@@ -3,20 +3,9 @@
     <!-- <div class="add"> -->
     <!-- Icons to add or remove from cart -->
     <% if user_signed_in? %>
-
-      <div class="card-btn">
-        <%= simple_form_for @reservation, url: create_reservation_path, method: :post do |f| %>
-          <%= f.error_notification %>
-          <%= f.hidden_field :user_id, value: current_user.id %>
-          <%= f.hidden_field :item_id, value: item.id %>
-          <%= f.hidden_field :quantity, value: 1 %>
-          <%= f.hidden_field :in_cart, value: true %>
-          <%= f.button :button, class: 'add' do %>
-            <%= icon('fas', 'plus') %>
-          <% end %>
-        <% end %>
+      <div class="card-btn add">
+        <%= icon('fas', 'plus') %>
       </div>
-
     <% end %>
 
       <!-- </div> -->
