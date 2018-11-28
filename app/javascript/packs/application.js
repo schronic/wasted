@@ -2,8 +2,9 @@ import "bootstrap";
 import { loadDynamicBannerText } from '../components/banner';
 import rangePlugin from 'flatpickr/dist/plugins/rangePlugin';
 import flatpickr from 'flatpickr';
-import 'flatpickr/dist/flatpickr.min.css'
+import 'flatpickr/dist/flatpickr.min.css';
 import { cartEmptyCheckoutButton } from '../components/cart';
+import '../components/select2';
 
 const banner = document.getElementById('banner-typed-text')
 if (banner) {

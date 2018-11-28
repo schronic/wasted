@@ -89,6 +89,7 @@ end
   end
 
   def create
+    raise
     @item = Item.new(item_params)
     @item.user = current_user
     authorize @item
