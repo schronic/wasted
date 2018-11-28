@@ -123,7 +123,8 @@
               <div class="container">
                 <div class="row">
                   <% @items_pending.each do |item| %>
-                  <div class="col-md-3">
+                  <div class="col-md-3" style="padding-left: 0px;">
+                    <div class="pending-items">
                     <div  data-toggle="modal" data-target="#myModal-<%= item.id %>">
                       <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= item.picture %>); margin-top: 10px;">
                         <div class="card-description">
@@ -131,9 +132,10 @@
                         </div>
                       </div>
                       <div class="item-description"">
-                        <h6 style="margin: 5px;">$ <%= item.price %> </h6>
-                        <p style="margin: 5px;"><%= link_to 'Edit', edit_item_path(item) %> | <%= link_to 'Delete', item_path(item), method: :delete %></p>
+                        <h6>$ <%= item.price %> </h6>
+                        <p><%= link_to 'Edit', edit_item_path(item) %> | <%= link_to 'Delete', item_path(item), method: :delete %></p>
                       </div>
+                    </div>
                     </div>
                   </div>
                   <% end %>
@@ -152,7 +154,7 @@
 
 
       <!-- ORDERS CONTAINER -->
-      <% if policy(User).consumer? %>
+<% if policy(User).consumer? %>
       <div class="container" style="margin-bottom: 20px;">
         <div class="row">
           <div class="col-xs-67 table-col background-color-profile">
