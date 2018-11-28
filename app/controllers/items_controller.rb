@@ -21,7 +21,7 @@ def index
       @items = policy_scope(Item).order(expiration: :desc)
     end
 
-    @reservation = current_user.reservations.new(quantity: 0)
+    @reservation = Reservation.new(quantity: 0)
 
     @items.each do |item|
       if  Rails.env.production?
