@@ -23,11 +23,11 @@ class Item < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
 
-  TYPES = %w[Vegan Gluten_free Hot Snack Healthy Light Home_mage Raw Vegetarian]
+  TYPES = %w[Vegan GlutenFree Hot Snack Healthy Light HomeMade Raw Vegetarian]
 
   CATEGORY = %w[Asian Breakfast Burgers Chinese Greek HealthyFood HomeMade Indian
-                  International Italian Japanese Mediterranean Mexican Middle Eastern Nepalese
-                  Pizza Sandwiches Sushih Thai Vietnamese]
+                  International Italian Japanese Mediterranean Mexican MiddleEastern Nepalese
+                  Pizza Sandwich Sushi Thai Vietnamese]
 
   include PgSearch
   pg_search_scope :search_by_title_and_syllabus,

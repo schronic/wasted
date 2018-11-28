@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 2018_11_26_184514) do
     t.float "latitude"
     t.float "longitude"
     t.string "category"
-    t.string "food_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "price_cents", default: 0, null: false
