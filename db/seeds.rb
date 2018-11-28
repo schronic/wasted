@@ -60,7 +60,7 @@ puts "Creating new items..."
   item1 = Item.new({
     name: Faker::Food.dish,
     description: Faker::Food.description,
-    expiration: Faker::Date.between(2.days.ago, Date.today),
+    expiration: Faker::Time.backward(30, :morning),
     price: rand(3..5),
     pickup_time: Time.now + rand(5..10).days,
     quantity: rand(1..5),

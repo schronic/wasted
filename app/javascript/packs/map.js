@@ -1,4 +1,3 @@
-
 import 'mapbox-gl/dist/mapbox-gl.css'
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
 

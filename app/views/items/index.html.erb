@@ -1,4 +1,3 @@
-
 <div class="container">
   <div class="row">
     <div class="col-xs-11 col-xs-offset-1">
@@ -7,8 +6,10 @@
         <div class="search">
 
           <%= simple_form_for :term, url: items_path, method: :get do |f| %>
-          <%= f.input_field :query, label: false, placeholder: "",
-          input_html: { value: @results.first.address } do %>
+            <% if @results.any? %>
+              <%= f.input_field :query, label: false, placeholder: "",
+              input_html: { value: @results.first.address } do %>
+            <% end %>
           <% end %>
         </div>
         <div class="filter">

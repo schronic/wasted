@@ -6,6 +6,7 @@ class ItemPolicy < ApplicationPolicy
       if user_logged_in?
         scope.where.not(id: Reservation.where(user_id: user.id)
                                        .pluck(:item_id))
+             .where.not(user_id: user.id)
              .where('pickup_time > ?', Time.now)
              .where('quantity > ?', 0)
 
@@ -13,6 +14,7 @@ class ItemPolicy < ApplicationPolicy
         #      .where.not(reservations: { user_id: user.id })
         #      .where.not(items: { user_id: user.id })
         #      .where('pickup_time > ?', Time.now)
+        #      .where('quantity > ?', 0)
       else
         scope.all
       end
