@@ -3,9 +3,14 @@ class ReservationsController < ApplicationController
   # before_action :set_item, only: [:create]
 
   def index
+
+
+    @suggestions = policy_scope(Item).order(expiration: :desc)
+
     Reservation.joins(:item)
                .where('items.pickup_time < ?', Time.now)
                .destroy_all
+
     @reservations = policy_scope(Reservation).order(created_at: :desc)
     @reservation = Reservation.new
     authorize @reservation

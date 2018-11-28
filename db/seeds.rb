@@ -5,6 +5,8 @@ PurchasedItem.destroy_all
 Item.destroy_all
 Reservation.destroy_all
 Order.destroy_all
+Type.destroy_all
+Feature.destroy_all
 
 puts 'Creating new users...'
 
@@ -60,11 +62,10 @@ puts "Creating new items..."
     description: Faker::Food.description,
     expiration: Faker::Time.backward(30, :morning),
     price: rand(3..5),
-    pickup_time: Faker::Time.forward(3, :morning),
+    pickup_time: Time.now + rand(5..10).days,
     quantity: rand(1..5),
     user: @suppliers.sample,
     category: Item::CATEGORY.sample,
-    food_type: Item::TYPES.sample,
     address: Faker::Address.full_address,
     latitude: Faker::Address.latitude,
     longitude: Faker::Address.longitude
@@ -81,7 +82,6 @@ puts "Creating new items..."
     quantity: rand(1..5),
     user: @boths.sample,
     category: Item::CATEGORY.sample,
-    food_type: Item::TYPES.sample,
     address: Faker::Address.full_address,
     latitude: Faker::Address.latitude,
     longitude: Faker::Address.longitude
@@ -153,4 +153,20 @@ Order.left_joins(:purchased_items)
      .where(purchased_items: { order_id: nil })
      .destroy_all
 
+Type::TYPES.each do |type|
+  Type.create(
+    name: type)
+end
+
+@items.each do |item|
+  2.times do
+  Feature.create(
+    item: item,
+    type: Type.all.sample
+    )
+end
+end
+
 puts 'Seed complete!'
+
+

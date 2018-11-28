@@ -1,25 +1,30 @@
 <div class="banner"></div>
 <div class="container-fluid cfhome ">
   <div class="container home-one">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="cat-parent">
-         <div class="cat-container" style="text-align: center;">
-          <h1>
-            <span id="banner-typed-text";"></span>
-          </h1>
-          <!-- <button class="button-banner">Eat consciously!</button> -->
+    <div class="why-us">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="cat-parent">
+           <div class="cat-container" style="text-align: center;">
+            <h1>
+              <span id="banner-typed-text";"></span>
+            </h1>
+            <!-- <button class="button-banner">Eat consciously!</button> -->
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-6">
-      <p>Eat for a fair price and save unsold food from being wasted. Over 1/3 of all food produced globally goes to waste. The annual value of food wasted globally is $1 trillion, and it weighs 1.3 billion tonnes. Restaurants and cafes throw away food that they can't sell anymore everyday. Food is wasted and money is lost. Let's change that.</p>
+      <div class="col-md-6">
+        <p>Eat for a fair price and save unsold food from being wasted. Over 1/3 of all food produced globally goes to waste. The annual value of food wasted globally is $1 trillion, and it weighs 1.3 billion tonnes. Restaurants and cafes throw away food that they can't sell anymore everyday. Food is wasted and money is lost. Let's change that.</p>
+      </div>
     </div>
   </div>
 </div>
 </div>
 
 <div class="container home-two">
+
+
+
   <div class="row">
     <div class="col-sm-12 col-md-4 caps">
       <div class="whatever">
@@ -42,10 +47,10 @@
     </div>
   </div>
 
-</div>
+  <div class="row" style="margin-top: 50px;">
+  <div id="become-supplier"></div>
 
-<div class="container-fluid cfhome">
-   <div class="row">
+
     <div class="col-md-6">
       <h2 class="caps caps1">This is how you can connect.</h2>
     </div>
@@ -58,60 +63,56 @@
       </ol>
     </div>
   </div>
+
+</div>
 </div>
 
-<div class="container carousel-pictures">
-  <div class="row">
-    <div class="col-xs-10 col-md-10 col-centered">
-      <h1 style="text-transform: uppercase; font-weight: bold;">Get inspired</h1>
-      <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="2500">
-        <div class="carousel-inner">
-          <% @items.each_with_index do |item, index| %>
-          <div class="item <%= 'active' if index == 0 %>">
-            <div class="carousel-col">
-              <div class="img-responsive">
-                <%= render 'shared/pictures', item: item %>
+<div class="container-fluid cfhome">
+  <div class="container carousel-pictures">
+    <div class="row">
+                    <div id="become-user"></div>
+
+      <div class="col-xs-10 col-md-10 col-centered">
+        <h1 style="text-transform: uppercase; font-weight: bold;">Get inspired</h1>
+        <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="2500">
+          <div class="carousel-inner">
+            <% @items.each_with_index do |item, index| %>
+            <div class="item <%= 'active' if index == 0 %>">
+              <div class="carousel-col">
+                <div class="img-responsive" style="border: 2px solid white;">
+
+                  <%= render 'shared/pictures', item: item %>
+                </div>
               </div>
             </div>
+            <% end %>
           </div>
-          <% end %>
-        </div>
 
-        <!-- Controls -->
-        <div class="left carousel-control">
-          <a href="#carousel" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-menu-left" aria-hidden="true" style="margin-top: 30px !important"></span>
-            <span class="sr-only"></span>
-          </a>
-        </div>
-        <div class="right carousel-control">
-          <a href="#carousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-menu-right" aria-hidden="true" style="margin-top: 30px !important"></span>
-            <span class="sr-only"></span>
-          </a>
+          <!-- Controls -->
+          <div class="left carousel-control">
+            <a href="#carousel" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-menu-left" aria-hidden="true" style="margin-top: 30px !important; color: white !important;"></span>
+              <span class="sr-only"></span>
+            </a>
+          </div>
+          <div class="right carousel-control">
+            <a href="#carousel" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-menu-right" aria-hidden="true" style="margin-top: 30px !important; color: white !important;"></span>
+              <span class="sr-only"></span>
+            </a>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="container-fluid cfhome">
-  <div class="row">
-    <div class="col-md-6">
-      <h2 class="caps caps1">This is how waste'd works.</h2>
-    </div>
-    <div class="col-md-6">
-      <ol>
-        <li>Download the app and browse unsold food from restaurants, cafes and grocery stores.</li>
-        <li>Select & purchase food for ½ price - all within the app.</li>
-        <li>Pick it up & enjoy!.</li>
-      </ol>
-    </div>
-  </div>
-</div>
-
-
 <div class="container home-two">
+
+
+
+
   <div class="row">
     <div class="col-sm-12 col-md-4 caps">
       <div class="whatever">
@@ -131,6 +132,19 @@
         <div class="image"><%= image_tag "silverware.svg" %></div>
         EAT CONSCIOUSLY
       </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 50px;">
+    <div class="col-md-6">
+      <h2 class="caps caps1">This is how waste'd works.</h2>
+    </div>
+    <div class="col-md-6">
+      <ol>
+        <li>Download the app and browse unsold food from restaurants, cafes and grocery stores.</li>
+        <li>Select & purchase food for ½ price - all within the app.</li>
+        <li>Pick it up & enjoy!.</li>
+      </ol>
     </div>
   </div>
 
