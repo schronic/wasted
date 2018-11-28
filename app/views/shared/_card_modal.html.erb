@@ -63,7 +63,6 @@
             <!-- FORM WITH UP AND DOWN BUTTONS -->
             <div id="<%= item.id %>" class="controls">
               <span data-item-quantity="<%= item.quantity %>" class="quantity"></span>
-
               <div class="form-modal">
                 <label>Quantity: </label>
                 <div class="input-group">
@@ -73,9 +72,11 @@
                     </button>
                   </div>
 
+                  <% if user_signed_in? %>
                   <!-- QUANTITY RESERVED -->
-                  <%= form_with model: @reservation, url: create_reservation_path, id: "add-to-cart-<%= item.id %> ", local: true do |f| %>
+                  <%= form_with model: @reservation, url: create_reservation_path, id: "add-to-cart-#{item.id}", local: true do |f| %>
                   <% value = "" %>
+
                   <%if item.reservations.where(user_id: current_user.id).any?%>
                   <%  value = item.reservations.find(user_id: current_user.id).quantity%>
                   <%else%>
@@ -84,6 +85,7 @@
                   <%= f.text_field :quantity, value: value, class: "form-control input-number circle"  %>
                   <%= f.hidden_field :item_id, value: item.id %>
 
+                  <% end %>
                   <% end %>
                   <!-- END QUANTITY RESERVED -->
 
@@ -109,8 +111,7 @@
           </div>
         </div>
       </div>
-    </div>
-    <!-- END MODAL BODY -->
 
+    </div>
   </div>
 </div>
