@@ -41,9 +41,15 @@
         </div>
       </div>
     </div>
+
+        <div class="row">
+      <div class="col-xs-11 col-md-10 col-centered">
+
+        <h2>BASKET ITEMS</h2>
+        <br>
     <% @reservations.each do |reservation| %>
     <div class="row">
-      <div class="container" style="width: 90%;">
+      <div class="container">
         <div class="row">
           <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= reservation.item.picture %>); margin-top: 10px;">
           </div>
@@ -59,6 +65,8 @@
     </div>
     <% end %>
   </div>
+      </div>
+    </div>
 
   <!-- SHOPPING CART -->
   <div class="shopping-cart-container" style="position: sticky;">

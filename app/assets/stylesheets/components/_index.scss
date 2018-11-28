@@ -25,12 +25,17 @@
 }
 
 .btn-filter:active {
-  text-decoration: none;
+  text-decoration: none !important;
+  color: white;
+}
+
+.btn-filter:visited {
+  text-decoration: none !important;
   color: white;
 }
 
 .btn-filter:hover {
-  text-decoration: none;
+  text-decoration: none !important;
   color: white;
 }
 
@@ -130,6 +135,20 @@
   border-bottom: 2px solid black;
 }
 
+
+#shopping-click{
+    position: absolute;
+    bottom: 40px;
+    background: black;
+    right: 75px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
+}
 
 #term_query{
   border:0;

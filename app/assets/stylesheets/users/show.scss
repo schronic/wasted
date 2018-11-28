@@ -145,11 +145,11 @@
   }
 }
 
-.item-description {
+.item-description2 {
   display: flex;
   justify-content: space-between;
   p{
-    margin: 13px;
+    margin: 0px;
     color:black;
     margin-right: 0px;
     a{
@@ -157,12 +157,12 @@
     }
   }
   h6{
-    margin: 5px;
+    margin: 0px;
     margin-left: 0px;
   }
 }
 
-.card-description{
+.card-description2{
   h2{
         margin-bottom: 0;
         font-size: 18px;
@@ -170,7 +170,7 @@
   }
 }
 
-.pending-items{
+.pending-items2{
       padding-left: 0px;
     padding-right: 36px;
 }

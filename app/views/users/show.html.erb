@@ -106,7 +106,7 @@
                   <% @items_bought.each do |duo| %>
                   <div class="col-md-3">
                     <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= duo.first.picture %>); margin-top: 10px;">
-                      <div class="card-description">
+                      <div class="card-description2">
                         <h2><%= duo.first.name %></h2>
                       </div>
                     </div>
@@ -127,11 +127,11 @@
                     <div class="pending-items">
                     <div  data-toggle="modal" data-target="#myModal-<%= item.id %>">
                       <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= item.picture %>); margin-top: 10px;">
-                        <div class="card-description">
+                        <div class="card-description2">
                           <h2><%= item.name %></h2>
                         </div>
                       </div>
-                      <div class="item-description"">
+                      <div class="item-description2"">
                         <h6>$ <%= item.price %> </h6>
                         <p><%= link_to 'Edit', edit_item_path(item) %> | <%= link_to 'Delete', item_path(item), method: :delete %></p>
                       </div>

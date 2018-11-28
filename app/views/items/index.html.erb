@@ -1,13 +1,17 @@
+<div id="shopping-click">
+  <h2><i class="fas fa-shopping-cart"></i></h2>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col-xs-11 col-xs-offset-1">
       <div class="search-filter-box">
-        <span style="border-bottom: 2px solid black;"><i class="fas fa-search"></i></span>
+        <span style="border-bottom: 2px solid black; padding-top: 7px;"><i class="fas fa-search"></i></span>
         <div class="search">
 
           <%= simple_form_for :term, url: items_path, method: :get do |f| %>
-          <%= f.input_field :query, label: false, placeholder: "Address",
-          input_html: { value: @results.first.address } %>
+          <%= f.input :query, label: false,
+          input_html: { value: @results.first.address, style:'box-shadow: none; outline: none;' } , placeholder: "Address" %>
         </div>
         <div class="filter">
           <%= image_tag("equalizer.png", width:"16", height:"15", :class => "equalizer" )  %>
@@ -21,10 +25,10 @@
             <div class="catg-filter">
               <div class="box-category-type">
                 <div class="">
-                  <%= f.input_field :search, label: false %>
 
                   <div id="type-filter2">
                     <p>CATEGORY</p>
+                  <%= f.input :search, label: false, placeholder: "enter food type...", input_html: { style: "border: none; outline: none; box-shadow: none; margin-bottom: 10px; border-bottom: 1px solid black; width: 40%;" } %>
                     <div class="search-filter1-box" style="display: flex;flex-wrap: wrap;">
                       <%= f.collection_check_boxes :catg, Item::CATEGORY.map { |c| [c, c] }, :first, :last, input_html: { style: "display: flex; padding-right: 15px;"}, label_html: { style: "padding-left: 20px;"} %>
                     </div>
@@ -65,17 +69,25 @@
 
 <% if @query.present? %>
 <% if @empty %>
-<h2 style="margin-top: 60px;">Your search was unsuccessful</h2>
-<h4>Here are are all items: </h4>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-11 col-xs-offset-1 col-md">
+      <h2 style="margin-top: 60px;">Your search was unsuccessful</h2>
+      <h4>Here are are all items: </h4>
+    </div>
+  </div>
+</div>
 <% end %>
 <div class="container">
   <div class="row">
+    <div class="col-xs-11 col-xs-offset-1 col-md">
     <% @items.each do |item| %>
     <div class="col-md-3">
       <%= render 'shared/card', item: item, in_cart: false %>
     </div>
     <% end %>
   </div>
+    </div>
 </div>
 <% else %>
 <div class="container">
@@ -169,15 +181,20 @@
 <!-- </div> -->
 <% end %>
 
-
-
-<div
-class="container"
-id="map"
-style="width: 70%; height: 500px;"
-data-markers="<%= @markers.to_json %>"
-data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
+<div class="container">
+  <div class="row">
+    <div class="col-xs-11 col-xs-offset-1 col-md">
+    <div
+  class="container"
+  id="map"
+  style="width: 70%; height: 500px;"
+  data-markers="<%= @markers.to_json %>"
+  data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
 >
 </div>
+    </div>
+  </div>
+</div>
+
 
 <% end %>
