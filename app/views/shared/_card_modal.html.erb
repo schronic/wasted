@@ -80,7 +80,7 @@
                       if item.reservations.where(user_id: current_user.id).any?
                         value = item.reservations.find(user_id: current_user.id).quantity
                       else
-                        value = 0
+                        value = 1
                       end
                      %>
                     <%= f.text_field :quantity, value: value, class: "form-control input-number circle"  %>
