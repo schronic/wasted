@@ -8,7 +8,12 @@ def index
   @current_lat = request.location.latitude
   @current_lng = request.location.longitude
     # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
-    @results = Geocoder.search([-34.587880, -58.418150])
+
+    if Rails.env.production?
+      @results = Geocoder.search([@current_lat, @current_lng])
+    else
+      @results = Geocoder.search([0, 0])
+    end
 
     if user_signed_in?
       @items = policy_scope(Item).order(expiration: :desc).where.not(user_id: current_user.id)
@@ -19,7 +24,11 @@ def index
     @reservation = current_user.reservations.new(quantity: 0)
 
     @items.each do |item|
-      item.update(distance_location: Geocoder::Calculations.distance_between([-34.587880, -34.587880], ([item.latitude, item.longitude])).round(2))
+      if  Rails.env.production?
+        item.update(distance_location: Geocoder::Calculations.distance_between([@current_lat, @current_lng], ([item.latitude, item.longitude])).round(2))      else
+      else
+        item.update(distance_location: Geocoder::Calculations.distance_between([0, 0], ([item.latitude, item.longitude])).round(2))
+      end
       item.save
     end
 
@@ -57,12 +66,12 @@ def index
 
       unless @items.present?
         @empty = true
-    if user_signed_in?
-      @items = policy_scope(Item).order(expiration: :desc).where.not(user_id: current_user.id)
-    else
-      @items = policy_scope(Item).order(expiration: :desc)
-    end
-  end
+        if user_signed_in?
+          @items = policy_scope(Item).order(expiration: :desc).where.not(user_id: current_user.id)
+        else
+          @items = policy_scope(Item).order(expiration: :desc)
+        end
+      end
     end
     # raise message saying nothing found and redirect to index
 
@@ -75,7 +84,7 @@ def index
     end
 
     @items_close = @items.sort_by { |i| i.distance_location }
-end
+  end
 
   def show
   end
@@ -104,24 +113,24 @@ end
     redirect_to items_path
   end
 
-def edit
-end
-
-def update
-  @feature = Feature.where(item: @item)
-  @feature.each do |feature|
-    feature.destroy
+  def edit
   end
 
-  params[:item][:types].each do |type|
+  def update
+    @feature = Feature.where(item: @item)
+    @feature.each do |feature|
+      feature.destroy
+    end
+
+    params[:item][:types].each do |type|
       @type = Type.find_by(name: type)
       Feature.create(item: @item, type: @type)
-  end
+    end
 
-  @item.update(item_params)
-  @item.save
-  redirect_to user_path(current_user)
-end
+    @item.update(item_params)
+    @item.save
+    redirect_to user_path(current_user)
+  end
 
   def destroy
     @item.destroy
