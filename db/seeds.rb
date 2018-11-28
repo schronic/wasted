@@ -1,12 +1,12 @@
 puts 'Destroying old data...'
 
-User.destroy_all
+Reservation.destroy_all
 PurchasedItem.destroy_all
 Item.destroy_all
-Reservation.destroy_all
 Order.destroy_all
 Type.destroy_all
 Feature.destroy_all
+User.destroy_all
 
 puts 'Creating new users...'
 
@@ -70,8 +70,8 @@ puts "Creating new items..."
     latitude: Faker::Address.latitude,
     longitude: Faker::Address.longitude
   })
-   item1.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
-  item1.save!
+  #  item1.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
+  # item1.save!
 
   item2 = Item.new({
     name: Faker::Food.dish,
