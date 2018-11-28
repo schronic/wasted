@@ -79,7 +79,7 @@
             <% @items.each_with_index do |item, index| %>
             <div class="item <%= 'active' if index == 0 %>">
               <div class="carousel-col">
-                <div class="img-responsive" style="border: 2px solid white;">
+                <div class="img-responsive" >
 
                   <%= render 'shared/pictures', item: item %>
                 </div>

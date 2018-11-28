@@ -1,7 +1,11 @@
-.form-group {
-  width: 100%;
-  margin: 0 !important;
-  padding: 0;
+
+.final-day {
+  div {
+    width: 100%;
+    margin: 0 !important;
+    padding: 0;
+  }
+  padding-bottom: 15px;
 }
 
 .input-bar {
@@ -29,7 +33,7 @@
   outline: 0;
   box-shadow: none;
   border-bottom: 1px solid black;
-  }
+}
 }
 
 #formnew .row{
@@ -37,9 +41,9 @@
 }
 
 .select2{
-    width: 100% !important;
+  width: 100% !important;
 
-  }
+}
 
 .select2-selection{
   border: none !important;
@@ -54,9 +58,17 @@
   box-shadow: none !important;
   &:active{
    box-shadow: none !important;
-  }
+ }
 }
 
 .fcfooter{
   border-bottom: 1px solid white !important;
+}
+
+.form-style{
+
+  -webkit-box-shadow: 3px -2px 42px -9px rgba(184,180,184,.6);
+  -moz-box-shadow: 3px -2px 42px -9px rgba(184,180,184,.6);
+  box-shadow: 3px -2px 42px -9px rgba(184,180,184,.6);
+
 }
