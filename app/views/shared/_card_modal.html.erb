@@ -74,7 +74,7 @@
                   </div>
 
                   <!-- QUANTITY RESERVED -->
-                  <%= form_with model: @reservation, url: create_reservation_path, id: "add-to-cart-#{item.id}", local: true do |f| %>
+                  <%= form_with model: @reservation, url: create_reservation_path, id: "add-to-cart-<%= item.id %> ", local: true do |f| %>
                     <%
                       value = ""
                       if item.reservations.where(user_id: current_user.id).any?
