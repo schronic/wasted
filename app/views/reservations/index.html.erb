@@ -53,7 +53,7 @@
           <h6><%= reservation.item.user.name.capitalize %></h6>
           <h6>$ <%= reservation.item.price %> </h6>
           <p><%= reservation.item.pickup_time.strftime("pickup before %I:%M%p") %> | <%= reservation.item.distance_location %>km</p>
-          <p><%= link_to 'Delete out of cart', reservation_path(reservation), method: :delete %></p>
+          <p><%= link_to 'Remove all from cart', reservation_path(reservation), method: :delete %></p>
         </div>
       </div>
     </div>
@@ -77,8 +77,8 @@
       </div>
       <!-- END PRICES -->
 
-
       <!-- CHECKOUT FORM to send params -->
+      <span data-reservations-size="<%= @reservations.size %>" id='reservations-size'></span>
       <%= link_to "Checkout", purchased_items_path(amount: @amount, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout', id: 'cart-empty-button' %>
       <!-- END CHECKOUT FORM to send params -->
 
