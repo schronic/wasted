@@ -32,7 +32,7 @@ class Item < ApplicationRecord
   pg_search_scope :search_by_title_and_syllabus,
     against: [ :name, :description, :price, :address ],
     using: {
-      tsearch: { prefix: true } # <-- now `superman batm` will return something!
+      tsearch: { prefix: true }
     }
 
   def pickup_date_must_be_in_the_future
