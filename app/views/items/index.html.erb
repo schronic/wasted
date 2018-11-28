@@ -72,7 +72,7 @@
   <div class="row">
     <% @items.each do |item| %>
     <div class="col-md-3">
-      <%= render 'shared/card', item: item %>
+      <%= render 'shared/card', item: item, in_cart: false %>
     </div>
     <% end %>
   </div>
@@ -96,7 +96,7 @@
           <div class="item <%= 'active' if index == 0 %>">
             <div class="carousel-col">
               <div class="img-responsive">
-                <%= render 'shared/card', item: item %>
+                <%= render 'shared/card', item: item, in_cart: false %>
               </div>
             </div>
           </div>
@@ -141,7 +141,7 @@
           <div class="item <%= 'active' if index == 0 %>">
             <div class="carousel-col">
               <div class="img-responsive">
-                <%= render 'shared/card', item: item %>
+                <%= render 'shared/card', item: item, in_cart: false %>
               </div>
             </div>
           </div>
