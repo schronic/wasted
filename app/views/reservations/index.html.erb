@@ -3,48 +3,65 @@
 <div class="main-container">
 
 
-  <div class="container">
+  <div class="container" style="overflow: scroll;">
     <div class="row">
-    <div class="col-xs-11 col-md-10 col-centered">
-      <h2>RECOMMENDATIONS</h2>
-      <br>
-    </div>
+      <div class="col-xs-11 col-md-10 col-centered">
+        <h2>RECOMMENDATIONS</h2>
+        <br>
+      </div>
     </div>
 
-  <div class="row">
-    <div class="col-xs-11 col-md-10 col-centered">
-      <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
-        <div class="carousel-inner">
-          <% @suggestions.each_with_index do |item, index| %>
-          <div class="item <%= 'active' if index == 0 %>">
-            <div class="carousel-col">
-              <div class="img-responsive">
-                <%= render 'shared/card', item: item %>
+    <div class="row">
+      <div class="col-xs-11 col-md-10 col-centered">
+        <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
+          <div class="carousel-inner">
+            <% @suggestions.each_with_index do |item, index| %>
+            <div class="item <%= 'active' if index == 0 %>">
+              <div class="carousel-col">
+                <div class="img-responsive">
+                  <%= render 'shared/card', item: item %>
+                </div>
               </div>
             </div>
+            <% end %>
           </div>
-          <% end %>
-        </div>
 
-        <div class="left carousel-control">
-          <a href="#carousel" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-            <span class="sr-only"></span>
-          </a>
-        </div>
-        <div class="right carousel-control">
-          <a href="#carousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-            <span class="sr-only"></span>
-          </a>
+          <div class="left carousel-control">
+            <a href="#carousel" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+              <span class="sr-only"></span>
+            </a>
+          </div>
+          <div class="right carousel-control">
+            <a href="#carousel" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+              <span class="sr-only"></span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+    <% @reservations.each do |reservation| %>
+    <div class="row">
+      <div class="container" style="width: 90%;">
+        <div class="row">
+          <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= reservation.item.picture %>); margin-top: 10px;">
+          </div>
+          <h4><%= reservation.item.name %></h4>
+        </div>
+        <div class="item-description">
+          <h6><%= reservation.item.user.name.capitalize %></h6>
+          <h6>$ <%= reservation.item.price %> </h6>
+          <p><%= reservation.item.pickup_time.strftime("pickup before %I:%M%p") %> | <%= reservation.item.distance_location %>km</p>
+          <p><%= link_to 'Delete out of cart', reservation_path(reservation), method: :delete %></p>
+        </div>
+      </div>
+    </div>
+    <% end %>
   </div>
 
   <!-- SHOPPING CART -->
-  <div class="shopping-cart-container">
+  <div class="shopping-cart-container" style="position: sticky;">
     <div class="shopping-cart-box">
       <h3> MY BASKET</h3>
 

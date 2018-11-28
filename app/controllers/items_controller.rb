@@ -8,7 +8,12 @@ def index
   @current_lat = request.location.latitude
   @current_lng = request.location.longitude
     # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
-    @results = Geocoder.search([-34.587880, -58.418150])
+
+    if Rails.env.production?
+      @results = Geocoder.search([@current_lat, @current_lng])
+    else
+      @results = Geocoder.search([0, 0])
+    end
 
     if user_signed_in?
       @items = policy_scope(Item).order(expiration: :desc).where.not(user_id: current_user.id)
@@ -16,16 +21,27 @@ def index
       @items = policy_scope(Item).order(expiration: :desc)
     end
 
-    @reservation = Reservation.new
+    @reservation = Reservation.new(quantity: 0)
 
     @items.each do |item|
-      item.update(distance_location: Geocoder::Calculations.distance_between([-34.587880, -34.587880], ([item.latitude, item.longitude])).round(2))
+      if  Rails.env.production?
+        item.update(distance_location: Geocoder::Calculations.distance_between([@current_lat, @current_lng], ([item.latitude, item.longitude])).round(2))
+      else
+        item.update(distance_location: Geocoder::Calculations.distance_between([0, 0], ([item.latitude, item.longitude])).round(2))
+      end
+      item.save
     end
+
     if params[:term]
+
       categories_clean = params[:term][:catg].drop(1) if params[:term][:catg]
       types_clean = params[:term][:types].drop(1) if params[:term][:types]
 
       @query = true
+
+      if params[:term][:search].present?
+        @items = Item.search_by_title_and_syllabus(params[:term][:search])
+      end
 
       if params[:term][:query].present?
         @results = Geocoder.search(params[:term][:query])
@@ -50,7 +66,11 @@ def index
 
       unless @items.present?
         @empty = true
-        @items = policy_scope(Item).order(created_at: :desc).where.not(user_id: current_user.id)
+        if user_signed_in?
+          @items = policy_scope(Item).order(expiration: :desc).where.not(user_id: current_user.id)
+        else
+          @items = policy_scope(Item).order(expiration: :desc)
+        end
       end
     end
     # raise message saying nothing found and redirect to index
@@ -62,7 +82,11 @@ def index
         infoWindow: { content: render_to_string(partial: "/items/map_window", locals: { item: item }) }
       }
     end
-end
+
+    if @items.present?
+      @items_close = @items.sort_by { |i| i.distance_location }
+    end
+  end
 
   def show
   end
@@ -76,11 +100,13 @@ end
   end
 
   def create
-    raise
     @item = Item.new(item_params)
     @item.user = current_user
     authorize @item
     @item.save
+    results = Geocoder.search(@item.address)
+    coor = results.first.coordinates
+    @item.update(latitude: coor(0), longitude: coor(1))
 
     params[:item][:types].each do |type|
       @type = Type.find_by(name: type)
@@ -90,18 +116,27 @@ end
   end
 
   def edit
-    authorize @item
   end
 
   def update
+    @feature = Feature.where(item: @item)
+    @feature.each do |feature|
+      feature.destroy
+    end
+
+    params[:item][:types].each do |type|
+      @type = Type.find_by(name: type)
+      Feature.create(item: @item, type: @type)
+    end
+
     @item.update(item_params)
-    redirect_to items_path
     @item.save
+    redirect_to user_path(current_user)
   end
 
   def destroy
     @item.destroy
-    redirect_to items_path
+    redirect_to user_path(current_user)
   end
 
   private

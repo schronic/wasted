@@ -97,8 +97,14 @@ $quantity-btn-color: #95d7fc;
   }
 }
 
-.input-group-btn button{
-  border-radius: 50%;
+.input-group-btn {
+  .btn-group {
+    box-shadow: none;
+    outline: none;
+  }
+  button {
+    border-radius: 50%;
+  }
 }
 
 .circles {

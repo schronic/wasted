@@ -52,9 +52,11 @@
   border-bottom: 1px solid black !important;
   border-radius: 0px !important;
   box-shadow: none !important;
-  background-color: white !important;
   &:active{
    box-shadow: none !important;
-   background-color: white !important;
   }
+}
+
+.fcfooter{
+  border-bottom: 1px solid white !important;
 }

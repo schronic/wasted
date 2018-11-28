@@ -3,8 +3,8 @@ ruby '2.4.4'
 
 gem 'pg_search'
 gem "geocoder"
+gem 'as-duration'
 gem "simple_token_authentication"
-
 
 gem "pundit"
 gem 'dotenv-rails', groups: [:development, :test]

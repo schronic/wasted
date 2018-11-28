@@ -1,4 +1,3 @@
-
 <div class="container">
   <div class="row">
     <div class="col-xs-11 col-xs-offset-1">
@@ -7,9 +6,8 @@
         <div class="search">
 
           <%= simple_form_for :term, url: items_path, method: :get do |f| %>
-          <%= f.input_field :query, label: false, placeholder: "",
-          input_html: { value: @results.first.address } do %>
-          <% end %>
+          <%= f.input_field :query, label: false, placeholder: "Address",
+          input_html: { value: @results.first.address } %>
         </div>
         <div class="filter">
           <%= image_tag("equalizer.png", width:"16", height:"15", :class => "equalizer" )  %>
@@ -21,30 +19,32 @@
         <div class="filter-body">
           <div class="filter-modal">
             <div class="catg-filter">
-             <div class="box-category-type">
-              <div class="">
-
-                <div id="type-filter2">
-                  <p>CATEGORY</p>
-                  <div class="search-filter1-box" style="display: flex;flex-wrap: wrap;">
-                    <%= f.collection_check_boxes :catg, Item::CATEGORY.map { |c| [c, c] }, :first, :last, input_html: { style: "display: flex; padding-right: 15px;"}, label_html: { style: "padding-left: 20px;"} %>
-                  </div>
-                </div>
-
-              </div>
-              <div class="type-filter">
+              <div class="box-category-type">
                 <div class="">
-                  <br>
-                  <div id="type-filter3">
+                  <%= f.input_field :search, label: false %>
 
-                    <p>TYPE</p>
+                  <div id="type-filter2">
+                    <p>CATEGORY</p>
                     <div class="search-filter1-box" style="display: flex;flex-wrap: wrap;">
-                      <%= f.collection_check_boxes :types, Type::TYPES.map { |c| [c, c] }, :first, :last, input_html: { style: "display: flex; padding-right: 15px;"}, label_html: { style: "padding-left: 20px;"} %>
+                      <%= f.collection_check_boxes :catg, Item::CATEGORY.map { |c| [c, c] }, :first, :last, input_html: { style: "display: flex; padding-right: 15px;"}, label_html: { style: "padding-left: 20px;"} %>
                     </div>
                   </div>
-                  <br>
-                  <div class="allign-button">
-                    <%= f.button :submit, "APPLY", class: "my-button" %>
+
+                </div>
+                <div class="type-filter">
+                  <div class="">
+                    <br>
+                    <div id="type-filter3">
+
+                      <p>TYPE</p>
+                      <div class="search-filter1-box" style="display: flex;flex-wrap: wrap;">
+                        <%= f.collection_check_boxes :types, Type::TYPES.map { |c| [c, c] }, :first, :last, input_html: { style: "display: flex; padding-right: 15px;"}, label_html: { style: "padding-left: 20px;"} %>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="allign-button">
+                      <%= f.button :submit, "APPLY", class: "my-button" %>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -52,30 +52,22 @@
           </div>
         </div>
       </div>
-    </div>
-    <% end %>
-  </div>
-</div>
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-xs-11 col-xs-offset-1 col-md">
-
-      <% if @empty %>
-        <h2 style="margin-top: 60px;">Your search was unsuccessful</h2>
-        <h4>Here are are all items: </h4>
       <% end %>
-      <div class="search-filter1-box">
-        <h2 style="margin-top: 60px;"> NEW FOOD </h2>
-      </div>
     </div>
   </div>
 </div>
 
+<% if @items.present?%>
+<% @items.each do |item| %>
+<%= render 'shared/card_modal', item: item %>
+<% end %>
 
 
 <% if @query.present? %>
+<% if @empty %>
+<h2 style="margin-top: 60px;">Your search was unsuccessful</h2>
+<h4>Here are are all items: </h4>
+<% end %>
 <div class="container">
   <div class="row">
     <% @items.each do |item| %>
@@ -86,6 +78,15 @@
   </div>
 </div>
 <% else %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-11 col-xs-offset-1 col-md">
+      <div class="search-filter1-box">
+        <h2 style="margin-top: 60px;"> NEW FOOD </h2>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container">
   <div class="row">
     <div class="col-xs-11 col-md-10 col-centered">
@@ -120,7 +121,52 @@
     </div>
   </div>
 </div>
+<!-- </div> -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-11 col-xs-offset-1 col-md">
+      <div class="search-filter1-box">
+        <h2 style="margin-top: 60px;"> CLOSEST </h2>
+      </div>
+    </div>
+  </div>
 </div>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-11 col-md-10 col-centered">
+      <div id="carousel-two" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
+        <div class="carousel-inner">
+          <% @items_close.each_with_index do |item, index| %>
+          <div class="item <%= 'active' if index == 0 %>">
+            <div class="carousel-col">
+              <div class="img-responsive">
+                <%= render 'shared/card', item: item %>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+
+        <!-- Controls -->
+        <div class="left carousel-control">
+          <a href="#carousel-two" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+          </a>
+        </div>
+        <div class="right carousel-control">
+          <a href="#carousel-two" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </div> -->
 <% end %>
 
 
@@ -133,3 +179,5 @@ data-markers="<%= @markers.to_json %>"
 data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
 >
 </div>
+
+<% end %>
