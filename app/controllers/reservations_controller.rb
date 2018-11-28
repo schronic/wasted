@@ -93,8 +93,6 @@ class ReservationsController < ApplicationController
     else
       redirect_to cart_path
     end
-    # split with if/else based on where you were when removed from cart
-    # redirect_to cart_path
   end
 
   def error
