@@ -2,9 +2,9 @@
 import swal from 'sweetalert';
 
 function cartEmptyCheckoutButton() {
-  const swalCartButton = document.getElementById('cart-empty-button');
-  if (swalCartButton) { // protect other pages
-    swalCartButton.addEventListener('click', () => {
+  const cartButton = document.getElementById('cart-empty-button');
+  if (cartButton) { // protect other pages
+    cartButton.addEventListener('click', () => {
       swal({
         title: "Cart empty",
         text: "You must add items to cart before checking out",
@@ -13,5 +13,6 @@ function cartEmptyCheckoutButton() {
     });
   }
 }
+
 
 export { cartEmptyCheckoutButton };
