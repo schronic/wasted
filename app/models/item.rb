@@ -40,5 +40,15 @@ class Item < ApplicationRecord
     errors.add(:pickup_time, "can't be in the past") if
       pickup_time.present? && pickup_time < Time.now
   end
-end
 
+  def self.items_where_can_reserve_more
+    items_where_can_reserve_more = Item.all
+    items_where_cannot_reserve_more = []
+    Item.all.each_with_index do |item, index|
+      if item.reservations.where("user_id = ? AND quantity >= ?", Current.user.id, item.quantity).any?
+        items_where_cannot_reserve_more |= [item]
+      end
+    end
+    items_where_can_reserve_more -= items_where_cannot_reserve_more
+  end
+end

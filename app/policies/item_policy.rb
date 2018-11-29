@@ -4,17 +4,25 @@ class ItemPolicy < ApplicationPolicy
 
       # Don't show items uploaded by the user (supplier), OR in the user's cart (consumer)
       if user_logged_in?
-        scope.where.not(id: Reservation.where(user_id: user.id)
-                                       .pluck(:item_id))
-             .where.not(user_id: user.id)
-             .where('pickup_time > ?', Time.now)
-             .where('quantity > ?', 0)
-
-        # scope.joins(:reservations)
-        #      .where.not(reservations: { user_id: user.id })
-        #      .where.not(items: { user_id: user.id })
+        # scope.where.not(id: Reservation.where(user_id: user.id)
+        #                                .pluck(:item_id))
+        #      .where.not(user_id: user.id)
         #      .where('pickup_time > ?', Time.now)
         #      .where('quantity > ?', 0)
+        # Item.each do |i|
+        #   scope i, -> { where(size: s) }
+        # end
+
+        scope.joins(:reservations)
+             .where('pickup_time > ?', Time.now)
+             .where('items.quantity > ?', 0)
+             .where.not(items: { user_id: user.id })
+             # .find_each do |i|
+             #   (( "reservation.quantity <= ?") i.quantity )
+             # end
+             # .where.not(reservations: { user_id: user.id })
+        # .merge
+        # .where()
       else
         scope.all
       end
