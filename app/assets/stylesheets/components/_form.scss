@@ -1,7 +1,11 @@
-.form-group {
-  width: 100%;
-  margin: 0 !important;
-  padding: 0;
+
+.final-day {
+  div {
+    width: 100%;
+    margin: 0 !important;
+    padding: 0;
+  }
+  padding-bottom: 20px;
 }
 
 .input-bar {
@@ -29,7 +33,7 @@
   outline: 0;
   box-shadow: none;
   border-bottom: 1px solid black;
-  }
+}
 }
 
 #formnew .row{
@@ -37,9 +41,9 @@
 }
 
 .select2{
-    width: 100% !important;
+  width: 100% !important;
 
-  }
+}
 
 .select2-selection{
   border: none !important;
@@ -54,9 +58,76 @@
   box-shadow: none !important;
   &:active{
    box-shadow: none !important;
-  }
+ }
 }
 
 .fcfooter{
   border-bottom: 1px solid white !important;
+}
+
+.form-style{
+
+  -webkit-box-shadow: 3px -2px 42px -9px rgba(184,180,184,.6);
+  -moz-box-shadow: 3px -2px 42px -9px rgba(184,180,184,.6);
+  box-shadow: 3px -2px 42px -9px rgba(184,180,184,.6);
+
+}
+
+.simple_form label{
+  font-family: Montserrat !important;
+  color: gray !important;
+  font-weight: 400 !important;
+  font-size: 15px !important;
+}
+
+#item_category, #start_date, #end_date, #item_picture, #user_avatar{
+ font-family: Montserrat !important;
+ color: gray !important;
+ font-weight: 400 !important;
+ font-size: 15px !important;
+ background-color: #fff !important;
+}
+
+.pt-0 {
+ font-family: Montserrat !important;
+ color: gray !important;
+ font-weight: 400 !important;
+ font-size: 15px !important;
+ background-color: #fff !important;
+}
+
+.select2-search__field{
+  font-family: Montserrat !important;
+  color: gray !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+}
+
+input{
+ background-color: #fff !important;
+
+}
+
+.form-button{
+  background-color: black !important;
+  color: #fff !important;
+}
+
+.form-button:hover{
+  background-color: #fff !important;
+  color: black !important;
+  border: 2px solid black !important;
+}
+
+.link-style a{
+color: gray;
+&:hover{
+  color: black;
+  text-decoration: none;
+}
+
+}
+
+.link-style{
+margin-top: 20px !important;
 }
