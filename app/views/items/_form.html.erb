@@ -18,7 +18,7 @@
   <%= f.input :category, default: true, label: false, input_html: {value: item.category, class: "input-bar"}, collection: Item::CATEGORY, multiple: true %>
 </div>
 <div class="final-day" id="types">
-  <%= f.input :types do %>
+  <%= f.input :types, label:false do %>
 </div>
 <%= f.select :types, Type::TYPES, {}, {value: item.types, class: "select2", multiple: true} %>
 <% end %>
@@ -26,14 +26,14 @@
   <%= f.input :price, default: true, label: false, input_html: {value: item.price,  class: "input-bar"} %>
 </div>
 <div class="final-day">
-  <%= f.input :quantity, input_html: { value: item.quantity,  class: "input-bar"} %>
+  <%= f.input :quantity, label: false, input_html: { value: item.quantity,  class: "input-bar"} %>
 </div>
 <div class="final-day">
 
-    <%= f.input :pickup_time, as: :string, input_html: {value: item.pickup_time,  id: "start_date"} %>
-  </div>
+  <%= f.input :pickup_time, label: false, as: :string, input_html: {value: item.pickup_time,  id: "start_date"} %>
+</div>
 <div class="final-day">
-    <%= f.input :expiration, as: :string, input_html: {value: item.expiration,  id: "end_date"} %>
+  <%= f.input :expiration, label: false, as: :string, input_html: {value: item.expiration,  id: "end_date"} %>
 
 </div>
 <div class="final-day">
@@ -43,7 +43,7 @@
   <%= f.input :picture_cache, as: :hidden %>
 </div>
 <div class="final-day">
-  <%= f.button :submit  %>
+  <%= f.button :submit, class:"form-button" %>
 </div>
 
 <% end %>

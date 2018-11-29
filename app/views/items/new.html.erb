@@ -1,8 +1,13 @@
-<div class="container " style="margin-top: 30px; margin-bottom: 30px;">
-  <div class="row">
-    <div class="col-xs-6 col-xs-offset-3" style="box-shadow: 1px 1px 3px #eaeaea;">
-     <h3 style="margin-bottom: 30px;" class="text-center">Upload your item</h3>
-     <%= render 'form', item: @item, feature: @feature %>
+<div class="container-fluid" style="background-color: rgba(248,248,248.06) !important;">
+  <div class="container " style="margin-top: 30px; margin-bottom: 30px;">
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-3" style="background-color: white !important;box-shadow: 1px 1px 3px #eaeaea;">
+       <h3 style="margin-bottom: 30px; font-family: Montserrat !important;" class="text-center">Upload your item</h3>
+       <%= render 'form', item: @item, feature: @feature, class:"form-bcg" %>
+     </div>
    </div>
  </div>
 </div>
+
+
+
