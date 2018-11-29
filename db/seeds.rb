@@ -143,8 +143,7 @@ FOOD_ME.each do |food|
   item.remote_picture_url = food[:url]
   item.save!
   @items << item
-
-
+end
 2.times do
 
   item = @items.sample
