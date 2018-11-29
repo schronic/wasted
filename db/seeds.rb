@@ -176,7 +176,6 @@ FOOD_ME = [
 
 puts 'Destroying old data...'
 
-unless Rails.env.production?
 Reservation.destroy_all
 PurchasedItem.destroy_all
 User.destroy_all
@@ -185,7 +184,6 @@ Order.destroy_all
 Type.destroy_all
 Feature.destroy_all
 User.destroy_all
-end
 
 puts 'Creating new users...'
 
@@ -328,7 +326,7 @@ Type::TYPES.each do |type|
 end
 
 @items.each do |item|
-  1.times do
+  2.times do
     Feature.create(
       item: item,
       type: Type.all.sample
