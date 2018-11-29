@@ -7,8 +7,7 @@ export const bindListener = () => {
     const btnDown = control.querySelector(".down")
     let circle = control.querySelector(".circle")
     let updateQuantityText = control.querySelector(".update-quantity")
-    console.log(updateQuantityText)
-
+    console.log(circle.value)
 
     circle.addEventListener('input', () => {
       if (circle.value > quantity) {
