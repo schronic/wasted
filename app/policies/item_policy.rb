@@ -2,8 +2,7 @@ class ItemPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user_logged_in?
-        scope.joins(:reservations)
-             .where('pickup_time > ?', Time.now)
+        scope.where('pickup_time > ?', Time.now)
              .where('items.quantity > ?', 0)
              .where.not(items: { user_id: user.id })
 

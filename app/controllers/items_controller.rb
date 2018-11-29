@@ -18,12 +18,11 @@ class ItemsController < ApplicationController
     @reservation = Reservation.new(quantity: 0)
 
     if user_signed_in?
-      @items = policy_scope(Item).order(expiration: :desc).items_where_can_reserve_more.uniq!
+      @items = policy_scope(Item).order(expiration: :desc).items_where_can_reserve_more
     else
       @items = policy_scope(Item).order(expiration: :desc)
     end
 
-    if @items.present?
       @items.each do |item|
         if Rails.env.production?
           item.update(distance_location: Geocoder::Calculations.distance_between([@current_lat, @current_lng], ([item.latitude, item.longitude])).round(2))
@@ -32,6 +31,7 @@ class ItemsController < ApplicationController
         end
         item.save
       end
+    if @items.present?
 
       if params[:term]
 
@@ -48,7 +48,6 @@ class ItemsController < ApplicationController
           @results = Geocoder.search(params[:term][:query])
           @items = @items.near(@results.first.address, 50)
         end
-
         if categories_clean.present?
           categories_clean.each do |catg|
             @items = @items.where(category: catg)
@@ -58,11 +57,11 @@ class ItemsController < ApplicationController
 
         if types_clean.present?
           @types = Type.where(name: types_clean)
-          bubu = []
+          tzpes = []
           @types.each do |type|
-            bubu << @items.joins(:features).where('features.type_id = ?', type.id)
+            tzpes << @items.joins(:features).where('features.type_id = ?', type.id)
           end
-          @items = Item.where(id: bubu.flatten.map(&:id))
+          @items = Item.where(id: tzpes.flatten.map(&:id))
         end
 
         unless @items.present?
