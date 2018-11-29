@@ -14,13 +14,16 @@ class ReservationsController < ApplicationController
     authorize @reservation
 
     # CAROUSEL: OTHER UNIQUE ITEMS BY SAME SUPPLIER
+    @my_owned_items = Item.all.where(user: current_user)
     @same_supplier_items = []
     @in_cart = []
     @reservations.each do |reservation|
       @same_supplier_items |= reservation.item.user.items
       @in_cart << reservation.item
     end
+    @same_supplier_items.select! { |item| item.pickup_time.to_datetime > DateTime.now }
     @same_supplier_items -= @in_cart
+    @same_supplier_items -= @my_owned_items
 
     # CAROUSEL: OTHERS WITH SAME ITEMS IN CART ALSO HAVE THESE IN CART
     @other_reserved_items = []
@@ -37,7 +40,10 @@ class ReservationsController < ApplicationController
       end
     end
     @other_reserved_items.uniq!
+
+    @other_reserved_items.select! { |item| item.pickup_time.to_datetime > DateTime.now }
     @other_reserved_items -= @my_reserved_items
+    @other_reserved_items -= @my_owned_items
 
     # CAROUSEL: OTHERS WHO BOUGHT WHAT YOU'VE BOUGHT ALSO BOUGHT
     @others_purchased_items = Order.all
@@ -47,6 +53,9 @@ class ReservationsController < ApplicationController
                                    .flatten
                                    .map(&:item)
                                    .uniq!
+
+    @others_purchased_items.select! { |item| item.pickup_time.to_datetime > DateTime.now }
+
     @my_purchased_items = Order.all
                                .where(state: 'paid')
                                .where(user_id: current_user.id)
@@ -55,6 +64,7 @@ class ReservationsController < ApplicationController
                                .map(&:item)
                                .uniq!
     @others_purchased_items -= @my_purchased_items
+    @others_purchased_items -= @my_owned_items
 
     # SHOPPING CART: SEPARATE ITEMS BY SELLER
     @reservations_suppliers = []

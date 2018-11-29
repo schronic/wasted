@@ -5,15 +5,15 @@
 
   <div class="container" style="overflow: scroll;">
 
-    <% if @other_reserved_items.present? %>
+    <% if @same_supplier_items.present? %>
       <!-- ITEMS BY SAME SELLERS -->
       <div class="row">
         <div class="col-xs-11 col-md-10 col-centered">
           <h5>THE SUPPLIERS IN YOUR CART ALSO HAVE
-            <% if @other_reserved_items.size == 1 %>
+            <% if @same_supplier_items.size == 1 %>
               THIS LONELY ITEM:
             <% else %>
-              THESE <%= @other_reserved_items.size %> ITEMS:
+              THESE <%= @same_supplier_items.size %> ITEMS:
             <% end %>
           </h5>
           <br>
@@ -27,7 +27,7 @@
           <div class="col-xs-11 col-md-10 col-centered">
             <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
               <div class="carousel-inner">
-                <% @other_reserved_items.each_with_index do |item, index| %>
+                <% @same_supplier_items.each_with_index do |item, index| %>
                 <div class="item <%= 'active' if index == 0 %>">
                   <div class="carousel-col">
                     <div class="img-responsive">
@@ -58,15 +58,15 @@
       <!-- END ITEMS BY SAME SELLERS -->
     <% end %>
 
-    <% if @same_supplier_items.present? %>
+    <% if @other_reserved_items.present? %>
       <!-- ITEMS BY SAME SELLERS -->
       <div class="row">
         <div class="col-xs-11 col-md-10 col-centered">
           <h5>OTHERS THAT HAVE YOUR CART ITEMS IN THEIR CART ALSO HAVE
-            <% if @same_supplier_items.size == 1 %>
+            <% if @other_reserved_items.size == 1 %>
               THIS LONE ITEM
             <% else %>
-              THESE <%= @same_supplier_items.size %> ITEMS
+              THESE <%= @other_reserved_items.size %> ITEMS
             <% end %>
             IN THEIR CART
           </h5>
@@ -80,7 +80,7 @@
           <div class="col-xs-11 col-md-10 col-centered">
             <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
               <div class="carousel-inner">
-                <% @same_supplier_items.each_with_index do |item, index| %>
+                <% @other_reserved_items.each_with_index do |item, index| %>
                 <div class="item <%= 'active' if index == 0 %>">
                   <div class="carousel-col">
                     <div class="img-responsive">
@@ -163,26 +163,31 @@
       <!-- END OTHERS WHO BOUGHT WHAT YOU'VE BOUGHT ALSO BOUGHT -->
     <% end %>
 
-
-      <h3>ITEMS CURRENTLY IN YOUR CART:</h3>
-      <% @reservations.each do |reservation| %>
-      <div class="row">
-        <div class="container" style="width: 90%;">
-          <div class="row">
-            <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= reservation.item.picture %>); margin-top: 10px;">
+    <!-- CARDS IN CART -->
+    <h5>ITEMS IN YOUR CART:</h5>
+    <div class="row">
+      <div class="col-xs-11 col-md-10 col-centered" style="
+        margin-left: 0; display: flex;">
+        <% @reservations.each do |reservation| %>
+          <div style="padding: 0 20px;">
+            <div>
+              <div class="card" style="width: 233px;background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= reservation.item.picture %>); margin-top: 10px; display: flex; margin-top: 10px; justify-content: left; align-items: flex-end; font-size: 20px; padding-left: 17px;">
+                <h4 style="font-size: 20px;"><%= reservation.item.name %></h4>
+              </div>
             </div>
-            <h4><%= reservation.item.name %></h4>
+            <div class="item-description">
+              <h6><%= reservation.item.user.name.capitalize %></h6>
+              <h6>$ <%= reservation.item.price %> </h6>
+              <p><%= reservation.item.pickup_time.strftime("pickup before %I:%M%p") %> | <%= reservation.item.distance_location %>km</p>
+              <p style="color: black;"><%= link_to 'Delete out of cart', reservation_path(reservation), method: :delete %></p>
+            </div>
           </div>
-          <div class="item-description">
-            <h6><%= reservation.item.user.name.capitalize %></h6>
-            <h6>$ <%= reservation.item.price %> </h6>
-            <p><%= reservation.item.pickup_time.strftime("pickup before %I:%M%p") %> | <%= reservation.item.distance_location %>km</p>
-            <p><%= link_to 'Remove all from cart', reservation_path(reservation), method: :delete %></p>
-          </div>
-        </div>
+        <% end %>
       </div>
-      <% end %>
     </div>
+    <!-- END ITEM CART IN CART -->
+
+  </div>
 
 
   <!-- SHOPPING CART -->
