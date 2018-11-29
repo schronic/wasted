@@ -25,12 +25,22 @@
 }
 
 .btn-filter:active {
-  text-decoration: none;
+  text-decoration: none !important;
+  color: white;
+}
+
+.btn-filter:visited {
+  text-decoration: none !important;
   color: white;
 }
 
 .btn-filter:hover {
-  text-decoration: none;
+  text-decoration: none !important;
+  color: white;
+}
+
+.btn-filter:focus {
+  text-decoration: none !important;
   color: white;
 }
 
@@ -130,6 +140,26 @@
   border-bottom: 2px solid black;
 }
 
+
+#shopping-click{
+    position: fixed;
+    bottom: 22px;
+    background: black;
+        z-index: -1;
+    right: 75px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
+
+}
+
+#shopping-click a:link .fas, #shopping-click a:visited .fas  {
+    color: white;
+}
 
 #term_query{
   border:0;

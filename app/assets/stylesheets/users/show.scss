@@ -131,16 +131,53 @@
 
 .item-holder {
   display: flex;
+  color:black;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 20px;
   // background-color: #CCC;
-  color: green;
   border-radius: 10px;
   font-family: "Montserrat", sans-serif;
   p, h2, h3 {
     margin: 0;
+  }
+}
+
+.item-description2 {
+  display: flex;
+  justify-content: space-between;
+  p{
+    margin: 0px;
+    color:black;
+    margin-right: 0px;
+    a{
+      color:black;
+    }
+  }
+  h6{
+    margin: 0px;
+    margin-left: 0px;
+  }
+}
+
+.card-description2{
+  h2{
+        margin-bottom: 10px;
+        font-size: 18px;
+      margin-left:7px;
+
+  }
+}
+
+.pending-items2{
+      padding-left: 0px;
+    padding-right: 36px;
+}
+
+.as-user-role{
+  h3{
+    color:gray;
   }
 }

@@ -163,26 +163,36 @@
       <!-- END OTHERS WHO BOUGHT WHAT YOU'VE BOUGHT ALSO BOUGHT -->
     <% end %>
 
+    <!-- CARDS IN CART -->
+    <div class="row">
+      <div class="col-xs-11 col-md-10 col-centered">
+    <h5>ITEMS IN YOUR CART:</h5>
+  </div>
+</div>
 
-      <h3>ITEMS CURRENTLY IN YOUR CART:</h3>
-      <% @reservations.each do |reservation| %>
-      <div class="row">
-        <div class="container" style="width: 90%;">
-          <div class="row">
-            <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= reservation.item.picture %>); margin-top: 10px;">
+    <div class="row">
+      <div class="col-xs-11 col-md-10 col-centered" style="
+        margin-left: 0; display: flex;">
+        <% @reservations.each do |reservation| %>
+          <div style="padding: 0 20px;">
+            <div>
+              <div class="card" style="width: 233px;margin-left: 35px;background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= reservation.item.picture %>); margin-top: 10px; display: flex; margin-top: 10px; justify-content: left; align-items: flex-end; font-size: 20px; padding-left: 17px;">
+                <h4 style="font-size: 20px;"><%= reservation.item.name %></h4>
+              </div>
             </div>
-            <h4><%= reservation.item.name %></h4>
+            <div class="item-description" style="margin-left: 35px;">
+              <h6><%= reservation.item.user.name.capitalize %></h6>
+              <h6>$ <%= reservation.item.price %> </h6>
+              <p><%= reservation.item.pickup_time.strftime("pickup before %I:%M%p") %> | <%= reservation.item.distance_location %>km</p>
+              <p style="color: black;"><%= link_to 'Delete out of cart', reservation_path(reservation), method: :delete %></p>
+            </div>
           </div>
-          <div class="item-description">
-            <h6><%= reservation.item.user.name.capitalize %></h6>
-            <h6>$ <%= reservation.item.price %> </h6>
-            <p><%= reservation.item.pickup_time.strftime("pickup before %I:%M%p") %> | <%= reservation.item.distance_location %>km</p>
-            <p><%= link_to 'Remove all from cart', reservation_path(reservation), method: :delete %></p>
-          </div>
-        </div>
+        <% end %>
       </div>
-      <% end %>
     </div>
+    <!-- END ITEM CART IN CART -->
+
+  </div>
 
 
   <!-- SHOPPING CART -->

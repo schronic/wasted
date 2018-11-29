@@ -73,6 +73,7 @@ Item.destroy_all
 Order.destroy_all
 Type.destroy_all
 Feature.destroy_all
+User.destroy_all
 
 puts 'Creating new users...'
 
@@ -137,11 +138,12 @@ FOOD_ME.each do |food|
     latitude: LATITUDE.sample,
     longitude: LONGITUDE.sample
   })
+
   item.save!
   item.remote_picture_url = food[:url]
   item.save!
   @items << item
-end
+
 
 2.times do
 
