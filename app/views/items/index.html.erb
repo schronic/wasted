@@ -1,6 +1,8 @@
-<div id="shopping-click">
-  <h2><%= link_to icon('fas', 'shopping-cart'), cart_path %></h2>
-</div>
+<% if user_signed_in? %>
+  <div id="shopping-click">
+    <h2><%= link_to icon('fas', 'shopping-cart'), cart_path %></h2>
+  </div>
+<% end %>
 
 <div class="container">
   <div class="row">
