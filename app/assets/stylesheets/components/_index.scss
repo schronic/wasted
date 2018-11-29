@@ -137,9 +137,10 @@
 
 
 #shopping-click{
-    position: absolute;
-    bottom: 40px;
+    position: fixed;
+    bottom: 22px;
     background: black;
+        z-index: -1;
     right: 75px;
     width: 70px;
     height: 70px;
@@ -147,6 +148,11 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+    color: white;
+
+}
+
+#shopping-click a:link .fas, #shopping-click a:visited .fas  {
     color: white;
 }
 

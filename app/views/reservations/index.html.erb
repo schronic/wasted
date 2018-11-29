@@ -42,57 +42,65 @@
       </div>
     </div>
 
-        <div class="row">
+    <div class="row">
       <div class="col-xs-11 col-md-10 col-centered">
 
         <h2>BASKET ITEMS</h2>
         <br>
-    <% @reservations.each do |reservation| %>
-    <div class="row">
-      <div class="container">
         <div class="row">
-          <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= reservation.item.picture %>); margin-top: 10px;">
+          <div class="container">
+            <div class="row">
+
+              <div class="col-xs-11 col-md-10 col-centered" style="
+              margin-left: 0; display: flex;">
+              <% @reservations.each do |reservation| %>
+              <div style="padding: 0 20px;">
+                <div>
+                  <div class="card" style="width: 233px;background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= reservation.item.picture %>); margin-top: 10px; display: flex; margin-top: 10px; justify-content: left; align-items: flex-end; font-size: 20px; padding-left: 17px;">
+                    <h4 style="font-size: 20px;"><%= reservation.item.name %></h4>
+                  </div>
+                </div>
+                <div class="item-description">
+                  <h6><%= reservation.item.user.name.capitalize %></h6>
+                  <h6>$ <%= reservation.item.price %> </h6>
+                  <p><%= reservation.item.pickup_time.strftime("pickup before %I:%M%p") %> | <%= reservation.item.distance_location %>km</p>
+                  <p style="color: black;"><%= link_to 'Delete out of cart', reservation_path(reservation), method: :delete %></p>
+                </div>
+              </div>
+              <% end %>
+            </div>
           </div>
-          <h4><%= reservation.item.name %></h4>
-        </div>
-        <div class="item-description">
-          <h6><%= reservation.item.user.name.capitalize %></h6>
-          <h6>$ <%= reservation.item.price %> </h6>
-          <p><%= reservation.item.pickup_time.strftime("pickup before %I:%M%p") %> | <%= reservation.item.distance_location %>km</p>
-          <p><%= link_to 'Delete out of cart', reservation_path(reservation), method: :delete %></p>
         </div>
       </div>
     </div>
-    <% end %>
   </div>
-      </div>
+</div>
+
+<!-- SHOPPING CART -->
+<div class="shopping-cart-container" style="position: sticky;">
+  <div class="shopping-cart-box">
+    <h3> MY BASKET</h3>
+
+    <!-- RESERVATIONS -->
+    <%= render 'itemized_reservations' %>
+    <!-- END RESERVATIONS -->
+
+    <!-- PRICES  -->
+    <div class="total-prices-container">
+      <h5>Subtotal: <%= humanized_money_with_symbol(@subtotal_price) %></h5>
+      <h6>5% site fee: <%= humanized_money_with_symbol(@commission) %></h6>
+      <h4>Total price: <%= humanized_money_with_symbol(@amount) %></h4>
     </div>
-
-  <!-- SHOPPING CART -->
-  <div class="shopping-cart-container" style="position: sticky;">
-    <div class="shopping-cart-box">
-      <h3> MY BASKET</h3>
-
-      <!-- RESERVATIONS -->
-      <%= render 'itemized_reservations' %>
-      <!-- END RESERVATIONS -->
-
-      <!-- PRICES  -->
-      <div class="total-prices-container">
-        <h5>Subtotal: <%= humanized_money_with_symbol(@subtotal_price) %></h5>
-        <h6>5% site fee: <%= humanized_money_with_symbol(@commission) %></h6>
-        <h4>Total price: <%= humanized_money_with_symbol(@amount) %></h4>
-      </div>
-      <!-- END PRICES -->
+    <!-- END PRICES -->
 
 
-      <!-- CHECKOUT FORM to send params -->
-      <%= link_to "Checkout", purchased_items_path(amount: @amount, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout', id: 'cart-empty-button' %>
-      <!-- END CHECKOUT FORM to send params -->
+    <!-- CHECKOUT FORM to send params -->
+    <%= link_to "Checkout", purchased_items_path(amount: @amount, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout', id: 'cart-empty-button' %>
+    <!-- END CHECKOUT FORM to send params -->
 
 
-    </div>
-    <!-- END SHOPPING CART -->
   </div>
-  <!-- END .main-container -->
+  <!-- END SHOPPING CART -->
+</div>
+<!-- END .main-container -->
 </div>
