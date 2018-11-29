@@ -8,7 +8,6 @@
       <div class="search-filter-box">
         <span style="border-bottom: 2px solid black; padding-top: 7px;"><i class="fas fa-search"></i></span>
         <div class="search">
-
           <%= simple_form_for :term, url: items_path, method: :get do |f| %>
           <%= f.input :query, label: false,
           input_html: { value: @results.first.address, style:'box-shadow: none; outline: none;' } , placeholder: "Address" %>
@@ -63,13 +62,14 @@
   </div>
 </div>
 
-<% if @items.present?%>
-<% @items.each do |item| %>
-<%= render 'shared/card_modal', item: item %>
-<% end %>
+<% if @items.present? %>
+  <% @items.each do |item| %>
+    <%= render 'shared/card_modal', item: item %>
+  <% end %>
 
 
 <% if @query.present? %>
+
 <% if @empty %>
 <div class="container">
   <div class="row">
@@ -80,6 +80,7 @@
   </div>
 </div>
 <% end %>
+
 <div class="container">
   <div class="row">
     <div class="col-xs-11 col-xs-offset-1 col-md">
@@ -130,7 +131,6 @@
             <span class="sr-only"></span>
           </a>
         </div>
-
       </div>
     </div>
   </div>
@@ -183,15 +183,23 @@
 <!-- </div> -->
 <% end %>
 
+
 <div class="container">
   <div class="row">
     <div class="col-xs-11 col-xs-offset-1 col-md">
-    <div
-  class="container"
-  id="map"
-  style="width: 70%; height: 500px;"
-  data-markers="<%= @markers.to_json %>"
-  data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
+
+<style>
+  .marker {
+    background-size: contain;
+  }
+</style>
+
+<div
+class="container"
+id="map"
+style="width: 70%; height: 500px;"
+data-markers="<%= @markers.to_json %>"
+data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
 >
 </div>
     </div>
@@ -199,4 +207,20 @@
 </div>
 
 
+
+<% else %>
+
+  <div style="min-height: 160px; margin: 30px auto auto 150px;">
+    Items are removed from this page for the following reasons:
+    <ul>
+      <li>The maximum available of an item is already in your cart.</li>
+      <li>You uploaded an item.</li>
+      <li>The pickup date for an item is in the past.</li>
+      <li>The available quantity of an item has already been purchased.</li>
+      <li>There are no items in the database (seed!).</li>
+    </ul>
+  </div>
+
 <% end %>
+
+

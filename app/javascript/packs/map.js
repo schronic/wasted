@@ -24,9 +24,9 @@ if (mapElement) { // only build a map if there's a div#map to inject into
 
     const el = document.createElement('div');
     el.className = 'marker';
-    el.style.backgroundImage = 'url(https://res.cloudinary.com/astridbosch/image/upload/v1543351919/carrott.png)';
+    el.style.backgroundImage = "url(https://res.cloudinary.com/astridbosch/image/upload/v1543351919/carrott.png)";
     el.style.width = '24px';
-    el.style.height = '50px';
+    el.style.height = '34px';
 
     new mapboxgl.Marker(el)
     .setLngLat([marker.lng, marker.lat])
