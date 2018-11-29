@@ -1,8 +1,4 @@
-
-
 <div class="main-container">
-
-
   <div class="container" style="overflow: scroll;">
 
     <% if @same_supplier_items.present? %>
@@ -19,7 +15,6 @@
           <br>
         </div>
       </div>
-
 
       <!-- IF CAROUSEL EMPTY OTHER ITEMS DON'T MOVE UP -->
       <div style="min-height: 295px;">
@@ -171,11 +166,11 @@
         <% @reservations.each do |reservation| %>
           <div style="padding: 0 20px;">
             <div>
-              <div class="card" style="width: 233px;background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= reservation.item.picture %>); margin-top: 10px; display: flex; margin-top: 10px; justify-content: left; align-items: flex-end; font-size: 20px; padding-left: 17px;">
+              <div class="card" style="width: 233px;margin-left: 35px;background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= reservation.item.picture %>); margin-top: 10px; display: flex; margin-top: 10px; justify-content: left; align-items: flex-end; font-size: 20px; padding-left: 17px;">
                 <h4 style="font-size: 20px;"><%= reservation.item.name %></h4>
               </div>
             </div>
-            <div class="item-description">
+            <div class="item-description" style="margin-left: 35px;">
               <h6><%= reservation.item.user.name.capitalize %></h6>
               <h6>$ <%= reservation.item.price %> </h6>
               <p><%= reservation.item.pickup_time.strftime("pickup before %I:%M%p") %> | <%= reservation.item.distance_location %>km</p>
@@ -186,8 +181,8 @@
       </div>
     </div>
     <!-- END ITEM CART IN CART -->
-
   </div>
+  <!-- END LEFT CONTAINER -->
 
 
   <!-- SHOPPING CART -->
@@ -212,9 +207,9 @@
       <%= link_to "Checkout", purchased_items_path(amount: @amount, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout', id: 'cart-empty-button' %>
       <!-- END CHECKOUT FORM to send params -->
 
-
     </div>
-    <!-- END SHOPPING CART -->
+    <!-- END SHOPPING CART BOX -->
   </div>
-  <!-- END .main-container -->
+  <!-- END SHOPPING-CART-CONTAINER -->
 </div>
+<!-- END MAIN CONTAINER -->
