@@ -326,7 +326,7 @@ Type::TYPES.each do |type|
 end
 
 @items.each do |item|
-  2.times do
+  1.times do
     Feature.create(
       item: item,
       type: Type.all.sample
