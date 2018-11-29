@@ -71,152 +71,179 @@
     <%= render 'shared/card_modal', item: item %>
   <% end %>
 
-<% if @query.present? %>
+  <% if @query.present? %>
 
-<% if @empty %>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-11 col-xs-offset-1 col-md">
-      <h2 style="margin-top: 60px;">Your search was unsuccessful</h2>
-      <h4>Here are are all items: </h4>
-    </div>
-  </div>
-</div>
-<% end %>
-
-<div class="container">
-  <div class="row">
-    <div class="col-xs-11 col-xs-offset-1 col-md">
-    <% @items.each do |item| %>
-    <div class="col-md-3">
-      <%= render 'shared/card', item: item, in_cart: false %>
-    </div>
+    <% if @empty %>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-11 col-xs-offset-1 col-md">
+          <h2 style="margin-top: 60px;">Your search was unsuccessful</h2>
+          <h4>Here are are all items: </h4>
+        </div>
+      </div>
+      </div>
     <% end %>
-  </div>
-    </div>
-</div>
-<% else %>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-11 col-xs-offset-1 col-md">
-      <div class="search-filter1-box">
-        <h2 style="margin-top: 60px;"> NEW FOOD </h2>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-11 col-xs-offset-1 col-md">
+        <% @items.each do |item| %>
+        <div class="col-md-3">
+          <%= render 'shared/card', item: item, in_cart: false %>
+        </div>
+        <% end %>
       </div>
+        </div>
     </div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-11 col-md-10 col-centered">
-      <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
-        <div class="carousel-inner">
-          <% @items.each_with_index do |item, index| %>
-          <div class="item <%= 'active' if index == 0 %>">
-            <div class="carousel-col">
-              <div class="img-responsive">
-                <%= render 'shared/card', item: item, in_cart: false %>
+  <% else %>
+    <% if @items.length < 5 %>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-11 col-xs-offset-1 col-md">
+            <div class="search-filter1-box">
+              <h2 style="margin-top: 60px;"> NEW FOOD </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-11 col-xs-offset-1 col-md">
+            <% @items.each do |item| %>
+            <div class="col-md-3">
+              <%= render 'shared/card', item: item, in_cart: false %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% else %>
+
+
+
+
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-11 col-xs-offset-1 col-md">
+            <div class="search-filter1-box">
+              <h2 style="margin-top: 60px;"> NEW FOOD </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-11 col-md-10 col-centered">
+            <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
+              <div class="carousel-inner">
+                <% @items.each_with_index do |item, index| %>
+                <div class="item <%= 'active' if index == 0 %>">
+                  <div class="carousel-col">
+                    <div class="img-responsive">
+                      <%= render 'shared/card', item: item, in_cart: false %>
+                    </div>
+                  </div>
+                </div>
+                <% end %>
+              </div>
+
+              <!-- Controls -->
+              <div class="left carousel-control">
+                <a href="#carousel" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                  <span class="sr-only"></span>
+                </a>
+              </div>
+              <div class="right carousel-control">
+                <a href="#carousel" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                  <span class="sr-only"></span>
+                </a>
               </div>
             </div>
           </div>
-          <% end %>
-        </div>
-
-        <!-- Controls -->
-        <div class="left carousel-control">
-          <a href="#carousel" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-            <span class="sr-only"></span>
-          </a>
-        </div>
-        <div class="right carousel-control">
-          <a href="#carousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-            <span class="sr-only"></span>
-          </a>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-<!-- </div> -->
+      <!-- </div> -->
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-11 col-xs-offset-1 col-md">
-      <div class="search-filter1-box">
-        <h2 style="margin-top: 60px;"> CLOSEST </h2>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-11 col-md-10 col-centered">
-      <div id="carousel-two" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
-        <div class="carousel-inner">
-          <% @items_close.each_with_index do |item, index| %>
-          <div class="item <%= 'active' if index == 0 %>">
-            <div class="carousel-col">
-              <div class="img-responsive">
-                <%= render 'shared/card', item: item, in_cart: false %>
-              </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-11 col-xs-offset-1 col-md">
+            <div class="search-filter1-box">
+              <h2 style="margin-top: 60px;"> CLOSEST </h2>
             </div>
           </div>
-          <% end %>
         </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-11 col-md-10 col-centered">
+            <div id="carousel-two" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
+              <div class="carousel-inner">
+                <% @items_close.each_with_index do |item, index| %>
+                <div class="item <%= 'active' if index == 0 %>">
+                  <div class="carousel-col">
+                    <div class="img-responsive">
+                      <%= render 'shared/card', item: item, in_cart: false %>
+                    </div>
+                  </div>
+                </div>
+                <% end %>
+              </div>
 
-        <!-- Controls -->
-        <div class="left carousel-control">
-          <a href="#carousel-two" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-            <span class="sr-only"></span>
-          </a>
-        </div>
-        <div class="right carousel-control">
-          <a href="#carousel-two" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-            <span class="sr-only"></span>
-          </a>
-        </div>
+              <!-- Controls -->
+              <div class="left carousel-control">
+                <a href="#carousel-two" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                  <span class="sr-only"></span>
+                </a>
+              </div>
+              <div class="right carousel-control">
+                <a href="#carousel-two" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                  <span class="sr-only"></span>
+                </a>
+              </div>
 
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+      <!-- </div> -->
+  <% end %>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-11 col-xs-offset-1 col-md" style="margin-left: 46px;">
+        <style>
+          .marker {
+            background-size: contain;
+          }
+        </style>
+        <div
+        class="container"
+        id="map"
+        style="width: 100%; height: 500px;"
+        data-markers="<%= @markers.to_json %>"
+        data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
+        >
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!-- </div> -->
-<% end %>
-
-<div class="container">
-  <div class="row">
-    <div class="col-xs-11 col-xs-offset-1 col-md" style="margin-left: 46px;">
-      <style>
-        .marker {
-          background-size: contain;
-        }
-      </style>
-      <div
-      class="container"
-      id="map"
-      style="width: 100%; height: 500px;"
-      data-markers="<%= @markers.to_json %>"
-      data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
-      >
-      </div>
-    </div>
-  </div>
-</div>
 
 <% else %>
 
-  <div style="min-height: 160px; margin: 30px auto auto 150px;">
-    Items are removed from this page for the following reasons:
-    <ul>
-      <li>The maximum available of an item is already in your cart.</li>
-      <li>You uploaded an item.</li>
-      <li>The pickup date for an item is in the past.</li>
-      <li>The available quantity of an item has already been purchased.</li>
-      <li>There are no items in the database (seed!).</li>
-    </ul>
-  </div>
+    <div style="min-height: 160px; margin: 30px auto auto 150px;">
+      Items are removed from this page for the following reasons:
+      <ul>
+        <li>The maximum available of an item is already in your cart.</li>
+        <li>You uploaded an item.</li>
+        <li>The pickup date for an item is in the past.</li>
+        <li>The available quantity of an item has already been purchased.</li>
+        <li>There are no items in the database (seed!).</li>
+      </ul>
+    </div>
 
 <% end %>

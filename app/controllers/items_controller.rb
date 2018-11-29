@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
 
   # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
-
+#afasdf
   def index
     @current_lat = request.location.latitude
     @current_lng = request.location.longitude

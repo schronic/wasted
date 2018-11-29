@@ -3,6 +3,7 @@ class ReservationsController < ApplicationController
   # before_action :set_item, only: [:create]
 
   def index
+
     @suggestions = policy_scope(Item).order(expiration: :desc)
 
     Reservation.joins(:item)
@@ -53,7 +54,8 @@ class ReservationsController < ApplicationController
                                    .flatten
                                    .map(&:item)
                                    .uniq!
-      @others_purchased_items.select! { |item| item.pickup_time.to_datetime > DateTime.now }
+
+    @others_purchased_items.select! { |item| item.pickup_time.to_datetime > DateTime.now }
 
       if @my_purchased_items = Order.all
                                  .where(state: 'paid')
@@ -62,10 +64,10 @@ class ReservationsController < ApplicationController
                                  .flatten
                                  .map(&:item)
                                  .uniq!
-        @others_purchased_items -= @my_purchased_items
-        @others_purchased_items -= @my_owned_items
-      end
-    end
+      @others_purchased_items -= @my_purchased_items if @my_purchased_items.present?
+      @others_purchased_items -= @my_owned_items if @my_owned_items.present?
+end
+end
 
     # SHOPPING CART: SEPARATE ITEMS BY SELLER
     @reservations_suppliers = []
@@ -73,6 +75,7 @@ class ReservationsController < ApplicationController
       supplier = reservation.item.user
       @reservations_suppliers |= [supplier]
     end
+
     @reservations_suppliers_with_reserved = @reservations_suppliers.map { |supplier|
       [
         supplier,
@@ -111,9 +114,11 @@ class ReservationsController < ApplicationController
 
     @reservation = current_user.reservations.new(reservation_params)
     authorize @reservation
+
     if @reservation.save && params[:reservation][:in_cart] == 'true'
       redirect_to cart_path
     end
+
   end
 
   def edit
@@ -126,7 +131,8 @@ class ReservationsController < ApplicationController
       redirect_to cart_path
     elsif @reservation.save
       redirect_to items_path
-    else render :edit
+    else
+      render :edit
     end
   end
 

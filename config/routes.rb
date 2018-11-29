@@ -23,7 +23,8 @@ Rails.application.routes.draw do
   resources :reservations, only: [:index]
   get '/reservations/error', to: 'reservations#error', as: 'reservations_error'
 
-  resources :purchased_items
+  post '/purchased_items', to: 'purchased_items#create', as: 'purchased_items_create'
+  resources :purchased_items, except: [:create]
 
     namespace :api, defaults: { format: :json } do
     namespace :v1 do
