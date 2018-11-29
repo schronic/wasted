@@ -23,10 +23,10 @@
 <%= f.select :types, Type::TYPES, {}, {value: item.types, class: "select2", multiple: true} %>
 <% end %>
 <div class="final-day">
-  <%= f.input :price, default: true, label: false, input_html: {value: item.price,  class: "input-bar"} %>
+  <%= f.input :price, default: true, label: false, input_html: {min: "0", value: item.price,  class: "input-bar"} %>
 </div>
 <div class="final-day">
-  <%= f.input :quantity, label: false, input_html: { value: item.quantity,  class: "input-bar"} %>
+  <%= f.input :quantity, label: false, input_html: {min: "0", value: item.quantity,  class: "input-bar"} %>
 </div>
 <div class="final-day">
 

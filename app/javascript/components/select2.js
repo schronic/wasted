@@ -12,6 +12,7 @@ if (document.getElementById("item_price")) {
   price.placeholder = "Price"
 }
 
+
 if (document.getElementById("item_quantity")) {
   const quantity = document.getElementById("item_quantity")
 quantity.value = ""
