@@ -3,6 +3,7 @@ class ReservationsController < ApplicationController
   # before_action :set_item, only: [:create]
 
   def index
+
     @suggestions = policy_scope(Item).order(expiration: :desc)
 
     Reservation.joins(:item)
@@ -66,9 +67,11 @@ class ReservationsController < ApplicationController
 
     @reservation = current_user.reservations.new(reservation_params)
     authorize @reservation
+
     if @reservation.save && params[:reservation][:in_cart] == 'true'
       redirect_to cart_path
     end
+
   end
 
   def edit

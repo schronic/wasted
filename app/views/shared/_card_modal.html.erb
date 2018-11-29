@@ -75,18 +75,15 @@
                   <% if user_signed_in? %>
                   <!-- QUANTITY RESERVED -->
                   <%= form_with model: @reservation, url: create_reservation_path, id: "add-to-cart-#{item.id}", local: true do |f| %>
-                  <% value = "" %>
+                  <% @value = "" %>
 
                   <%if item.reservations.where(user_id: current_user.id).any?%>
-                  <%  value = item.reservations.find(user_id: current_user.id).quantity%>
+                  <%  @value = item.reservations.find(user_id: current_user.id).quantity%>
                   <%else%>
-                  <%  value = 1%>
+                  <%  @value = 1%>
                   <%end%>
-                  <%= f.text_field :quantity, value: value, class: "form-control input-number circle"  %>
+                  <%= f.text_field :quantity, value: @value, class: "form-control input-number circle"  %>
                   <%= f.hidden_field :item_id, value: item.id %>
-
-                  <% end %>
-                  <% end %>
                   <!-- END QUANTITY RESERVED -->
 
                   <div class="input-group-btn">
@@ -100,18 +97,27 @@
             <!-- END FORM WITH UP AND DOWN BUTTONS -->
           </div>
 
-          <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn">
-            <button type="submit" class="btn btn-dark btn-lg" form="add-to-cart-<%=item.id%>">
-              <span class="glyphicon glyphicon-plus"></span>
-              <span class="btn btn-dark btn-lg">Add to Cart</span>
-            </button>
-          </div>
-          <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn1">
-            <button type="button" class="btn btn-dark ">One-Click Shop</button>
-          </div>
         </div>
+          <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn">
+              <span class="glyphicon glyphicon-plus"></span>
+              <%= f.button :'Add to Cart', input_html: {class: "btn btn-dark btn-lg"} %>
+              <% end %>
+          </div>
+          <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn">
+              <span class="glyphicon glyphicon-plus"></span>
+              <%= form_with model: @reservation, url: purchased_items_create_path, local: true do |f| %>
+              <%= f.hidden_field :quantity, value: @value, class: "form-control input-number circle"  %>
+              <%= f.hidden_field :item_id, value: item.id %>
+              <%= f.hidden_field :amount, value: (item.price * 1.05) %>
+              <%= f.button :'One-Click Shop', input_html: {class: "btn btn-dark btn-lg"},
+                            name: 'subaction', value: 'One-Click' %>
+          <% end %>
+
+          </div>
       </div>
 
     </div>
   </div>
 </div>
+
+<% end %>

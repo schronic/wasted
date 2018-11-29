@@ -1,4 +1,5 @@
 class PurchasedItem < ApplicationRecord
+  attr_reader :amount, :reservations
   has_one :reservation, dependent: :destroy
   belongs_to :item
   belongs_to :order, optional: true
