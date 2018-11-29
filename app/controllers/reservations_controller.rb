@@ -43,8 +43,8 @@ class ReservationsController < ApplicationController
     @other_reserved_items.uniq!
 
     @other_reserved_items.select! { |item| item.pickup_time.to_datetime > DateTime.now }
-    @other_reserved_items -= @my_reserved_items if @my_reserved_items.present?
-    @other_reserved_items -= @my_owned_items if @my_owned_items.present?
+    @other_reserved_items -= @my_reserved_items
+    @other_reserved_items -= @my_owned_items
 
     # CAROUSEL: OTHERS WHO BOUGHT WHAT YOU'VE BOUGHT ALSO BOUGHT
     if @others_purchased_items = Order.all
