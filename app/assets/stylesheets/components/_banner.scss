@@ -1,5 +1,4 @@
 .banner {
-  background-image:linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2)), url("veg.png");
   color: white;
   text-align: center;
   height: 60vh;
@@ -102,4 +101,9 @@
     font-size: 42px;
     line-height: 48px;
     font-family: "Roboto";
+}
+
+#banner-typed-text{
+  color:white;
+  font-size:90px;
 }
