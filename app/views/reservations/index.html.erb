@@ -1,25 +1,20 @@
-
-
 <div class="main-container">
-
-
   <div class="container" style="overflow: scroll;">
 
-    <% if @other_reserved_items.present? %>
+    <% if @same_supplier_items.present? %>
       <!-- ITEMS BY SAME SELLERS -->
       <div class="row">
         <div class="col-xs-11 col-md-10 col-centered">
           <h5>THE SUPPLIERS IN YOUR CART ALSO HAVE
-            <% if @other_reserved_items.size == 1 %>
+            <% if @same_supplier_items.size == 1 %>
               THIS LONELY ITEM:
             <% else %>
-              THESE <%= @other_reserved_items.size %> ITEMS:
+              THESE <%= @same_supplier_items.size %> ITEMS:
             <% end %>
           </h5>
           <br>
         </div>
       </div>
-
 
       <!-- IF CAROUSEL EMPTY OTHER ITEMS DON'T MOVE UP -->
       <div style="min-height: 295px;">
@@ -27,7 +22,7 @@
           <div class="col-xs-11 col-md-10 col-centered">
             <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
               <div class="carousel-inner">
-                <% @other_reserved_items.each_with_index do |item, index| %>
+                <% @same_supplier_items.each_with_index do |item, index| %>
                 <div class="item <%= 'active' if index == 0 %>">
                   <div class="carousel-col">
                     <div class="img-responsive">
@@ -58,15 +53,15 @@
       <!-- END ITEMS BY SAME SELLERS -->
     <% end %>
 
-    <% if @same_supplier_items.present? %>
+    <% if @other_reserved_items.present? %>
       <!-- ITEMS BY SAME SELLERS -->
       <div class="row">
         <div class="col-xs-11 col-md-10 col-centered">
           <h5>OTHERS THAT HAVE YOUR CART ITEMS IN THEIR CART ALSO HAVE
-            <% if @same_supplier_items.size == 1 %>
+            <% if @other_reserved_items.size == 1 %>
               THIS LONE ITEM
             <% else %>
-              THESE <%= @same_supplier_items.size %> ITEMS
+              THESE <%= @other_reserved_items.size %> ITEMS
             <% end %>
             IN THEIR CART
           </h5>
@@ -80,7 +75,7 @@
           <div class="col-xs-11 col-md-10 col-centered">
             <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
               <div class="carousel-inner">
-                <% @same_supplier_items.each_with_index do |item, index| %>
+                <% @other_reserved_items.each_with_index do |item, index| %>
                 <div class="item <%= 'active' if index == 0 %>">
                   <div class="carousel-col">
                     <div class="img-responsive">
@@ -164,12 +159,7 @@
     <% end %>
 
     <!-- CARDS IN CART -->
-    <div class="row">
-      <div class="col-xs-11 col-md-10 col-centered">
     <h5>ITEMS IN YOUR CART:</h5>
-  </div>
-</div>
-
     <div class="row">
       <div class="col-xs-11 col-md-10 col-centered" style="
         margin-left: 0; display: flex;">
@@ -191,8 +181,8 @@
       </div>
     </div>
     <!-- END ITEM CART IN CART -->
-
   </div>
+  <!-- END LEFT CONTAINER -->
 
 
   <!-- SHOPPING CART -->
@@ -217,9 +207,9 @@
       <%= link_to "Checkout", purchased_items_path(amount: @amount, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout', id: 'cart-empty-button' %>
       <!-- END CHECKOUT FORM to send params -->
 
-
     </div>
-    <!-- END SHOPPING CART -->
+    <!-- END SHOPPING CART BOX -->
   </div>
-  <!-- END .main-container -->
+  <!-- END SHOPPING-CART-CONTAINER -->
 </div>
+<!-- END MAIN CONTAINER -->
