@@ -2,12 +2,12 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :destroy, :edit, :update]
   skip_before_action :authenticate_user!, only: %i[index show]
 
-# @results = Geocoder.search([current_lat, current_lng]) Enable only in production
+  # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
 
   def index
     @current_lat = request.location.latitude
     @current_lng = request.location.longitude
-      # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
+    # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
 
     if Rails.env.production?
       @results = Geocoder.search([@current_lat, @current_lng])
@@ -15,77 +15,76 @@ class ItemsController < ApplicationController
       @results = Geocoder.search([20, 100])
     end
 
+    @reservation = Reservation.new(quantity: 0)
+
     if user_signed_in?
-      @items = policy_scope(Item).order(expiration: :desc).where.not(user_id: current_user.id)
+      @items = policy_scope(Item).order(expiration: :desc).items_where_can_reserve_more.uniq!
     else
       @items = policy_scope(Item).order(expiration: :desc)
     end
 
-    @reservation = Reservation.new(quantity: 0)
-
-    @items.each do |item|
-      if  Rails.env.production?
-        item.update(distance_location: Geocoder::Calculations.distance_between([@current_lat, @current_lng], ([item.latitude, item.longitude])).round(2))
-      else
-        item.update(distance_location: Geocoder::Calculations.distance_between([0, 0], ([item.latitude, item.longitude])).round(2))
-      end
-      item.save
-    end
-
-    if params[:term]
-
-      categories_clean = params[:term][:catg].drop(1) if params[:term][:catg]
-      types_clean = params[:term][:types].drop(1) if params[:term][:types]
-
-      @query = true
-
-      if params[:term][:search].present?
-        @items = @items.search_by_title_and_syllabus(params[:term][:search])
-      end
-
-      if params[:term][:query].present?
-        @results = Geocoder.search(params[:term][:query])
-        @items = @items.near(@results.first.address, 50)
-      end
-
-      if categories_clean.present?
-        categories_clean.each do |catg|
-          @items = @items.where(category: catg)
-          # does that only select for the last catg?
-        end
-      end
-
-      if types_clean.present?
-        @types = Type.where(name: types_clean)
-        bubu = []
-        @types.each do |type|
-          bubu << @items.joins(:features).where('features.type_id = ?', type.id)
-        end
-        @items = Item.where(id: bubu.flatten.map(&:id))
-      end
-
-      unless @items.present?
-        @empty = true
-        if user_signed_in?
-          @items = policy_scope(Item).order(expiration: :desc).where.not(user_id: current_user.id)
-        else
-          @items = policy_scope(Item).order(expiration: :desc)
-        end
-      end
-    end
-    # raise message saying nothing found and redirect to index
-
-    @markers = @items.map do |item|
-      {
-        lng: item.longitude,
-        lat: item.latitude,
-        infoWindow: { content: render_to_string(partial: "/items/map_window", locals: { item: item }) }
-      }
-    end
-
-
     if @items.present?
-      @items_close = @items.sort_by { |i| i.distance_location }
+      @items.each do |item|
+        if Rails.env.production?
+          item.update(distance_location: Geocoder::Calculations.distance_between([@current_lat, @current_lng], ([item.latitude, item.longitude])).round(2))
+        else
+          item.update(distance_location: Geocoder::Calculations.distance_between([0, 0], ([item.latitude, item.longitude])).round(2))
+        end
+        item.save
+      end
+
+      if params[:term]
+
+        categories_clean = params[:term][:catg].drop(1) if params[:term][:catg]
+        types_clean = params[:term][:types].drop(1) if params[:term][:types]
+
+        @query = true
+
+        if params[:term][:search].present?
+          @items = @items.search_by_title_and_syllabus(params[:term][:search])
+        end
+
+        if params[:term][:query].present?
+          @results = Geocoder.search(params[:term][:query])
+          @items = @items.near(@results.first.address, 50)
+        end
+
+        if categories_clean.present?
+          categories_clean.each do |catg|
+            @items = @items.where(category: catg)
+            # does that only select for the last catg?
+          end
+        end
+
+        if types_clean.present?
+          @types = Type.where(name: types_clean)
+          bubu = []
+          @types.each do |type|
+            bubu << @items.joins(:features).where('features.type_id = ?', type.id)
+          end
+          @items = Item.where(id: bubu.flatten.map(&:id))
+        end
+
+        unless @items.present?
+          @empty = true
+          if user_signed_in?
+            @items = policy_scope(Item).order(expiration: :desc).where.not(user_id: current_user.id)
+          else
+            @items = policy_scope(Item).order(expiration: :desc)
+          end
+        end
+      end
+      # raise message saying nothing found and redirect to index
+
+      @markers = @items.map do |item|
+        {
+          lng: item.longitude,
+          lat: item.latitude,
+          infoWindow: { content: render_to_string(partial: "/items/map_window", locals: { item: item }) }
+        }
+      end
+
+        @items_close = @items.sort_by(&:distance_location)
     end
   end
 

@@ -1,4 +1,7 @@
-  <div class="container">
+<div class="container-fluid" style="background-color: rgba(248,248,248.06) !important;">
+  <div class="container " style="margin-top: 30px; margin-bottom: 30px;">
+    <div class="row">
+      <div class="col-xs-6 col-xs-offset-3" style="background-color: white !important;box-shadow: 1px 1px 3px #eaeaea;">
   <h2>Sign up</h2>
 
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -6,31 +9,45 @@
 
   <div class="form-inputs">
    <%= f.input :username,
+   label: false,
+   placeholder: "Username*",
    autofocus: true,
    required: true , input_html: { class: "input-bar"} %>
       <%= f.input :name,
+      label: false,
+   placeholder: "Name*",
    autofocus: true,
    required: true , input_html: { class: "input-bar"} %>
-   <%= f.input :role, as: :radio_buttons, collection: User::ROLES, wrapper: :vertical_collection_inline %>
+   <%= f.input :role, as: :radio_buttons, collection: User::ROLES, wrapper: :vertical_collection_inline, class:"role" %>
    <%= f.input :avatar, as: :file%>
    <%= f.input :email,
+    label: false,
+   placeholder: "Email*",
    required: true,
    autofocus: true ,
    input_html: { autocomplete: "email" }%>
    <%= f.input :password,
+         label: false,
+   placeholder: "Password*",
    required: true,
    hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
    input_html: { autocomplete: "new-password" } %>
    <%= f.input :password_confirmation,
+         label: false,
+   placeholder: "Password*",
    required: true,
    input_html: { autocomplete: "new-password" } %>
    <%= f.input :subscribed, as: :boolean %>
  </div>
 
  <div class="form-actions">
-  <%= f.button :submit, "Sign up" %>
+  <%= f.button :submit, "Sign up", class: "form-button" %>
 </div>
 <% end %>
-
+<div class="link-style">
 <%= render "devise/shared/links" %>
+</div>
+   </div>
+   </div>
+ </div>
 </div>

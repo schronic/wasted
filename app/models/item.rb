@@ -1,5 +1,4 @@
 class Item < ApplicationRecord
-
   has_many    :reservations
   has_many    :purchased_items
   belongs_to  :user
@@ -16,6 +15,17 @@ class Item < ApplicationRecord
 
   monetize :price_cents
 
+  def self.items_where_can_reserve_more
+    items_where_can_reserve_more = Item.all
+    items_where_cannot_reserve_more = []
+    Item.all.each_with_index do |item, index|
+      if item.reservations.where("user_id = ? AND quantity >= ?", Current.user.id, item.quantity).any?
+        items_where_cannot_reserve_more |= [item]
+      end
+    end
+    items_where_can_reserve_more -= items_where_cannot_reserve_more
+  end
+
   private
 
   mount_uploader :picture, PhotoUploader
@@ -23,11 +33,11 @@ class Item < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
 
-  TYPES = %w[Vegan Gluten_free Hot Snack Healthy Light Home_mage Raw Vegetarian]
+  TYPES = %w[Vegan GlutenFree Hot Snack Healthy Light HomeMade Raw Vegetarian]
 
   CATEGORY = %w[Asian Breakfast Burgers Chinese Greek HealthyFood HomeMade Indian
-                  International Italian Japanese Mediterranean Mexican Middle Eastern Nepalese
-                  Pizza Sandwiches Sushih Thai Vietnamese]
+                  International Italian Japanese Mediterranean Mexican MiddleEastern Nepalese
+                  Pizza Sandwich Sushi Thai Vietnamese]
 
   include PgSearch
   pg_search_scope :search_by_title_and_syllabus,
@@ -41,4 +51,3 @@ class Item < ApplicationRecord
       pickup_time.present? && pickup_time < Time.now
   end
 end
-

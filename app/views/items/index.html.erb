@@ -1,13 +1,16 @@
+<div id="shopping-click">
+  <h2><%= link_to icon('fas', 'shopping-cart'), cart_path %></h2>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col-xs-11 col-xs-offset-1">
       <div class="search-filter-box">
-        <span style="border-bottom: 2px solid black;"><i class="fas fa-search"></i></span>
+        <span style="border-bottom: 2px solid black; padding-top: 7px;"><i class="fas fa-search"></i></span>
         <div class="search">
-
           <%= simple_form_for :term, url: items_path, method: :get do |f| %>
-          <%= f.input_field :query, label: false, placeholder: "Address",
-          input_html: { value: @results.first.address } %>
+          <%= f.input :query, label: false,
+          input_html: { value: @results.first.address, style:'box-shadow: none; outline: none;' } , placeholder: "Address" %>
         </div>
         <div class="filter">
           <%= image_tag("equalizer.png", width:"16", height:"15", :class => "equalizer" )  %>
@@ -21,10 +24,12 @@
             <div class="catg-filter">
               <div class="box-category-type">
                 <div class="">
-                  <%= f.input_field :search, label: false %>
 
                   <div id="type-filter2">
-                    <p>CATEGORY</p>
+
+                  <%= f.input :search, label: false, placeholder: "search food", input_html: { style: "border: none; outline: none; box-shadow: none; margin-bottom: 10px; border-bottom: 1px solid black; width: 40%;" } %>
+                  <br>
+                  <p>CATEGORY</p>
                     <div class="search-filter1-box" style="display: flex;flex-wrap: wrap;">
                       <%= f.collection_check_boxes :catg, Item::CATEGORY.map { |c| [c, c] }, :first, :last, input_html: { style: "display: flex; padding-right: 15px;"}, label_html: { style: "padding-left: 20px;"} %>
                     </div>
@@ -57,25 +62,35 @@
   </div>
 </div>
 
-<% if @items.present?%>
-<% @items.each do |item| %>
-<%= render 'shared/card_modal', item: item %>
-<% end %>
+<% if @items.present? %>
+  <% @items.each do |item| %>
+    <%= render 'shared/card_modal', item: item %>
+  <% end %>
 
 
 <% if @query.present? %>
+
 <% if @empty %>
-<h2 style="margin-top: 60px;">Your search was unsuccessful</h2>
-<h4>Here are are all items: </h4>
-<% end %>
 <div class="container">
   <div class="row">
+    <div class="col-xs-11 col-xs-offset-1 col-md">
+      <h2 style="margin-top: 60px;">Your search was unsuccessful</h2>
+      <h4>Here are are all items: </h4>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-11 col-xs-offset-1 col-md">
     <% @items.each do |item| %>
     <div class="col-md-3">
       <%= render 'shared/card', item: item, in_cart: false %>
     </div>
     <% end %>
   </div>
+    </div>
 </div>
 <% else %>
 <div class="container">
@@ -116,7 +131,6 @@
             <span class="sr-only"></span>
           </a>
         </div>
-
       </div>
     </div>
   </div>
@@ -169,6 +183,11 @@
 <!-- </div> -->
 <% end %>
 
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-11 col-xs-offset-1 col-md">
+
 <style>
   .marker {
     background-size: contain;
@@ -183,5 +202,25 @@ data-markers="<%= @markers.to_json %>"
 data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
 >
 </div>
+    </div>
+  </div>
+</div>
+
+
+
+<% else %>
+
+  <div style="min-height: 160px; margin: 30px auto auto 150px;">
+    Items are removed from this page for the following reasons:
+    <ul>
+      <li>The maximum available of an item is already in your cart.</li>
+      <li>You uploaded an item.</li>
+      <li>The pickup date for an item is in the past.</li>
+      <li>The available quantity of an item has already been purchased.</li>
+      <li>There are no items in the database (seed!).</li>
+    </ul>
+  </div>
 
 <% end %>
+
+

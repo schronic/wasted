@@ -1,12 +1,79 @@
+LATITUDE = [-34.6056872, -34.6056874, -34.6056876, -34.6056878, -34.6056880]
+LONGITUDE = [-58.4023744, -58.4023744, -58.4023744, -58.4023744, -58.4023744]
+ADDRESS = ["Niceto Vega 4788, Palermo, Buenos Aires", "Santa Fe 3387 4788, Palermo, Buenos Aires", "F. Alcorta 3004, Palermo, Buenos Aires", "Av. Libertador 3488, Palermo, Buenos Aires", "Castex 4300, Palermo, Buenos Aires", "Callao 4030, Recoleta, Buenos Aires"]
+FOOD_ME = [
+  {
+    name: "Shrimps with curry",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415655/wasted/camarones.jpg",
+    category: "Asian"
+  },
+  {
+    name: "Orange Duck",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415729/wasted/orange_duck.jpg",
+    category: "Asian"
+  },
+  {
+    name: "Dumplings",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415771/wasted/dumpling.jpg",
+    category: "Asian"
+  },
+  {
+    name: "Beef Nachos",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543418991/wasted/mexican3.jpg",
+    category: "Mexican"
+  },
+  {
+    name: "Tacos",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543418977/wasted/mexican1.jpg",
+    category: "Mexican"
+  },
+  {
+    name: "Vegeterian Tacos",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543418977/wasted/mexican2.jpg",
+    category: "Asian"
+  },
+  {
+    name: "Pork Ramen Noodle Soup",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543418958/wasted/japanese3.jpg",
+    category: "Japanese"
+  },
+  {
+    name: "Tabbouleh",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415918/wasted/greek1.jpg",
+    category: "mediterranean"
+  },
+  {
+    name: "Couscous",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543418952/wasted/mediterranea2.jpg",
+    category: "mediterranean"
+  },
+  {
+    name: "Fish delicatessen",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543418948/wasted/japanese2.jpg",
+    category: "Japanese"
+  },
+  {
+    name: "Chicken Kabobs",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543418947/wasted/mediterranea1.jpg",
+    category: "mediterranean"
+  },
+  {
+    name: "Tuna",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543418934/wasted/japanese1.jpg",
+    category: "Japanese"
+  }
+]
+
 puts 'Destroying old data...'
 
-User.destroy_all
-PurchasedItem.destroy_all
-Item.destroy_all
 Reservation.destroy_all
+PurchasedItem.destroy_all
+User.destroy_all
+Item.destroy_all
 Order.destroy_all
 Type.destroy_all
 Feature.destroy_all
+User.destroy_all
 
 puts 'Creating new users...'
 
@@ -56,38 +123,30 @@ end
 puts "Finished creating 6 users (2 suppliers, 2 consumers, 2 both)"
 puts "Creating new items..."
 @items = []
-3.times do
-  item1 = Item.new({
-    name: Faker::Food.dish,
+
+FOOD_ME.each do |food|
+  item = Item.new({
+    name: food[:name],
     description: Faker::Food.description,
     expiration: Faker::Time.backward(30, :morning),
-    price: rand(3..5),
+    price: rand(30..120),
     pickup_time: Time.now + rand(5..10).days,
     quantity: rand(1..5),
     user: @suppliers.sample,
-    category: Item::CATEGORY.sample,
-    address: Faker::Address.full_address,
-    latitude: Faker::Address.latitude,
-    longitude: Faker::Address.longitude
+    category: food[:category],
+    address: ADDRESS.sample,
+    latitude: LATITUDE.sample,
+    longitude: LONGITUDE.sample
   })
-   item1.remote_picture_url = Cloudinary::Uploader.upload('https://picsum.photos/200/300/?random')['url']
-  item1.save!
 
-  item2 = Item.new({
-    name: Faker::Food.dish,
-    description: Faker::Food.description,
-    expiration: Faker::Date.between(2.days.ago, Date.today),
-    price: rand(3..5),
-    pickup_time: Faker::Date.between(1.day.from_now, 3.days.from_now),
-    quantity: rand(1..5),
-    user: @boths.sample,
-    category: Item::CATEGORY.sample,
-    address: "Buenos Aires",
-  })
-   item2.remote_picture_url = 'https://picsum.photos/200/300/?random'
-  item2.save!
+  item.save!
+  item.remote_picture_url = food[:url]
+  item.save!
+  @items << item
 
-  @items << item1 << item2
+
+2.times do
+
   item = @items.sample
 
   @reservations = []
@@ -101,7 +160,7 @@ puts "Creating new items..."
       item: item,
       user: @boths.sample,
       quantity: rand(1..3)
-    )
+      )
     @reservations << reservation1 << reservation2
 
     @orders = []
@@ -111,12 +170,12 @@ puts "Creating new items..."
         amount: rand(30..60),
         user: @consumers.sample,
         state: @state.sample
-      )
+        )
       @order2 = Order.new(
         amount: rand(30..60),
         user: @boths.sample,
         state: @state.sample
-      )
+        )
       @orders << @order1 << @order2
 
       @purchased_items = []
@@ -148,8 +207,8 @@ puts "Creating new items..."
 end
 
 Order.left_joins(:purchased_items)
-     .where(purchased_items: { order_id: nil })
-     .destroy_all
+.where(purchased_items: { order_id: nil })
+.destroy_all
 
 Type::TYPES.each do |type|
   Type.create(
@@ -158,11 +217,11 @@ end
 
 @items.each do |item|
   2.times do
-  Feature.create(
-    item: item,
-    type: Type.all.sample
-    )
-end
+    Feature.create(
+      item: item,
+      type: Type.all.sample
+      )
+  end
 end
 
 puts 'Seed complete!'

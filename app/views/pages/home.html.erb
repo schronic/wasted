@@ -1,7 +1,7 @@
 <div class="banner"></div>
 <div class="container-fluid cfhome ">
   <div class="container home-one">
-    <div id="why-us">
+    <div class="why-us">
       <div class="row">
         <div class="col-md-6">
           <div class="cat-parent">
@@ -25,7 +25,6 @@
 
 
 
-  <div id="become-supplier"></div>
   <div class="row">
     <div class="col-sm-12 col-md-4 caps">
       <div class="whatever">
@@ -47,11 +46,11 @@
       </div>
     </div>
   </div>
+
   <div class="row" style="margin-top: 50px;">
+  <div id="become-supplier"></div>
 
 
-
-    <div id="become-user"></div>
     <div class="col-md-6">
       <h2 class="caps caps1" style="text-align: left;">This is how you can connect.</h2>
     </div>
@@ -71,6 +70,7 @@
 <div class="container-fluid cfhome">
   <div class="container carousel-pictures">
     <div class="row">
+                    <div id="become-user"></div>
 
       <div class="col-xs-10 col-md-10 col-centered">
         <h1 style="text-transform: uppercase; font-weight: bold;">Get inspired</h1>
@@ -79,7 +79,7 @@
             <% @items.each_with_index do |item, index| %>
             <div class="item <%= 'active' if index == 0 %>">
               <div class="carousel-col">
-                <div class="img-responsive" style="border: 2px solid white;">
+                <div class="img-responsive" >
 
                   <%= render 'shared/pictures', item: item %>
                 </div>
