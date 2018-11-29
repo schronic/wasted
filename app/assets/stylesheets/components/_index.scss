@@ -39,6 +39,11 @@
   color: white;
 }
 
+.btn-filter:focus {
+  text-decoration: none !important;
+  color: white;
+}
+
 #type-filter2 label {
   font-weight: lighter;
   font-size: 15px;
