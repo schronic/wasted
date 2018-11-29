@@ -27,8 +27,10 @@
                 <div class="">
 
                   <div id="type-filter2">
-                    <p>CATEGORY</p>
-                  <%= f.input :search, label: false, placeholder: "enter food type...", input_html: { style: "border: none; outline: none; box-shadow: none; margin-bottom: 10px; border-bottom: 1px solid black; width: 40%;" } %>
+
+                  <%= f.input :search, label: false, placeholder: "search food", input_html: { style: "border: none; outline: none; box-shadow: none; margin-bottom: 10px; border-bottom: 1px solid black; width: 40%;" } %>
+                  <br>
+                  <p>CATEGORY</p>
                     <div class="search-filter1-box" style="display: flex;flex-wrap: wrap;">
                       <%= f.collection_check_boxes :catg, Item::CATEGORY.map { |c| [c, c] }, :first, :last, input_html: { style: "display: flex; padding-right: 15px;"}, label_html: { style: "padding-left: 20px;"} %>
                     </div>
