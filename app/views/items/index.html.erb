@@ -4,7 +4,6 @@
       <div class="search-filter-box">
         <span style="border-bottom: 2px solid black;"><i class="fas fa-search"></i></span>
         <div class="search">
-
           <%= simple_form_for :term, url: items_path, method: :get do |f| %>
           <%= f.input_field :query, label: false, placeholder: "Address",
           input_html: { value: @results.first.address } %>

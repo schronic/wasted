@@ -64,7 +64,17 @@
             <div id="<%= item.id %>" class="controls">
               <span data-item-quantity="<%= item.quantity %>" class="quantity"></span>
               <div class="form-modal">
-                <label>Quantity: </label>
+                <label for="add-to-cart-#{item.id}">
+                  <% if user_signed_in? %>
+                    <span class="update-quantity" data-in-cart="<%= item.reservations.find_by(user_id: current_user.id).present? %>">
+
+
+                    </span>
+
+
+                  <% end %>
+                </label>
+
                 <div class="input-group">
                   <div class="input-group-btn">
                     <button class="btn btn-default circles down">
@@ -74,18 +84,18 @@
 
                   <% if user_signed_in? %>
                   <!-- QUANTITY RESERVED -->
-                  <%= form_with model: @reservation, url: create_reservation_path, id: "add-to-cart-#{item.id}", local: true do |f| %>
-                  <% value = "" %>
+                    <%= form_with model: @reservation, url: create_reservation_path, id: "add-to-cart-#{item.id}", local: true do |f| %>
+                    <% value = "" %>
 
-                  <%if item.reservations.where(user_id: current_user.id).any?%>
-                  <%  value = item.reservations.find(user_id: current_user.id).quantity%>
-                  <%else%>
-                  <%  value = 1%>
-                  <%end%>
-                  <%= f.text_field :quantity, value: value, class: "form-control input-number circle"  %>
-                  <%= f.hidden_field :item_id, value: item.id %>
+                    <%if item.reservations.where(user_id: current_user.id).any?%>
+                    <%  value = item.reservations.find_by(user_id: current_user.id).quantity%>
+                    <%else%>
+                    <%  value = 1%>
+                    <%end%>
+                    <%= f.text_field :quantity, value: value, class: "form-control input-number circle"  %>
+                    <%= f.hidden_field :item_id, value: item.id %>
 
-                  <% end %>
+                    <% end %>
                   <% end %>
                   <!-- END QUANTITY RESERVED -->
 
