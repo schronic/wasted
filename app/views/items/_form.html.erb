@@ -1,46 +1,49 @@
 <% if params[:term].present? %>
-  <% item = Item.find(params[:term]) %>
+<% item = Item.find(params[:term]) %>
 <% end %>
 
 <%= simple_form_for item do |f| %>
 <%= f.error_notification %>
 
-<div class="container" id="formnew">
-   <div class="col-md-8 col-md-offset-2">
-  <div class="row"><%= f.input :name, input_html: {value: item.name, class: "input-bar"} %></div>
-  <div class="row"><%= f.input :description, input_html: {value: item.description, class: "input-bar"} %></div>
-  <div class="row"><%= f.input :address, input_html: {value: item.address, class: "input-bar"} %></div>
-  <div class="row"><%= f.input :category, input_html: {value: item.category, class: "input-bar"}, collection: Item::CATEGORY, multiple: true %></div>
-  <div class="row row2">
-    <%= f.input :types do %>
-    <%= f.select :types, Type::TYPES, {}, {value: item.types, class: "select2", multiple: true} %>
-    <% end %>
-  </div>
-
-
-  <div class="row">
-    <div class="col-md-6">
-      <div><%= f.input :price, input_html: {value: item.price,  class: "input-bar"} %></div>
-    </div>
-    <div class="col-md-6">
-      <div><%= f.input :quantity, input_html: {value: item.quantity,  class: "input-bar"} %></div>
-    </div>
-  </div>
-
-<div class="row">
-  <div class="col-md-6">
-  <div><%= f.input :pickup_time, as: :string, input_html: {value: item.pickup_time,  id: "start_date"} %></div>
+<div class="final-day">
+  <%= f.input :name, placeholder: "Name", label: false, input_html: {value: item.name, class: "input-bar"} %>
 </div>
-  <div class="col-md-6">
-  <div><%= f.input :expiration, as: :string, input_html: {value: item.expiration,  id: "end_date"} %></div>
+<div class="final-day">
+  <%= f.input :description, placeholder: "Description", label: false, input_html: {value: item.description, class: "input-bar"} %>
 </div>
+<div class="final-day">
+  <%= f.input :address, placeholder: "Address", label: false, input_html: {value: item.address, class: "input-bar"} %>
+</div>
+<div class="final-day">
+  <%= f.input :category, default: true, label: false, input_html: {value: item.category, class: "input-bar"}, collection: Item::CATEGORY, multiple: true %>
+</div>
+<div class="final-day" id="types">
+  <%= f.input :types, label:false do %>
+</div>
+<%= f.select :types, Type::TYPES, {}, {value: item.types, class: "select2", multiple: true} %>
+<% end %>
+<div class="final-day">
+  <%= f.input :price, default: true, label: false, input_html: {value: item.price,  class: "input-bar"} %>
+</div>
+<div class="final-day">
+  <%= f.input :quantity, label: false, input_html: { value: item.quantity,  class: "input-bar"} %>
+</div>
+<div class="final-day">
+
+  <%= f.input :pickup_time, label: false, as: :string, input_html: {value: item.pickup_time,  id: "start_date"} %>
+</div>
+<div class="final-day">
+  <%= f.input :expiration, label: false, as: :string, input_html: {value: item.expiration,  id: "end_date"} %>
 
 </div>
+<div class="final-day">
   <%= f.input :picture %>
+</div>
+<div class="final-day">
   <%= f.input :picture_cache, as: :hidden %>
-  <div style="margin:20px 0px;"><%= f.button :submit  %></div>
-  <% end %>
 </div>
+<div class="final-day">
+  <%= f.button :submit, class:"form-button" %>
 </div>
 
-
+<% end %>
