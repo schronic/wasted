@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
 
   # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
-
+#afasdf
   def index
     @current_lat = request.location.latitude
     @current_lng = request.location.longitude
@@ -23,7 +23,6 @@ class ItemsController < ApplicationController
       @items = policy_scope(Item).order(expiration: :desc)
     end
 
-    if @items.present?
       @items.each do |item|
         if Rails.env.production?
           item.update(distance_location: Geocoder::Calculations.distance_between([@current_lat, @current_lng], ([item.latitude, item.longitude])).round(2))
@@ -32,6 +31,7 @@ class ItemsController < ApplicationController
         end
         item.save
       end
+    if @items.present?
 
       if params[:term]
 
@@ -48,7 +48,6 @@ class ItemsController < ApplicationController
           @results = Geocoder.search(params[:term][:query])
           @items = @items.near(@results.first.address, 50)
         end
-
         if categories_clean.present?
           categories_clean.each do |catg|
             @items = @items.where(category: catg)
