@@ -55,7 +55,7 @@ class PurchasedItemsController < ApplicationController
 
      @reservations.any? && !params[:subaction].present?
       @order = Order.new(
-        amount: 7,
+        amount: amount_params,
         user_id: current_user.id,
         state: 'pending'
       )
