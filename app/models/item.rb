@@ -16,14 +16,19 @@ class Item < ApplicationRecord
   monetize :price_cents
 
   def self.items_where_can_reserve_more
-    items_where_can_reserve_more = Item.all
+    @items_where_can_reserve_more = Item.all
     items_where_cannot_reserve_more = []
     Item.all.each_with_index do |item, index|
       if item.reservations.where("user_id = ? AND quantity >= ?", Current.user.id, item.quantity).any?
         items_where_cannot_reserve_more |= [item]
       end
     end
-    items_where_can_reserve_more -= items_where_cannot_reserve_more
+    if items_where_cannot_reserve_more.present?
+      @items_where_can_reserve_more.each do |item|
+        @items_where_can_reserve_more.where.not(item: item)
+      end
+    end
+    @items_where_can_reserve_more
   end
 
   private

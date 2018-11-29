@@ -10,7 +10,7 @@
             <tr>
               <td class="text-left"><%= item.item_purchase_name %></td>
               <td class="text-center"><%= item.item_purchase_price %> x
-              <%= item.item_purchase_quantity %><%= item.item_purchase_quantity %></td>
+              <%= item.item_purchase_quantity %></td>
               <td class="text-right"><%= humanized_money_with_symbol(item.item_purchase_price * item.item_purchase_quantity) %></td>
             </tr>
         <% end %>

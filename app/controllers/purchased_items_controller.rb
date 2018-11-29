@@ -9,6 +9,7 @@ class PurchasedItemsController < ApplicationController
   end
 
   def create
+
     if params[:subaction].present?
          @reservation = Reservation.new
          @reservation.item_id = params[:reservation][:item_id]

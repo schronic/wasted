@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
     @reservation = Reservation.new(quantity: 0)
 
     if user_signed_in?
-      @items = policy_scope(Item).order(expiration: :desc).items_where_can_reserve_more.uniq!
+      @items = policy_scope(Item).order(expiration: :desc).items_where_can_reserve_more
     else
       @items = policy_scope(Item).order(expiration: :desc)
     end
@@ -58,11 +58,11 @@ class ItemsController < ApplicationController
 
         if types_clean.present?
           @types = Type.where(name: types_clean)
-          bubu = []
+          tzpes = []
           @types.each do |type|
-            bubu << @items.joins(:features).where('features.type_id = ?', type.id)
+            tzpes << @items.joins(:features).where('features.type_id = ?', type.id)
           end
-          @items = Item.where(id: bubu.flatten.map(&:id))
+          @items = Item.where(id: tzpes.flatten.map(&:id))
         end
 
         unless @items.present?
