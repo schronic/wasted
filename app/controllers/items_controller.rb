@@ -2,12 +2,12 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :destroy, :edit, :update]
   skip_before_action :authenticate_user!, only: %i[index show]
 
-# @results = Geocoder.search([current_lat, current_lng]) Enable only in production
+  # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
 
   def index
     @current_lat = request.location.latitude
     @current_lng = request.location.longitude
-      # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
+    # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
 
     if Rails.env.production?
       @results = Geocoder.search([@current_lat, @current_lng])
@@ -15,16 +15,19 @@ class ItemsController < ApplicationController
       @results = Geocoder.search([20, 100])
     end
 
-    if user_signed_in?
-      @items = policy_scope(Item).order(expiration: :desc).where.not(user_id: current_user.id)
-    else
-      @items = policy_scope(Item).order(expiration: :desc)
-    end
+    # if user_signed_in?
+    @items = policy_scope(Item).order(expiration: :desc).items_where_can_reserve_more.uniq!
+    # @items.each do |i|
+    #   authorize i, -> { where("quantity >= ?", i.reservations.first.quantity) }
+    # end
+    # else
+    #   @items = policy_scope(Item).order(expiration: :desc)
+    # end
 
     @reservation = Reservation.new(quantity: 0)
 
     @items.each do |item|
-      if  Rails.env.production?
+      if Rails.env.production?
         item.update(distance_location: Geocoder::Calculations.distance_between([@current_lat, @current_lng], ([item.latitude, item.longitude])).round(2))
       else
         item.update(distance_location: Geocoder::Calculations.distance_between([0, 0], ([item.latitude, item.longitude])).round(2))
@@ -83,9 +86,8 @@ class ItemsController < ApplicationController
       }
     end
 
-
     if @items.present?
-      @items_close = @items.sort_by { |i| i.distance_location }
+      @items_close = @items.sort_by(&:distance_location)
     end
   end
 
