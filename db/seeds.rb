@@ -1,5 +1,5 @@
-LATITUDE = [-34.6056872, -34.6056874, -34.6056876, -34.6056878, -34.6056880]
-LONGITUDE = [-58.4023744, -58.4023744, -58.4023744, -58.4023744, -58.4023744]
+LATITUDE = [-34.6056872, -34.6056874, -34.6056876, -34.5877364, -34.5822953, -34.5937777, -34.5972749, -34.6007015, -34.5981227]
+LONGITUDE = [-58.4023744, -58.4023744, -58.4023744, -58.4344687, -58.4431376, -58.4248128, -58.4133329, -58.4112515, -58.4019818]
 ADDRESS = ["Niceto Vega 4788, Palermo, Buenos Aires", "Santa Fe 3387 4788, Palermo, Buenos Aires", "F. Alcorta 3004, Palermo, Buenos Aires", "Av. Libertador 3488, Palermo, Buenos Aires", "Castex 4300, Palermo, Buenos Aires", "Callao 4030, Recoleta, Buenos Aires"]
 FOOD_ME = [
   {
@@ -61,6 +61,116 @@ FOOD_ME = [
     name: "Tuna",
     url: "https://res.cloudinary.com/astridbosch/image/upload/v1543418934/wasted/japanese1.jpg",
     category: "Japanese"
+  },
+  {
+    name: "Udon Soup",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415985/wasted/international2.jpg",
+    category: "Japanese"
+  },
+  {
+    name: "Tacos",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415979/wasted/international.jpg",
+    category: "Mexican"
+  },
+  {
+    name: "Dumplings",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415978/wasted/international3.jpg",
+    category: "Japanese"
+  },
+  {
+    name: "Bruschetta",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415976/wasted/homemade3.jpg",
+    category: "HomeMade"
+  },
+  {
+    name: "Chili Chicken and Chapati",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415973/wasted/indian2.jpg",
+    category: "Indian"
+  },
+  {
+    name: "Chana Masala",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415941/wasted/indian1.jpg",
+    category: "Indian"
+  },
+  {
+    name: "Coconut Tofu Keema",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415933/wasted/indian3.jpg",
+    category: "Indian"
+  },
+  {
+    name: "Greek Salad Sandwich",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415918/wasted/greek1.jpg",
+    category: "Greek"
+  },
+  {
+    name: "Garden Salad",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415917/wasted/healthy4.jpg",
+    category: "HealthyFood"
+  },
+  {
+    name: "Green Salad",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415893/wasted/healthy3.jpg",
+    category: "HealthyFood"
+  },
+  {
+    name: "Spring Salad",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415882/wasted/healthy2.jpg",
+    category: "HealthyFood"
+  },
+  {
+    name: "Homemade Lasagna",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415878/wasted/homemade1.jpg",
+    category: "HomeMade"
+  },
+  {
+    name: "Peas Salad",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415862/wasted/healthy1.jpg",
+    category: "HealthyFood"
+  },
+  {
+    name: "Tzatziki with Pita Bread",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415860/wasted/greek2.jpg",
+    category: "Greek"
+  },
+  {
+    name: "Greek Dolmades",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415860/wasted/greek3.jpg",
+    category: "Greek"
+  },
+  {
+    name: "Crispy Fish Burger",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415736/wasted/burger2.jpg",
+    category: "Burgers"
+  },
+  {
+    name: "Bacon Burger",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415726/wasted/burger.jpg",
+    category: "Burgers"
+  },
+  {
+    name: "Blueberry Yogurt",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415696/wasted/youghurt.jpg",
+    category: "Breakfast"
+  },
+  {
+    name: "Black Burger",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415684/wasted/burger3.jpg",
+    category: "Burgers"
+  },
+  {
+    name: "Croissant",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415684/wasted/croissant.jpg",
+    category: "Breakfast"
+  },
+  {
+    name: "Noodles",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543415658/wasted/noodles.jpg",
+    category: "Italian"
+  },
+  {
+    name: "Shrimp Scampi pasta",
+    url: "https://res.cloudinary.com/astridbosch/image/upload/v1543438315/wasted/pasta.jpg",
+    category: "Italian"
   }
 ]
 
@@ -225,5 +335,3 @@ end
 end
 
 puts 'Seed complete!'
-
-
