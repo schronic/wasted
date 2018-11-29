@@ -22,6 +22,40 @@ class ReservationsController < ApplicationController
     end
     @same_supplier_items -= @in_cart
 
+    # CAROUSEL: OTHERS WITH SAME ITEMS IN CART ALSO HAVE THESE IN CART
+    @other_reserved_items = []
+    @my_reserved_items = []
+    @reservations.each do |my_reservation|
+      my_reservation.item.reservations.each do |same_reservation|
+        same_reservation.user.reservations.each do |other_reservation|
+          if other_reservation.user_id == current_user.id
+            @my_reserved_items |= [other_reservation.item]
+          else
+            @other_reserved_items |= [other_reservation.item]
+          end
+        end
+      end
+    end
+    @other_reserved_items.uniq!
+    @other_reserved_items -= @my_reserved_items
+
+    # CAROUSEL: OTHERS WHO BOUGHT WHAT YOU'VE BOUGHT ALSO BOUGHT
+    @others_purchased_items = Order.all
+                                   .where(state: 'paid')
+                                   .where.not(user_id: current_user.id)
+                                   .map(&:purchased_items)
+                                   .flatten
+                                   .map(&:item)
+                                   .uniq!
+    @my_purchased_items = Order.all
+                               .where(state: 'paid')
+                               .where(user_id: current_user.id)
+                               .map(&:purchased_items)
+                               .flatten
+                               .map(&:item)
+                               .uniq!
+    @others_purchased_items -= @my_purchased_items
+
     # SHOPPING CART: SEPARATE ITEMS BY SELLER
     @reservations_suppliers = []
     @reservations.each do |reservation|
