@@ -1,64 +1,189 @@
-
-
 <div class="main-container">
-
-
   <div class="container" style="overflow: scroll;">
-    <div class="row">
-      <div class="col-xs-11 col-md-10 col-centered">
-        <h2>RECOMMENDATIONS</h2>
-        <br>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-xs-11 col-md-10 col-centered">
-        <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
-          <div class="carousel-inner">
-            <% @suggestions.each_with_index do |item, index| %>
-            <div class="item <%= 'active' if index == 0 %>">
-              <div class="carousel-col">
-                <div class="img-responsive">
-                  <%= render 'shared/card', item: item, in_cart: true %>
+    <% if @same_supplier_items.present? %>
+      <!-- ITEMS BY SAME SELLERS -->
+      <div class="row">
+        <div class="col-xs-11 col-md-10 col-centered">
+          <h5>THE SUPPLIERS IN YOUR CART ALSO HAVE
+            <% if @same_supplier_items.size == 1 %>
+              THIS LONELY ITEM:
+            <% else %>
+              THESE <%= @same_supplier_items.size %> ITEMS:
+            <% end %>
+          </h5>
+          <br>
+        </div>
+      </div>
+
+      <!-- IF CAROUSEL EMPTY OTHER ITEMS DON'T MOVE UP -->
+      <div style="min-height: 295px;">
+        <div class="row">
+          <div class="col-xs-11 col-md-10 col-centered">
+            <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
+              <div class="carousel-inner">
+                <% @same_supplier_items.each_with_index do |item, index| %>
+                <div class="item <%= 'active' if index == 0 %>">
+                  <div class="carousel-col">
+                    <div class="img-responsive">
+                      <%= render 'shared/card', item: item, in_cart: true %>
+                    </div>
+                  </div>
                 </div>
+                <% end %>
+              </div>
+
+              <div class="left carousel-control">
+                <a href="#carousel" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                  <span class="sr-only"></span>
+                </a>
+              </div>
+              <div class="right carousel-control">
+                <a href="#carousel" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                  <span class="sr-only"></span>
+                </a>
               </div>
             </div>
-            <% end %>
-          </div>
-
-          <div class="left carousel-control">
-            <a href="#carousel" role="button" data-slide="prev">
-              <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-              <span class="sr-only"></span>
-            </a>
-          </div>
-          <div class="right carousel-control">
-            <a href="#carousel" role="button" data-slide="next">
-              <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-              <span class="sr-only"></span>
-            </a>
           </div>
         </div>
+        <!-- END IF CAROUSEL EMPTY OTHER ITEMS DON'T MOVE UP -->
       </div>
-    </div>
-    <% @reservations.each do |reservation| %>
-    <div class="row">
-      <div class="container" style="width: 90%;">
-        <div class="row">
-          <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= reservation.item.picture %>); margin-top: 10px;">
-          </div>
-          <h4><%= reservation.item.name %></h4>
-        </div>
-        <div class="item-description">
-          <h6><%= reservation.item.user.name.capitalize %></h6>
-          <h6>$ <%= reservation.item.price %> </h6>
-          <p><%= reservation.item.pickup_time.strftime("pickup before %I:%M%p") %> | <%= reservation.item.distance_location %>km</p>
-          <p><%= link_to 'Remove all from cart', reservation_path(reservation), method: :delete %></p>
-        </div>
-      </div>
-    </div>
+      <!-- END ITEMS BY SAME SELLERS -->
     <% end %>
+
+    <% if @other_reserved_items.present? %>
+      <!-- ITEMS BY SAME SELLERS -->
+      <div class="row">
+        <div class="col-xs-11 col-md-10 col-centered">
+          <h5>OTHERS THAT HAVE YOUR CART ITEMS IN THEIR CART ALSO HAVE
+            <% if @other_reserved_items.size == 1 %>
+              THIS LONE ITEM
+            <% else %>
+              THESE <%= @other_reserved_items.size %> ITEMS
+            <% end %>
+            IN THEIR CART
+          </h5>
+          <br>
+        </div>
+      </div>
+
+      <!-- IF CAROUSEL EMPTY OTHER ITEMS DON'T MOVE UP -->
+      <div style="min-height: 295px;">
+        <div class="row">
+          <div class="col-xs-11 col-md-10 col-centered">
+            <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
+              <div class="carousel-inner">
+                <% @other_reserved_items.each_with_index do |item, index| %>
+                <div class="item <%= 'active' if index == 0 %>">
+                  <div class="carousel-col">
+                    <div class="img-responsive">
+                      <%= render 'shared/card', item: item, in_cart: true %>
+                    </div>
+                  </div>
+                </div>
+                <% end %>
+              </div>
+
+              <div class="left carousel-control">
+                <a href="#carousel" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                  <span class="sr-only"></span>
+                </a>
+              </div>
+              <div class="right carousel-control">
+                <a href="#carousel" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                  <span class="sr-only"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END IF CAROUSEL EMPTY OTHER ITEMS DON'T MOVE UP -->
+      </div>
+      <!-- END ITEMS BY SAME SELLERS -->
+    <% end %>
+
+    <% if @others_purchased_items.present? %>
+      <!-- OTHERS WHO BOUGHT WHAT YOU'VE BOUGHT ALSO BOUGHT -->
+      <div class="row">
+        <div class="col-xs-11 col-md-10 col-centered">
+          <h5>OTHERS WHO BOUGHT WHAT YOU'VE BOUGHT ALSO BOUGHT
+            <% if @others_purchased_items.size == 1 %>
+              THIS SOLITARY ITEM:
+            <% else %>
+              THESE <%= @others_purchased_items.size %> ITEMS:
+            <% end %>
+          </h5>
+          <br>
+        </div>
+      </div>
+
+      <!-- IF CAROUSEL EMPTY OTHER ITEMS DON'T MOVE UP -->
+      <div style="min-height: 295px;">
+        <div class="row">
+          <div class="col-xs-11 col-md-10 col-centered">
+            <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
+              <div class="carousel-inner">
+                <% @others_purchased_items.each_with_index do |item, index| %>
+                <div class="item <%= 'active' if index == 0 %>">
+                  <div class="carousel-col">
+                    <div class="img-responsive">
+                      <%= render 'shared/card', item: item, in_cart: true %>
+                    </div>
+                  </div>
+                </div>
+                <% end %>
+              </div>
+
+              <div class="left carousel-control">
+                <a href="#carousel" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                  <span class="sr-only"></span>
+                </a>
+              </div>
+              <div class="right carousel-control">
+                <a href="#carousel" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                  <span class="sr-only"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END IF CAROUSEL EMPTY OTHER ITEMS DON'T MOVE UP -->
+      </div>
+      <!-- END OTHERS WHO BOUGHT WHAT YOU'VE BOUGHT ALSO BOUGHT -->
+    <% end %>
+
+    <!-- CARDS IN CART -->
+    <h5>ITEMS IN YOUR CART:</h5>
+    <div class="row">
+      <div class="col-xs-11 col-md-10 col-centered" style="
+        margin-left: 0; display: flex;">
+        <% @reservations.each do |reservation| %>
+          <div style="padding: 0 20px;">
+            <div>
+              <div class="card" style="width: 233px;margin-left: 35px;background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= reservation.item.picture %>); margin-top: 10px; display: flex; margin-top: 10px; justify-content: left; align-items: flex-end; font-size: 20px; padding-left: 17px;">
+                <h4 style="font-size: 20px;"><%= reservation.item.name %></h4>
+              </div>
+            </div>
+            <div class="item-description" style="margin-left: 35px;">
+              <h6><%= reservation.item.user.name.capitalize %></h6>
+              <h6>$ <%= reservation.item.price %> </h6>
+              <p><%= reservation.item.pickup_time.strftime("pickup before %I:%M%p") %> | <%= reservation.item.distance_location %>km</p>
+              <p style="color: black;"><%= link_to 'Delete out of cart', reservation_path(reservation), method: :delete %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <!-- END ITEM CART IN CART -->
   </div>
+  <!-- END LEFT CONTAINER -->
+
 
   <!-- SHOPPING CART -->
   <div class="shopping-cart-container" style="position: sticky;">
@@ -82,9 +207,9 @@
       <%= link_to "Checkout", purchased_items_path(amount: @amount, reservations: @reservations), method: :post, class: 'btn btn-danger btn-lg btn-checkout', id: 'cart-empty-button' %>
       <!-- END CHECKOUT FORM to send params -->
 
-
     </div>
-    <!-- END SHOPPING CART -->
+    <!-- END SHOPPING CART BOX -->
   </div>
-  <!-- END .main-container -->
+  <!-- END SHOPPING-CART-CONTAINER -->
 </div>
+<!-- END MAIN CONTAINER -->

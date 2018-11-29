@@ -6,6 +6,9 @@ export const bindListener = () => {
     const btnUp = control.querySelector(".up")
     const btnDown = control.querySelector(".down")
     let circle = control.querySelector(".circle")
+    let updateQuantityText = control.querySelector(".update-quantity")
+    console.log(updateQuantityText)
+
 
     circle.addEventListener('input', () => {
       if (circle.value > quantity) {
@@ -26,5 +29,21 @@ export const bindListener = () => {
         circle.value = parseInt(circle.value, 10) - 1
       }
     })
+
+    if (updateQuantityText.dataset.inCart == "true") {
+      updateQuantityText.innerHTML = `
+                                      <span>
+                                        Update Cart
+                                      </span>
+                                      <br>
+                                      <span style="color: green; font-size: 14px;">
+                                        (${circle.value} in cart)
+                                      </span>
+                                      `
+    } else {
+      updateQuantityText.innerHTML = "<p>Quantity</p>"
+    }
+
+
   })
 }

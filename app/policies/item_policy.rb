@@ -1,18 +1,15 @@
 class ItemPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-
-      # Don't show items uploaded by the user (supplier), OR in the user's cart (consumer)
       if user_logged_in?
-        scope.where.not(id: Reservation.where(user_id: user.id)
-                                       .pluck(:item_id))
-             .where.not(user_id: user.id)
+        scope.joins(:reservations)
              .where('pickup_time > ?', Time.now)
-             .where('quantity > ?', 0)
+             .where('items.quantity > ?', 0)
+             .where.not(items: { user_id: user.id })
 
-        # scope.joins(:reservations)
-        #      .where.not(reservations: { user_id: user.id })
-        #      .where.not(items: { user_id: user.id })
+        # scope.where.not(id: Reservation.where(user_id: user.id)
+        #                                .pluck(:item_id))
+        #      .where.not(user_id: user.id)
         #      .where('pickup_time > ?', Time.now)
         #      .where('quantity > ?', 0)
       else

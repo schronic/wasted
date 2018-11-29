@@ -84,8 +84,6 @@ class PurchasedItemsController < ApplicationController
       redirect_to new_order_payment_path(@order)
     else
       authorize @reservations
-      sleep(5)
-      redirect_to cart_path
     end
   end
 
