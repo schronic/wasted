@@ -144,6 +144,7 @@ FOOD_ME.each do |food|
   item.save!
   @items << item
 end
+
 2.times do
 
   item = @items.sample
