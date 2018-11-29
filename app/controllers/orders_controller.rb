@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
     authorize @order
   end
 
-  def
+  def new
     authorize @order
   end
 
