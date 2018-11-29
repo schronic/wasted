@@ -325,13 +325,11 @@ Type::TYPES.each do |type|
     name: type)
 end
 
-@items.each do |item|
-  2.times do
+Item.all.each do |item|
     Feature.create(
       item: item,
       type: Type.all.sample
       )
-  end
 end
 
 puts 'Seed complete!'
