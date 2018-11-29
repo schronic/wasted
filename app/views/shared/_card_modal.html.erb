@@ -55,72 +55,68 @@
       </div>
       <!-- END MODAL HEADER -->
 
-      <!-- MODAL BODY -->
-      <div class="modal-body" style="padding-bottom: 20px;">
-        <div class="row">
-          <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4">
+      <% if user_signed_in? %>
+        <!-- MODAL BODY -->
+        <div class="modal-body" style="padding-bottom: 20px;">
+          <div class="row">
+            <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4">
 
-            <!-- FORM WITH UP AND DOWN BUTTONS -->
-            <div id="<%= item.id %>" class="controls">
-              <span data-item-quantity="<%= item.quantity %>" class="quantity"></span>
-              <div class="form-modal">
-                <label for="add-to-cart-#{item.id}">
-                  <% if user_signed_in? %>
-                    <span class="update-quantity" style="text-align:center; "data-in-cart="<%= item.reservations.find_by(user_id: current_user.id).present? %>">
+              <!-- FORM WITH UP AND DOWN BUTTONS -->
+                <div id="<%= item.id %>" class="controls">
+                  <span data-item-quantity="<%= item.quantity %>" class="quantity"></span>
+                  <div class="form-modal">
+                    <label for="add-to-cart-#{item.id}">
+                      <% if user_signed_in? %>
+                        <span class="update-quantity" style="text-align:center; "data-in-cart="<%= item.reservations.find_by(user_id: current_user.id).present? %>"></span>
+                      <% end %>
+                    </label>
 
+                    <div class="input-group">
+                      <div class="input-group-btn">
+                        <button class="btn btn-default circles down">
+                          <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+                      </div>
 
-                    </span>
+                      <!-- QUANTITY RESERVED -->
+                        <%= form_with model: @reservation, url: create_reservation_path, id: "add-to-cart-#{item.id}", local: true do |f| %>
+                        <% value = "" %>
 
+                        <%if item.reservations.where(user_id: current_user.id).any?%>
+                        <%  value = item.reservations.find_by(user_id: current_user.id).quantity%>
+                        <%else%>
+                        <%  value = 1%>
+                        <%end%>
+                        <%= f.text_field :quantity, value: value, class: "form-control input-number circle"  %>
+                        <%= f.hidden_field :item_id, value: item.id %>
 
-                  <% end %>
-                </label>
+                        <% end %>
+                      <!-- END QUANTITY RESERVED -->
 
-                <div class="input-group">
-                  <div class="input-group-btn">
-                    <button class="btn btn-default circles down">
-                      <span class="glyphicon glyphicon-minus"></span>
-                    </button>
-                  </div>
-
-                  <% if user_signed_in? %>
-                  <!-- QUANTITY RESERVED -->
-                    <%= form_with model: @reservation, url: create_reservation_path, id: "add-to-cart-#{item.id}", local: true do |f| %>
-                    <% value = "" %>
-
-                    <%if item.reservations.where(user_id: current_user.id).any?%>
-                    <%  value = item.reservations.find_by(user_id: current_user.id).quantity%>
-                    <%else%>
-                    <%  value = 1%>
-                    <%end%>
-                    <%= f.text_field :quantity, value: value, class: "form-control input-number circle"  %>
-                    <%= f.hidden_field :item_id, value: item.id %>
-
-                    <% end %>
-                  <% end %>
-                  <!-- END QUANTITY RESERVED -->
-
-                  <div class="input-group-btn">
-                    <button class="btn btn-default circles up">
-                      <span class="glyphicon glyphicon-plus"></span>
-                    </button>
+                      <div class="input-group-btn">
+                        <button class="btn btn-default circles up">
+                          <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              <!-- END FORM WITH UP AND DOWN BUTTONS -->
             </div>
-            <!-- END FORM WITH UP AND DOWN BUTTONS -->
-          </div>
 
-          <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn">
-            <button type="submit" class="btn btn-dark btn-lg" form="add-to-cart-<%=item.id%>">
-              <span class="glyphicon glyphicon-plus"></span>
-              <span class="btn btn-dark btn-lg">Add to Cart</span>
-            </button>
-          </div>
-          <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn1">
-            <button type="button" class="btn btn-dark ">One-Click Shop</button>
+            <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn">
+              <button type="submit" class="btn btn-dark btn-lg" form="add-to-cart-<%=item.id%>">
+                <span class="glyphicon glyphicon-plus"></span>
+                <span class="btn btn-dark btn-lg">Add to Cart</span>
+              </button>
+            </div>
+            <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn1">
+              <button type="button" class="btn btn-dark ">One-Click Shop</button>
+            </div>
           </div>
         </div>
-      </div>
+        <!-- END MODAL BODY -->
+      <% end %>
 
     </div>
   </div>
