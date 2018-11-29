@@ -30,6 +30,11 @@ body {
   color: black;
 }
 
+.navbar-wagon-brand:focus {
+  text-decoration: none;
+  color: black;
+}
+
 /* User Avatar */
 .navbar-wagon .avatar {
   height: 35px;

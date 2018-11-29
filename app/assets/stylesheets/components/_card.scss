@@ -199,5 +199,10 @@ $quantity-btn-color: #95d7fc;
     position: absolute;
     top: -1px !important;
     right: -1px !important;
+    z-index: 10;
+}
+
+#reservation_quantity{
+  border-bottom: none !important;
 }
 
