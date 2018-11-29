@@ -56,17 +56,17 @@
   </div>
 </div>
 
-<% if @items.present?%>
-<% @items.each do |item| %>
-<%= render 'shared/card_modal', item: item %>
-<% end %>
+<% if @items.present? %>
+  <% @items.each do |item| %>
+    <%= render 'shared/card_modal', item: item %>
+  <% end %>
 
 
 <% if @query.present? %>
-<% if @empty %>
-<h2 style="margin-top: 60px;">Your search was unsuccessful</h2>
-<h4>Here are are all items: </h4>
-<% end %>
+  <% if @empty %>
+    <h2 style="margin-top: 60px;">Your search was unsuccessful</h2>
+    <h4>Here are are all items: </h4>
+  <% end %>
 <div class="container">
   <div class="row">
     <% @items.each do |item| %>
@@ -115,7 +115,6 @@
             <span class="sr-only"></span>
           </a>
         </div>
-
       </div>
     </div>
   </div>
@@ -183,4 +182,20 @@ data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
 >
 </div>
 
+
+<% else %>
+
+  <div style="min-height: 160px; margin: 30px auto auto 150px;">
+    Items are removed from this page for the following reasons:
+    <ul>
+      <li>The maximum available of an item is already in your cart.</li>
+      <li>You uploaded an item.</li>
+      <li>The pickup date for an item is in the past.</li>
+      <li>The available quantity of an item has already been purchased.</li>
+      <li>There are no items in the database (seed!).</li>
+    </ul>
+  </div>
+
 <% end %>
+
+
