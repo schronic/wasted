@@ -17,7 +17,12 @@ class ItemsController < ApplicationController
 
     @reservation = Reservation.new(quantity: 0)
 
-    @items = policy_scope(Item).order(expiration: :desc).items_where_can_reserve_more.uniq!
+    if user_signed_in?
+      @items = policy_scope(Item).order(expiration: :desc).items_where_can_reserve_more.uniq!
+    else
+      @items = policy_scope(Item).order(expiration: :desc)
+    end
+
     if @items.present?
       @items.each do |item|
         if Rails.env.production?
