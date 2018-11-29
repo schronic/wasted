@@ -57,11 +57,11 @@ class ItemsController < ApplicationController
 
         if types_clean.present?
           @types = Type.where(name: types_clean)
-          bubu = []
+          tzpes = []
           @types.each do |type|
-            bubu << @items.joins(:features).where('features.type_id = ?', type.id)
+            tzpes << @items.joins(:features).where('features.type_id = ?', type.id)
           end
-          @items = Item.where(id: bubu.flatten.map(&:id))
+          @items = Item.where(id: tzpes.flatten.map(&:id))
         end
 
         unless @items.present?

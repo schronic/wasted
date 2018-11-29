@@ -91,6 +91,17 @@
                         <%= f.hidden_field :item_id, value: item.id %>
 
                         <% end %>
+
+
+
+
+                        <%= form_with model: @reservation, url: purchased_items_create_path, id: "one-click-#{item.id}", local: true do |f| %>
+                          <%= f.hidden_field :quantity, value: @value, class: "form-control input-number circle"  %>
+                          <%= f.hidden_field :item_id, value: item.id %>
+                          <%= f.hidden_field :amount, value: (item.price * 1.05) %>
+                          <%= f.hidden_field :subaction, name: :subaction, value: true %>
+
+                        <% end %>
                       <!-- END QUANTITY RESERVED -->
 
                       <div class="input-group-btn">
@@ -110,15 +121,11 @@
                 <span class="btn btn-dark btn-lg">Add to Cart</span>
               </button>
             </div>
-            <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn”>
-             <span class="glyphicon glyphicon-plus”></span>
-             <%= form_with model: @reservation, url: purchased_items_create_path, local: true do |f| %>
-             <%= f.hidden_field :quantity, value: @value, class: "form-control input-number circle"  %>
-             <%= f.hidden_field :item_id, value: item.id %>
-             <%= f.hidden_field :amount, value: (item.price * 1.05) %>
-             <%= f.button :'One-Click Shop', input_html: {class: "btn btn-dark btn-lg"},
-             name: 'subaction', value: 'One-Click' %>
-             <% end %>
+
+            <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn">
+              <button type="submit" class="btn btn-dark" form="one-click-<%=item.id%>">
+                <span class="btn btn-dark">One-Click Shop</span>
+              </button>
             </div>
           </div>
         </div>

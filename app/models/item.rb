@@ -24,12 +24,12 @@ class Item < ApplicationRecord
       end
     end
     if items_where_cannot_reserve_more.present?
-      items_where_cannot_reserve_more.each do |item|
+      @items_where_can_reserve_more.each do |item|
         @items_where_can_reserve_more.where.not(item: item)
       end
     end
     @items_where_can_reserve_more
-   end
+  end
 
   private
 
