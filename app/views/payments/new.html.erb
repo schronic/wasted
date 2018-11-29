@@ -1,4 +1,3 @@
-<% raise %>
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
@@ -10,7 +9,7 @@
         <% @order.purchased_items.each do |item| %>
             <tr>
               <td class="text-left"><%= item.item_purchase_name %></td>
-              <td class="text-center"><%= item.item_purchase_price %> x
+              <td class="text-center"><%= item.item.price %> x
               <%= item.item_purchase_quantity %><%= item.item_purchase_quantity %></td>
               <td class="text-right"><%= humanized_money_with_symbol(item.item_purchase_price * item.item_purchase_quantity) %></td>
             </tr>

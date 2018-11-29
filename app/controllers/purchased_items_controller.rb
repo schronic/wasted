@@ -21,8 +21,8 @@ class PurchasedItemsController < ApplicationController
         Reservation.find_by(item: @reservation.item).destroy
       end
       @reservation.save
-      @amount = params[:subaction] * @reservation.quantity * 1.05
-raise
+      @amount = params[:reservation][:amount] * @reservation.quantity * 1.05
+
       @order = Order.new(
         amount: @amount.to_i,
         user_id: current_user.id,
