@@ -43,8 +43,8 @@ class ReservationsController < ApplicationController
     @other_reserved_items.uniq!
 
     @other_reserved_items.select! { |item| item.pickup_time.to_datetime > DateTime.now }
-    @other_reserved_items -= @my_reserved_items
-    @other_reserved_items -= @my_owned_items
+    @other_reserved_items -= @my_reserved_items if @my_reserved_items.present?
+    @other_reserved_items -= @my_owned_items if @my_owned_items.present?
 
     # CAROUSEL: OTHERS WHO BOUGHT WHAT YOU'VE BOUGHT ALSO BOUGHT
     @others_purchased_items = Order.all
@@ -64,8 +64,8 @@ class ReservationsController < ApplicationController
                                .flatten
                                .map(&:item)
                                .uniq!
-    @others_purchased_items -= @my_purchased_items
-    @others_purchased_items -= @my_owned_items
+    @others_purchased_items -= @my_purchased_items if @my_purchased_items.present?
+    @others_purchased_items -= @my_owned_items if @my_owned_items.present?
 
     # SHOPPING CART: SEPARATE ITEMS BY SELLER
     @reservations_suppliers = []
