@@ -12,7 +12,7 @@
         <h6><%= item.user.name %></h6>
         <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= item.picture %>); margin-top: 10px;"></div>
 
-        <div class="row overview" style="margin-top: 10px;">
+        <div class="row overview" style="margin-top: 10px; margin-left: -104px;display: flex;justify-content: space-between;">
           <div class="col-md-3 col-md-offset-1">
 
             <p style="font-size: 14px !important;">Availability: <strong><%= item.quantity %></strong></p>
@@ -66,7 +66,8 @@
               <div class="form-modal">
                 <label for="add-to-cart-#{item.id}">
                   <% if user_signed_in? %>
-                  <span class="update-quantity" data-in-cart="<%= item.reservations.find_by(user_id: current_user.id).present? %>">                  </span>
+                  <span class="update-quantity" data-in-cart="<%= item.reservations.find_by(user_id: current_user.id).present? %>"></span>
+
                   <% end %>
                 </label>
 

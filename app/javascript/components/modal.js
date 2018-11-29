@@ -32,12 +32,14 @@ export const bindListener = () => {
 
     if (updateQuantityText.dataset.inCart == "true") {
       updateQuantityText.innerHTML = `
+                                      <span style="text-align:center; margin-left: 42px; ">
                                       <span>
                                         Update Cart
                                       </span>
                                       <br>
-                                      <span style="color: green; font-size: 14px;">
+                                      <span style="color: green; font-size: 14px; margin-left: 57px">
                                         (${circle.value} in cart)
+                                      </span>
                                       </span>
                                       `
     } else {

@@ -47,7 +47,7 @@ class ReservationsController < ApplicationController
     @other_reserved_items -= @my_owned_items if @my_owned_items.present?
 
     # CAROUSEL: OTHERS WHO BOUGHT WHAT YOU'VE BOUGHT ALSO BOUGHT
-    @others_purchased_items = Order.all
+    if @others_purchased_items = Order.all
                                    .where(state: 'paid')
                                    .where.not(user_id: current_user.id)
                                    .map(&:purchased_items)
@@ -66,6 +66,7 @@ class ReservationsController < ApplicationController
                                .uniq!
     @others_purchased_items -= @my_purchased_items if @my_purchased_items.present?
     @others_purchased_items -= @my_owned_items if @my_owned_items.present?
+
 
     # SHOPPING CART: SEPARATE ITEMS BY SELLER
     @reservations_suppliers = []
