@@ -121,13 +121,14 @@ class ReservationsController < ApplicationController
   end
 
   def update
+    @reservation.user = current_user
     @reservation.update(reservation_params)
     authorize @reservation
     if @reservation.save && params.dig(:reservation, :in_cart)
       redirect_to cart_path
     elsif @reservation.save
       redirect_to items_path
-    else render :edit
+    else render :index
     end
   end
 
