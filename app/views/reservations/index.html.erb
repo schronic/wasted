@@ -174,7 +174,8 @@
             <div class="item-description" style="margin-left: 35px;">
               <h6><%= reservation.item.user.name.capitalize %></h6>
               <h6>$ <%= reservation.item.price %> </h6>
-              <p><%= reservation.item.pickup_time.strftime("pickup before %I:%M%p") %> | <%= reservation.item.distance_location %>km</p>
+              <p><%= reservation.item.pickup_time.strftime("pickup before %I:%M%p") %>
+                <br><%= reservation.item.distance_location %>km</p>
               <p style="color: black;"><%= link_to 'Delete out of cart', reservation_path(reservation), method: :delete %></p>
             </div>
           </div>
