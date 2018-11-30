@@ -110,7 +110,10 @@ class ReservationsController < ApplicationController
   def create
     @reservation = current_user.reservations.new(reservation_params)
     authorize @reservation
-    if @reservation.save && params[:reservation][:in_cart] == 'true'
+    if @reservation.save && @reservation.quantity == 0
+      @reservation.destroy
+      redirect_to items_path
+    elsif @reservation.save && params[:reservation][:in_cart] == 'true'
       redirect_to cart_path
     else
       redirect_to items_path
@@ -124,7 +127,10 @@ class ReservationsController < ApplicationController
     @reservation.user = current_user
     @reservation.update(reservation_params)
     authorize @reservation
-    if @reservation.save && params.dig(:reservation, :in_cart)
+    if @reservation.save && @reservation.quantity == 0
+      @reservation.destroy
+      redirect_to items_path
+    elsif @reservation.save && params.dig(:reservation, :in_cart)
       redirect_to cart_path
     elsif @reservation.save
       redirect_to items_path
