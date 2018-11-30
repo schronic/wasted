@@ -70,6 +70,28 @@
   }
 }
 
+.card-map {
+  position: static !important;
+  text-align: center;
+  cursor: pointer;
+  // color: #da552f;
+  text-decoration: none;
+  z-index: 3;
+  .map-icon {
+    position: static !important;
+    box-shadow: none;
+    background-color: transparent;
+    font-size: 20px;
+    color: #ddd !important;
+    &:hover {
+      color: #da552f !important;
+    }
+    &:focus {
+      outline: 0;
+    }
+  }
+}
+
 .item-description {
   line-height: 2px;
   p {
