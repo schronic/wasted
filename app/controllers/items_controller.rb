@@ -22,6 +22,7 @@ class ItemsController < ApplicationController
     else
       @items = policy_scope(Item).order(expiration: :desc)
     end
+    @items = Item.where(id: @items.map(&:id))
 
       @items.each do |item|
         if Rails.env.production?
