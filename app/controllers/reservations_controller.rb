@@ -116,8 +116,6 @@ class ReservationsController < ApplicationController
       redirect_to items_path
     elsif @reservation.save && params[:reservation][:in_cart] == 'true'
       redirect_to cart_path
-    else
-      redirect_to items_path
     end
   end
 

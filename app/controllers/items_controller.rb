@@ -2,8 +2,6 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :destroy, :edit, :update]
   skip_before_action :authenticate_user!, only: %i[index show]
 
-  # @results = Geocoder.search([current_lat, current_lng]) Enable only in production
-#afasdf
   def index
     @current_lat = request.location.latitude
     @current_lng = request.location.longitude
@@ -103,16 +101,19 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
     @item.user = current_user
     authorize @item
-    @item.save
-    results = Geocoder.search(@item.address)
-    coor = results.first.coordinates
-    @item.update(latitude: coor[0], longitude: coor[1])
+    if @item.save
+      results = Geocoder.search(@item.address)
+      coor = results.first.coordinates
+      @item.update(latitude: coor[0], longitude: coor[1])
 
-    params[:item][:types].each do |type|
-      @type = Type.find_by(name: type)
-      Feature.create(item: @item, type: @type)
+      params[:item][:types].each do |type|
+        @type = Type.find_by(name: type)
+        Feature.create(item: @item, type: @type)
+      end
+      redirect_to items_path
+    else
+      render :new
     end
-    redirect_to items_path
   end
 
   def edit
@@ -120,18 +121,22 @@ class ItemsController < ApplicationController
 
   def update
     @feature = Feature.where(item: @item)
-    @feature.each do |feature|
-      feature.destroy
+    if @feature.present?
+      @feature.each do |feature|
+        feature.destroy
+      end
     end
-
     params[:item][:types].each do |type|
       @type = Type.find_by(name: type)
       Feature.create(item: @item, type: @type)
     end
 
     @item.update(item_params)
-    @item.save
-    redirect_to user_path(current_user)
+    if @item.save
+      redirect_to user_path(current_user)
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -147,20 +152,8 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.require(:item).permit(:types, :category, :address, :description, :expiration, :name, :price, :pickup_time, :picture, :quantity, :user_id)
+    params.require(:item).permit(:types, :category, :address, :description,
+                                 :expiration, :name, :price, :pickup_time,
+                                 :picture, :quantity, :user_id)
   end
 end
-
-
-#searchbar:
-#searchbar by address --> turn input address into coordinates
-#for every item --> turn address into coordinates
-#==> order by distance_location
-
-#filters:
-#modal that moves everything down
-#and then foodora like
-
-#item.near('Tour Eiffel', 10)      # venues within 10 km of Tour Eiffel
-#item.near([40.71, 100.23], 20)    # venues within 20 km of a point
-#

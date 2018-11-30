@@ -101,7 +101,7 @@
 
 
 
-                        <%= form_with model: @reservation, id: "one-click-#{item.id}", local: true do |f| %>
+                        <%= form_with model: @reservation, url: purchased_items_create_path,id: "one-click-#{item.id}", local: true do |f| %>
                           <%= f.hidden_field :quantity, value: @value, class: "form-control input-number circle"  %>
                           <%= f.hidden_field :item_id, value: item.id %>
                           <%= f.hidden_field :amount, value: (item.price * 1.05) %>
