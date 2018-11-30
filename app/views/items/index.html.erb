@@ -93,97 +93,104 @@
     </div>
     <% end %>
   </div>
-    </div>
+  </div>
 </div>
 <% else %>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-11 col-xs-offset-1 col-md">
-      <div class="search-filter1-box">
-        <h2 style="margin-top: 60px;"> NEW FOOD </h2>
+  <% if %>
+
+
+  <% else %>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-11 col-xs-offset-1 col-md">
+          <div class="search-filter1-box">
+            <h2 style="margin-top: 60px;"> NEW FOOD </h2>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-11 col-md-10 col-centered">
-      <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
-        <div class="carousel-inner">
-          <% @items.each_with_index do |item, index| %>
-          <div class="item <%= 'active' if index == 0 %>">
-            <div class="carousel-col">
-              <div class="img-responsive">
-                <%= render 'shared/card', item: item, in_cart: false %>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-11 col-md-10 col-centered">
+          <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
+            <div class="carousel-inner">
+              <% @items.each_with_index do |item, index| %>
+              <div class="item <%= 'active' if index == 0 %>">
+                <div class="carousel-col">
+                  <div class="img-responsive">
+                    <%= render 'shared/card', item: item, in_cart: false %>
+                  </div>
+                </div>
               </div>
+              <% end %>
+            </div>
+
+            <!-- Controls -->
+            <div class="left carousel-control">
+              <a href="#carousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                <span class="sr-only"></span>
+              </a>
+            </div>
+            <div class="right carousel-control">
+              <a href="#carousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                <span class="sr-only"></span>
+              </a>
             </div>
           </div>
-          <% end %>
-        </div>
-
-        <!-- Controls -->
-        <div class="left carousel-control">
-          <a href="#carousel" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-            <span class="sr-only"></span>
-          </a>
-        </div>
-        <div class="right carousel-control">
-          <a href="#carousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-            <span class="sr-only"></span>
-          </a>
         </div>
       </div>
     </div>
-  </div>
-</div>
-<!-- </div> -->
+    <!-- </div> -->
 
-<div class="container">
-  <div class="row">
-    <div class="col-xs-11 col-xs-offset-1 col-md">
-      <div class="search-filter1-box">
-        <h2 style="margin-top: 60px;"> CLOSEST </h2>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-11 col-md-10 col-centered">
-      <div id="carousel-two" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
-        <div class="carousel-inner">
-          <% @items_close.each_with_index do |item, index| %>
-          <div class="item <%= 'active' if index == 0 %>">
-            <div class="carousel-col">
-              <div class="img-responsive">
-                <%= render 'shared/card', item: item, in_cart: false %>
-              </div>
-            </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-11 col-xs-offset-1 col-md">
+          <div class="search-filter1-box">
+            <h2 style="margin-top: 60px;"> CLOSEST </h2>
           </div>
-          <% end %>
         </div>
-
-        <!-- Controls -->
-        <div class="left carousel-control">
-          <a href="#carousel-two" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
-            <span class="sr-only"></span>
-          </a>
-        </div>
-        <div class="right carousel-control">
-          <a href="#carousel-two" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-            <span class="sr-only"></span>
-          </a>
-        </div>
-
       </div>
     </div>
-  </div>
-</div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-11 col-md-10 col-centered">
+          <div id="carousel-two" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
+            <div class="carousel-inner">
+              <% @items_close.each_with_index do |item, index| %>
+              <div class="item <%= 'active' if index == 0 %>">
+                <div class="carousel-col">
+                  <div class="img-responsive">
+                    <%= render 'shared/card', item: item, in_cart: false %>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+            </div>
+
+            <!-- Controls -->
+            <div class="left carousel-control">
+              <a href="#carousel-two" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                <span class="sr-only"></span>
+              </a>
+            </div>
+            <div class="right carousel-control">
+              <a href="#carousel-two" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                <span class="sr-only"></span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
 <!-- </div> -->
+
+
+  <% end %>
 <% end %>
 
 <div class="container">
