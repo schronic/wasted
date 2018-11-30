@@ -1,6 +1,14 @@
 <div id="shopping-click">
   <% if user_signed_in? %>
-    <h2><%= link_to icon('fas', 'shopping-cart'), cart_path %><span class='cart-number'><%= current_user.reservations.size %></span></h2>
+    <h2><%= link_to icon('fas', 'shopping-cart'), cart_path %>
+      <span class='cart-number'>
+        <% if current_user.reservations.size > 0 %>
+          <%= current_user.reservations.size %>
+        <% else %>
+          empty
+        <% end %>
+      </span>
+    </h2>
   <% else %>
     <h2><%= link_to icon('fas', 'utensils'), new_user_session_path %></h2>
   <% end %>

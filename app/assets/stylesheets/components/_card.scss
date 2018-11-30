@@ -66,6 +66,7 @@
   }
 }
 
+
 .item-description {
   line-height: 2px;
   p {
@@ -81,6 +82,13 @@
     padding: 0px;
     margin: 6px 0px;
     color: black !important;
+  }
+  &.in-cart {
+    p {
+      line-height: 18px;
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
   }
 }
 
