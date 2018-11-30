@@ -20,6 +20,7 @@
 <div class="final-day" id="types">
   <%= f.input :types, label:false do %>
 </div>
+<% raise %>
 <%= f.select :types, Type::TYPES, {}, {value: item.types, class: "select2", multiple: true} %>
 <% end %>
 <div class="final-day">

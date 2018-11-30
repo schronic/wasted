@@ -119,10 +119,11 @@ class ItemsController < ApplicationController
 
   def update
     @feature = Feature.where(item: @item)
-    @feature.each do |feature|
-      feature.destroy
+    if @feature.present?
+      @feature.each do |feature|
+        feature.destroy
+      end
     end
-
     params[:item][:types].each do |type|
       @type = Type.find_by(name: type)
       Feature.create(item: @item, type: @type)
@@ -130,6 +131,7 @@ class ItemsController < ApplicationController
 
     @item.update(item_params)
     @item.save
+
     redirect_to user_path(current_user)
   end
 
