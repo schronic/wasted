@@ -31,9 +31,9 @@ export const bindListener = () => {
 
     if (updateQuantityText.dataset.inCart == "true") {
       updateQuantityText.innerHTML = `
-                                      <span style="text-align:center; margin-left: 42px; ">
+                                      <span style="text-align:center; margin-left: 27px; ">
                                       <span>
-                                        Update Cart
+                                        Update Quantity
                                       </span>
                                       <br>
                                       <span style="color: green; font-size: 14px; margin-left: 57px">

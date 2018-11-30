@@ -54,8 +54,6 @@ class PurchasedItemsController < ApplicationController
 
        elsif @reservations.any? && !params[:subaction].present?
 
-
-
       @order = Order.new(
         amount: amount_params,
         user_id: current_user.id,

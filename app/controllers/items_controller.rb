@@ -15,13 +15,14 @@ class ItemsController < ApplicationController
       @results = Geocoder.search([20, 100])
     end
 
-    @reservation = Reservation.new(quantity: 0)
+    @reservation = Reservation.new
 
     if user_signed_in?
       @items = policy_scope(Item).order(expiration: :desc).items_where_can_reserve_more
     else
       @items = policy_scope(Item).order(expiration: :desc)
     end
+    @items = Item.where(id: @items.map(&:id))
 
       @items.each do |item|
         if Rails.env.production?

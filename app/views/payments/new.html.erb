@@ -20,7 +20,7 @@
               <td class="text-right total-checkout"><%= humanized_money_with_symbol(@order.amount * (1 / 1.05)) %> +
             <%= humanized_money_with_symbol(
               @order.amount - (@order.amount * (1 / 1.05))
-              ) %> tax (5%)</td>
+              ) %> Wasted fee <span style="font-size: 16px">(5%)</span></td>
             </tr>
             <tr>
               <td></td>
