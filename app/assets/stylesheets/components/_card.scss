@@ -49,20 +49,24 @@
   opacity: 0.1;
 }
 
-.add {
+.card-btn, .add {
   position: absolute;
-  top: 10px;
+  top: 20px;
   right: 10px;
   cursor: pointer;
-  background-color: transparent;
-  font-size: 20px;
-  z-index: 5;
-  // color: #ddd !important;
-  &:hover {
-    color: #da552f !important;
-  }
-  &:focus {
-    outline: 0;
+  // color: #da552f;
+  text-decoration: none;
+  z-index: 3;
+  .card-icon {
+    background-color: transparent;
+    font-size: 20px;
+    color: #ddd !important;
+    &:hover {
+      color: #da552f !important;
+    }
+    &:focus {
+      outline: 0;
+    }
   }
 }
 
@@ -81,6 +85,13 @@
     padding: 0px;
     margin: 6px 0px;
     color: black !important;
+  }
+  &.in-cart {
+    p {
+      line-height: 18px;
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -143,6 +154,7 @@ $quantity-btn-color: #95d7fc;
   vertical-align: center;
   margin-top: 5px;
   border-radius: 5px;
+  background-color: transparent;
   button{
     background-color: black;
     color: #fff;

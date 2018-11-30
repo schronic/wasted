@@ -1,0 +1,75 @@
+<div class="row">
+  <div id="carousel" class="carousel slide" data-ride="carousel" data-type="multi" data-interval="false">
+
+        <% @same_supplier_items.each_with_index do |same_supplier_item, index| %>
+
+
+        <div class="item <%= 'active' if index == 0 %> ">
+
+          <div class="card-cart">
+            <div class="card-body-cart" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://picsum.photos/800/300/?random');">
+
+
+              <div class="card-description-cart">
+
+                <%= link_to "", item_path(same_supplier_item), class: 'card-link-cart' %>
+                <p class="item-number-cart">
+                  <%= same_supplier_item.name %> x
+                  <%= same_supplier_item.quantity %>
+                </p>
+
+                <div class="card-btn-cart">
+                  <% @status = 'available' %>
+                  <% @same_supplier_items.each do |same_supplier_item|
+                    same_supplier_item.reservations.each do |item_reservation|
+                      current_user.reservations.each do |user_reservation|
+
+                        if user_reservation.id == item_reservation.id
+                          @status = 'in-cart'
+                          break
+                        end
+                        break if @status == 'in-cart'
+                      end
+                      break if @status == 'in-cart'
+                    end
+                    end %>
+
+                    <% if @status == 'available' %>
+
+
+                    <%= simple_form_for @reservation, url: create_reservation_path do |f| %>
+
+                    <%= f.error_notification %>
+                    <%= f.hidden_field :in_cart, value: true %>
+                    <%= f.hidden_field :user_id, value: current_user.id %>
+                    <%= f.hidden_field :item_id, value: same_supplier_item.id %>
+                    <%= f.hidden_field :quantity, value: 1 %>
+                    <%= f.button :button, class: 'card-icon-cart' do %>
+                    <%= icon('fas', 'plus') %>
+                    <% end %>
+                    <% end %>
+                    <% end %>
+                  </div>
+
+                </div>
+
+                <div class="card-footer-cart">
+
+                  <p>
+                    Offered by: <%= same_supplier_item.user.name %> (<%= same_supplier_item.user.items.size %> dishes)
+                  </p>
+
+                  <p class="item-price-cart"><%= humanized_money_with_symbol(same_supplier_item.price) %> ea.</p>
+
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+          <% end %>
+
+        </div>
+
+      </div>
+
