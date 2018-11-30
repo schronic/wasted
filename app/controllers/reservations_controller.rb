@@ -108,11 +108,12 @@ class ReservationsController < ApplicationController
   end
 
   def create
-
     @reservation = current_user.reservations.new(reservation_params)
     authorize @reservation
     if @reservation.save && params[:reservation][:in_cart] == 'true'
       redirect_to cart_path
+    else
+      redirect_to items_path
     end
   end
 
