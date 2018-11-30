@@ -123,6 +123,7 @@ class ReservationsController < ApplicationController
   end
 
   def update
+
     @reservation.user = current_user
     @reservation.update(reservation_params)
     authorize @reservation

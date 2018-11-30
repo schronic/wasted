@@ -1,8 +1,10 @@
 <!-- <div class="add"> -->
 <div class="card-btn">
   <% if user_signed_in? %>
-    <% if item.reservations.find_by(user_id: current_user.id).present? %>
+    <% if item.reservations.find_by(user_id: current_user.id).present? && 0 == 9 %>
       <% @reservation = item.reservations.find_by(user_id: current_user.id) %>
+    <% else %>
+      <% @reservation = Reservation.new %>
     <% end %>
     <%= simple_form_for @reservation do |f| %>
       <%= f.error_notification %>
