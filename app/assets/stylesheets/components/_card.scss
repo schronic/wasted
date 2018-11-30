@@ -49,28 +49,26 @@
   opacity: 0.1;
 }
 
-.add {
+.card-btn, .add {
   position: absolute;
-  top: 10px;
+  top: 20px;
   right: 10px;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0);
-  background: rgba(0, 0, 0, 0);
-  font-size: 20px;
-  z-index: 5;
-  // color: #ddd !important;
-  .fa-plus {
-    background-color: rgba(0, 0, 0, 0);
-    background: rgba(0, 0, 0, 0);
-  }
-  &:hover {
-    color: #da552f !important;
-  }
-  &:focus {
-    outline: 0;
+  // color: #da552f;
+  text-decoration: none;
+  z-index: 3;
+  .card-icon {
+    background-color: transparent;
+    font-size: 20px;
+    color: #ddd !important;
+    &:hover {
+      color: #da552f !important;
+    }
+    &:focus {
+      outline: 0;
+    }
   }
 }
-
 
 .item-description {
   line-height: 2px;
