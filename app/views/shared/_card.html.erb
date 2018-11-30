@@ -1,10 +1,12 @@
 <!-- <div class="add"> -->
 <div class="card-btn">
   <% if user_signed_in? %>
-    <%= simple_form_for @reservation, url: create_reservation_path do |f| %>
+    <% if item.reservations.find_by(user_id: current_user.id).present? %>
+      <% @reservation = item.reservations.find_by(user_id: current_user.id) %>
+    <% end %>
+    <%= simple_form_for @reservation do |f| %>
       <%= f.error_notification %>
       <%= f.hidden_field :item_id, value: item.id %>
-      <%= f.hidden_field :quantity, value: 1 %>
       <%= f.button :button, class: 'card-icon add' do %>
         <%= icon('fas', 'plus') %>
       <% end %>

@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   get    '/cart',             to: 'reservations#index',   as: 'cart'
   post   '/reservations',     to: 'reservations#create',  as: 'create_reservation'
   get    '/cart/:id',         to: 'reservations#show',    as: 'reservation'
-  patch  '/cart/:id', to: 'reservations#update',  as: 'patch_reservation'
+  patch  '/cart/:id',         to: 'reservations#update',  as: 'patch_reservation'
+  patch  '/reservations',     to: 'reservations#update'
   delete '/cart/:id',         to: 'reservations#destroy', as: 'delete_reservation'
 
   resources :orders, only: [:new, :index, :show, :create, :destroy] do
