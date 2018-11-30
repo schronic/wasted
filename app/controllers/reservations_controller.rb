@@ -47,21 +47,21 @@ class ReservationsController < ApplicationController
 
     # CAROUSEL: OTHERS WHO BOUGHT WHAT YOU'VE BOUGHT ALSO BOUGHT
     if @others_purchased_items = Order.all
-                                   .where(state: 'paid')
-                                   .where.not(user_id: current_user.id)
-                                   .map(&:purchased_items)
-                                   .flatten
-                                   .map(&:item)
-                                   .uniq!
+                                      .where(state: 'paid')
+                                      .where.not(user_id: current_user.id)
+                                      .map(&:purchased_items)
+                                      .flatten
+                                      .map(&:item)
+                                      .uniq!
       @others_purchased_items.select! { |item| item.pickup_time.to_datetime > DateTime.now }
 
       if @my_purchased_items = Order.all
-                                 .where(state: 'paid')
-                                 .where(user_id: current_user.id)
-                                 .map(&:purchased_items)
-                                 .flatten
-                                 .map(&:item)
-                                 .uniq!
+                                    .where(state: 'paid')
+                                    .where(user_id: current_user.id)
+                                    .map(&:purchased_items)
+                                    .flatten
+                                    .map(&:item)
+                                    .uniq!
         @others_purchased_items -= @my_purchased_items
         @others_purchased_items -= @my_owned_items
       end
@@ -91,9 +91,10 @@ class ReservationsController < ApplicationController
         @subtotal_price += reservation.item.price * reservation.quantity
         @total_items += reservation.quantity
       end
-      percent = 0.05
-      @commission = @subtotal_price * percent
-      @amount = @subtotal_price * (1 + percent)
+      @percent = 5.0
+      @amount = @subtotal_price
+      @subtotal_price = @subtotal_price * (1 / (1 + (@percent/100)))
+      @commission = @amount - @subtotal_price
     else
       redirect_to reservations_error_path
     end

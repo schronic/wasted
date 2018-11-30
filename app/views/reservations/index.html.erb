@@ -198,8 +198,8 @@
 
       <!-- PRICES  -->
       <div class="total-prices-container">
-        <h5>Subtotal: <%= humanized_money_with_symbol(@subtotal_price) %></h5>
-        <h6>5% site fee: <%= humanized_money_with_symbol(@commission) %></h6>
+        <h5>Supplier will receive: <%= humanized_money_with_symbol(@subtotal_price) %></h5>
+        <h6>Wasted fee <span style="font-size: 16px">(<%= @percent %>%)</span>: <%= humanized_money_with_symbol(@commission) %></h6>
         <h4>Total price: <%= humanized_money_with_symbol(@amount) %></h4>
       </div>
       <!-- END PRICES -->
