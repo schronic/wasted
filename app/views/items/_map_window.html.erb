@@ -1,6 +1,28 @@
 <div class="map-window-elements">
   <div class="map-window-title">
-    <h4> ITEM </h4>
-    <h6>  <%= item.name.upcase%></h6>
+    <h5> <%= item.name.upcase%></h5>
+    <h5> <%= humanized_money_with_symbol(item.price) %></h5>
+    <h6> <%= item.quantity %> available</h6>
+
+    <div class="card-map">
+      <% if user_signed_in? %>
+        <% if item.reservations.find_by(user_id: current_user.id).present? && 0 == 9 %>
+          <% @reservation = item.reservations.find_by(user_id: current_user.id) %>
+        <% else %>
+          <% @reservation = Reservation.new %>
+        <% end %>
+        <%= simple_form_for @reservation do |f| %>
+          <%= f.error_notification %>
+          <%= f.hidden_field :item_id, value: item.id %>
+          <%= f.button :button, class: 'map-icon add' do %>
+            <%= icon('fas', 'plus') %> Add to cart
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+
   </div>
 </div>
+
+
+
