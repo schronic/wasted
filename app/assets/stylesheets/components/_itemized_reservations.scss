@@ -1,3 +1,25 @@
+.input, .add {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  cursor: pointer;
+  // color: #da552f;
+  text-decoration: none;
+  z-index: 3;
+  .card-icon {
+    background-color: transparent;
+    font-size: 20px;
+    color: #ddd !important;
+    &:hover {
+      color: #da552f !important;
+    }
+    &:focus {
+      outline: 0;
+    }
+  }
+}
+
+
 .itemized-by-supplier {
   margin-bottom: 20px;
 
