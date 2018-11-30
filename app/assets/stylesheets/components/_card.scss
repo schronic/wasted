@@ -108,10 +108,44 @@ $quantity-btn-color: #95d7fc;
 }
 
 .input-group-btn {
-  .btn-group {
+  cursor: pointer;
+  text-decoration: none;
+  .circles {
+    &:focus {
+      outline: 0;
+    }
+    &:hover {
+      color: #da552f !important;
+    }
+    &:active, &:focus {
+        background-color: black;
+        color: white;
+    }
+  }
+}
+
+.cart-btn {
+  .btn:focus {
+    outline: 0;
+    outline-offset: -2px;
+  }
+  .btn:visited {
+    outline: 0;
+    outline-offset: -2px;
+    color: white;
+  }
+  .btn-dark {
+  box-shadow: none;
+  }
+  .glyphicon:hover, .glyphicon:active {
+    color: black;
+  }
+}
+
+.input-group-bn
+  .circles {
     box-shadow: none;
     outline: none;
-  }
   button {
     border-radius: 50%;
   }
