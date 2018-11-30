@@ -18,7 +18,7 @@ class ItemsController < ApplicationController
     @reservation = Reservation.new
 
     if user_signed_in?
-      @items = policy_scope(Item).order(expiration: :desc).items_where_can_reserve_more.uniq!
+      @items = policy_scope(Item).order(expiration: :desc).items_where_can_reserve_more
     else
       @items = policy_scope(Item).order(expiration: :desc)
     end
