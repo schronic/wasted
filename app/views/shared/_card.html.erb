@@ -22,7 +22,7 @@
     <div class="item-description">
       <h6><%= item.user.name.capitalize %></h6>
       <h6>$ <%= item.price %> </h6>
-      <p><%= item.pickup_time.strftime("pickup before %I:%M%p |") %></p>
+      <p><%= item.pickup_time.strftime("pickup before %I:%M%p") %></p>
       <% if item.distance_location < 1 %>
       <p><%= item.distance_location * 1000 %>m</p>
       <% else %>

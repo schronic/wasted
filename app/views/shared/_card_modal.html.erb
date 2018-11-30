@@ -30,8 +30,11 @@
           <div class="col-md-3">
             <p style="font-size: 14px !important;">
               <strong>
-                <% item.types.each do |type| %>
-                <%= type.name %> |
+                <% item.types.each_with_index do |type, index| %>
+                  <%= type.name %>
+                  <% if index < item.types.size - 1 %>
+                    |
+                  <% end %>
                 <% end %>
               </strong>
             </p>
@@ -118,7 +121,13 @@
             <div class="col-sm-offset-1 col-sm-4 col-md-offset-1 col-md-4 cart-btn">
               <button type="submit" class="btn btn-dark btn-lg" form="add-to-cart-<%=item.id%>">
                 <span class="glyphicon glyphicon-plus"></span>
-                <span class="btn btn-dark btn-lg">Add to Cart</span>
+                <span class="btn btn-dark btn-lg">
+                  <% if item.reservations.where(user_id: current_user.id).any? %>
+                    Update Cart
+                  <% else %>
+                    Add to Cart
+                  <% end %>
+                </span>
               </button>
             </div>
 
