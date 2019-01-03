@@ -70,6 +70,8 @@
         </div>
       </div>
 
+            <% if @other_reserved_items.size > 4 %>
+
       <!-- IF CAROUSEL EMPTY OTHER ITEMS DON'T MOVE UP -->
       <div style="min-height: 295px;">
         <div class="row">
@@ -105,6 +107,21 @@
         <!-- END IF CAROUSEL EMPTY OTHER ITEMS DON'T MOVE UP -->
       </div>
       <!-- END ITEMS BY SAME SELLERS -->
+
+            <% else %>
+              <div class="container">
+                <div class="row">
+                  <div class="col-xs-11 col-xs-offset-1 col-md" style="display: flex; margin-left: 55px;">
+                  <% @other_reserved_items.each do |item| %>
+                  <div class="col-md-3">
+                    <%= render 'reservations/card_in_cart', item: item, in_cart: false %>
+                  </div>
+                  <% end %>
+                </div>
+                </div>
+              </div>
+         <% end %>
+
     <% end %>
 
     <% if @others_purchased_items.present? %>
@@ -121,6 +138,7 @@
           <br>
         </div>
       </div>
+            <% if @other_reserved_items.size > 4 %>
 
       <!-- IF CAROUSEL EMPTY OTHER ITEMS DON'T MOVE UP -->
       <div style="min-height: 295px;">
@@ -157,6 +175,20 @@
         <!-- END IF CAROUSEL EMPTY OTHER ITEMS DON'T MOVE UP -->
       </div>
       <!-- END OTHERS WHO BOUGHT WHAT YOU'VE BOUGHT ALSO BOUGHT -->
+
+                  <% else %>
+              <div class="container">
+                <div class="row">
+                  <div class="col-xs-11 col-xs-offset-1 col-md" style="display: flex; margin-left: 55px;">
+                  <% @others_purchased_items.each do |item| %>
+                  <div class="col-md-3">
+                    <%= render 'reservations/card_in_cart', item: item, in_cart: false %>
+                  </div>
+                  <% end %>
+                </div>
+                </div>
+              </div>
+         <% end %>
     <% end %>
 
     <!-- CARDS IN CART -->
