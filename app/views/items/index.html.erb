@@ -1,4 +1,4 @@
-<div id="shopping-click">
+<div id="shopping-click" style="margin-right: 10px;">
   <% if user_signed_in? %>
     <h2><%= link_to icon('fas', 'shopping-cart'), cart_path %>
       <span class='cart-number'>
@@ -25,7 +25,7 @@
           input_html: { value: @results.first.address, style:'box-shadow: none; outline: none;' } , placeholder: "Address" %>
         </div>
         <div class="filter">
-          <%= image_tag("equalizer.png", width:"16", height:"15", :class => "equalizer" )  %>
+          <%= image_tag("equalizer.jpg", width:"16", height:"15", :class => "equalizer" )  %>
           <a class="btn-filter" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">FILTER</a>
         </div>
       </div>
@@ -246,11 +246,10 @@
   <div style="min-height: 160px; margin: 30px auto auto 150px;">
     Items are removed from this page for the following reasons:
     <ul>
-      <li>The maximum available of an item is already in your cart.</li>
-      <li>You uploaded an item.</li>
-      <li>The pickup date for an item is in the past.</li>
+      <li>The maximum available of all the items is already in your cart.</li>
+      <li>You uploaded all the available items.</li>
+      <li>The pickup date for all items is in the past.</li>
       <li>The available quantity of an item has already been purchased.</li>
-      <li>There are no items in the database (seed!).</li>
     </ul>
   </div>
 
